@@ -5,6 +5,11 @@
     <title>Home</title>
 </head>
 <body>
-    <h2>Hello Spring-Boot!</h2>
+    <h2>Login</h2>
+    <form action="/api/account-controller/login" method="get">
+        Username:<input name="username" type="text"> <br/>
+        Password:<input name="password" type="password"> <br/>
+        <input type="submit" value="Login">
+    </form>
 </body>
 </html>
