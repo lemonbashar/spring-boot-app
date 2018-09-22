@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
 
@@ -15,6 +14,10 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
+
+import static com.lemon.spring.config.Constants.PROFILE_DEVELOPMENT;
+import static com.lemon.spring.config.Constants.PROFILE_FAST;
+import static com.lemon.spring.config.Constants.PROFILE_PRODUCTION;
 
 @SuppressWarnings("SpellCheckingInspection")
 @SpringBootApplication(scanBasePackages = "com.lemon.spring")
@@ -35,15 +38,15 @@ public class Application {
 		} else {
 			log.info("Running with Spring profile(s) : {}", Arrays.toString(env.getActiveProfiles()));
 			Collection<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
-			if (activeProfiles.contains(Constants.PROFILE_DEVELOPMENT) && activeProfiles.contains(Constants.PROFILE_PRODUCTION)) {
+			if (activeProfiles.contains(PROFILE_DEVELOPMENT) && activeProfiles.contains(PROFILE_PRODUCTION)) {
 				log.error("You have misconfigured your application! " +
 						"It should not run with both the 'dev' and 'prod' profiles at the same time.");
 			}
-			if (activeProfiles.contains(Constants.PROFILE_PRODUCTION) && activeProfiles.contains(Constants.PROFILE_FAST)) {
+			if (activeProfiles.contains(PROFILE_PRODUCTION) && activeProfiles.contains(PROFILE_FAST)) {
 				log.error("You have misconfigured your application! " +
 						"It should not run with both the 'prod' and 'fast' profiles at the same time.");
 			}
-			if (activeProfiles.contains(Constants.PROFILE_DEVELOPMENT) && activeProfiles.contains(Constants.PROFILE_CLOUD)) {
+			if (activeProfiles.contains(PROFILE_DEVELOPMENT) && activeProfiles.contains(Constants.PROFILE_CLOUD)) {
 				log.error("You have misconfigured your application! " +
 						"It should not run with both the 'dev' and 'cloud' profiles at the same time.");
 			}
@@ -69,7 +72,7 @@ public class Application {
 		if (!propertySource.containsProperty("spring.profiles.active") &&
 				!System.getenv().containsKey("SPRING_PROFILES_ACTIVE")) {
 
-			application.setAdditionalProfiles(Constants.PROFILE_DEVELOPMENT);
+			application.setAdditionalProfiles(PROFILE_DEVELOPMENT);
 		}
 	}
 }

@@ -33,33 +33,33 @@ public class AccountControllerRest implements WebController<User> {
     }
 
     @Override
-    @PostMapping(value = BASE_PATH+"/save",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = BASE_PATH,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Object>> save(@RequestBody User entity) {
 
         return null;
     }
 
     @Override
-    @PutMapping(value = BASE_PATH+"/update")
+    @PutMapping(value = BASE_PATH)
     public ResponseEntity<Map<String, Object>> update(@RequestBody User entity) {
         return null;
     }
 
     @Override
-    @GetMapping(value = BASE_PATH+"/find-one/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = BASE_PATH+"/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> findOne(@PathVariable Long id) {
         log.info("Finding One User by Id:"+id);
         return null;
     }
 
     @Override
-    @GetMapping(value = BASE_PATH+"/find-all",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = BASE_PATH,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> findAll() {
         return null;
     }
 
     @Override
-    @DeleteMapping(value = BASE_PATH+"/delete/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = BASE_PATH+"/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Object>> delete(Long id) {
         return null;
     }

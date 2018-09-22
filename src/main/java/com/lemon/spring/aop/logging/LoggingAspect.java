@@ -10,11 +10,13 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 
 import java.util.Arrays;
 
 @Aspect
+@Profile(value = Constants.PROFILE_DEVELOPMENT)
 public class LoggingAspect {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -25,7 +27,22 @@ public class LoggingAspect {
     public void controllerPointcut() {
     }
 
-    @AfterThrowing(pointcut = "controllerPointcut()", throwing = "e")
+    @Pointcut("within(com.lemon.spring.repository..*)")
+    public void repositoryPointcut() {
+
+    }
+
+    @Pointcut("within(com.lemon.spring.service..*)")
+    public void servicePointcut() {
+
+    }
+
+    @Pointcut("controllerPointcut() || repositoryPointcut() || servicePointcut()")
+    public void allPointcut() {
+
+    }
+
+    @AfterThrowing(pointcut = "allPointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
         if (env.acceptsProfiles(Constants.PROFILE_DEVELOPMENT)) {
             log.error("Exception in {}.{}() with cause = {}", joinPoint.getSignature().getDeclaringTypeName(),
@@ -36,7 +53,7 @@ public class LoggingAspect {
         }
     }
 
-    @Around("controllerPointcut()")
+    @Around("allPointcut()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         log.debug("Enter: {}.{}() with argument[s] = {}", joinPoint.getSignature().getDeclaringTypeName(),
                 joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()));
