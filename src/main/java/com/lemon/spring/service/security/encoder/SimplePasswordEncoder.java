@@ -1,7 +1,6 @@
-package com.lemon.spring.config.security.encoder;
+package com.lemon.spring.service.security.encoder;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Service;
  */
 
 @SuppressWarnings({"unused", "DefaultFileTemplate"})
-@Component
+@Service
 public class SimplePasswordEncoder implements PasswordEncoder {
     @Override
     public String encode(CharSequence charSequence) {

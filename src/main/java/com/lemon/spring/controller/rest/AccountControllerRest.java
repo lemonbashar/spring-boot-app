@@ -84,7 +84,7 @@ public class AccountControllerRest implements WebController<User> {
 
 
     @PostMapping(value = BASE_PATH+"/login")
-    public void login(HttpSession httpSession, Authentication authentication) throws IOException {
+    public void login(Model model) throws IOException {
         System.out.println("<><><><><>");
     }
 }
