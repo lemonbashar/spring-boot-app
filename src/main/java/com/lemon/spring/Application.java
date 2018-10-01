@@ -4,6 +4,7 @@ import com.lemon.spring.config.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
@@ -20,7 +21,8 @@ import static com.lemon.spring.config.Constants.PROFILE_FAST;
 import static com.lemon.spring.config.Constants.PROFILE_PRODUCTION;
 
 @SuppressWarnings("SpellCheckingInspection")
-@SpringBootApplication(scanBasePackages = "com.lemon.spring")
+@SpringBootApplication
+@EnableAutoConfiguration
 public class Application {
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 
