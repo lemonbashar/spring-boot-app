@@ -9,9 +9,12 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -70,12 +73,18 @@ public class AccountControllerRest implements WebController<User> {
         return "Not Found";
     }
 
-    @GetMapping(value = BASE_PATH+"/login")
+    /*@PostMapping(value = BASE_PATH+"/login")
     public void login(HttpServletResponse response, @RequestParam(name = "username",required = true) String username, @RequestParam(name = "password",required = true) String password) throws IOException {
         User user=accountService.login(username,password);
         if(user!=null) {
             response.sendRedirect("/web/account-controller/profile/"+username);
         }
         else response.sendRedirect("/web/account-controller/register");
+    }*/
+
+
+    @PostMapping(value = BASE_PATH+"/login")
+    public void login(HttpSession httpSession, Authentication authentication) throws IOException {
+        System.out.println("<><><><><>");
     }
 }
