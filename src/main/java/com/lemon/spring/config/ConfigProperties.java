@@ -13,17 +13,26 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties
 @ConfigurationProperties
 public class ConfigProperties {
-    private String name;
+    private GeneralSettings generalSettings;
 
-    public String getName() {
-        return name;
+
+    public static class GeneralSettings {
+        private String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public GeneralSettings getGeneralSettings() {
+        return generalSettings;
     }
 
-    public static class Spring {
-
+    public void setGeneralSettings(GeneralSettings generalSettings) {
+        this.generalSettings = generalSettings;
     }
 }

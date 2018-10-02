@@ -1,6 +1,13 @@
-name: lerfd
+generalSettings:
+  name: Application
+
+
+
 spring:
   profiles:
     active: prod
+
+
+
 server:
   port: 2343
