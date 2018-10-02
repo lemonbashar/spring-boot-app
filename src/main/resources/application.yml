@@ -1,0 +1,6 @@
+name: lerfd
+spring:
+  profiles:
+    active: prod
+server:
+  port: 2343

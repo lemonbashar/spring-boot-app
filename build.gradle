@@ -34,7 +34,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-security')
 
-
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
 
 	runtime('com.h2database:h2')
