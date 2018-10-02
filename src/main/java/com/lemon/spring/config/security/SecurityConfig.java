@@ -63,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureForwardUrl("/web/account-controller/login?error")
                 .usernameParameter("username").passwordParameter("password")
                 .loginProcessingUrl("/api/account-controller/login")
+                .successForwardUrl("/")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
                 .permitAll().and()

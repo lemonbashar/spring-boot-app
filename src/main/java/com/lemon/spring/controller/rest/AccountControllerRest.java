@@ -83,8 +83,8 @@ public class AccountControllerRest implements WebController<User> {
     }*/
 
 
-    @PostMapping(value = BASE_PATH+"/login")
-    public void login(Model model) throws IOException {
+    @GetMapping(value = BASE_PATH+"/login")
+    public void login() throws IOException {
         System.out.println("<><><><><>");
     }
 }
