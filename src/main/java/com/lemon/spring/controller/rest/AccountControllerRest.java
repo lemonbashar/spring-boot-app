@@ -67,7 +67,7 @@ public class AccountControllerRest implements WebController<User> {
         return null;
     }
 
-    @GetMapping(value = BASE_PATH+"/{key}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = BASE_PATH+"/key/{key}",produces = MediaType.APPLICATION_JSON_VALUE)
     public String login(@PathVariable String key) {
         if(key.equals("username")) return accountService.currentUsername();
         return "Not Found";

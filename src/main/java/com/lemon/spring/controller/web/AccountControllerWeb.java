@@ -23,6 +23,11 @@ public class AccountControllerWeb {
         return "account/login";
     }
 
+    @GetMapping(value = BASE_PATH+"/logout")
+    public String logout() {
+        return "account/login";
+    }
+
     @GetMapping(value = BASE_PATH+"/register")
     public String register() {
         return "account/register";
