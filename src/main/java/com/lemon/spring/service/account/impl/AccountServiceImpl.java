@@ -1,7 +1,7 @@
-package com.lemon.spring.service.impl;
+package com.lemon.spring.service.account.impl;
 
 import com.lemon.spring.domain.User;
-import com.lemon.spring.service.AccountService;
+import com.lemon.spring.service.account.AccountService;
 import org.springframework.stereotype.Service;
 
 @Service

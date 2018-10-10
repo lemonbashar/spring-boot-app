@@ -1,4 +1,4 @@
-package com.lemon.spring.service;
+package com.lemon.spring.service.account;
 
 import com.lemon.spring.domain.User;
 
