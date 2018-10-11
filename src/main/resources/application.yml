@@ -1,11 +1,12 @@
-general:
-  name: Application
+settings:
+  general:
+    name: Application
 
 
 
 spring:
   profiles:
-    active: prod
+    active: dev
 
 
 

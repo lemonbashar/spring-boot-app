@@ -1,6 +1,6 @@
 package com.lemon.spring.service.security;
 
-import com.lemon.spring.config.ConfigProperties;
+import com.lemon.spring.config.properties.ApplicationProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.io.IOException;
 @Service
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Inject
-    private ConfigProperties configProperties;
+    private ApplicationProperties applicationProperties;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         System.out.println("Authenticated Success:--->:"+authentication);
