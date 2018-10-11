@@ -6,6 +6,15 @@ public class Database {
     public String username;
     public String password;
     public boolean enableStatistics=false;
+    public String driver;
+
+    public String getDriver() {
+        return driver;
+    }
+
+    public void setDriver(String driver) {
+        this.driver = driver;
+    }
 
     public String getUrl() {
         return url;
