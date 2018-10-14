@@ -24,5 +24,13 @@ public class ApplicationProperties {
     public void setSettings(Settings settings) {
         this.settings = settings;
     }
+
+    public Database getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(Database database) {
+        this.database = database;
+    }
 }
 
