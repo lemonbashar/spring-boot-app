@@ -1,7 +1,7 @@
 package com.lemon.spring.config.properties.settings;
 
 public class Security{
-    public String secretKey="MY_SECRET_KEY";
+    public String secretKey="BHWTBWQE(&#RHDNKJLSH&EHWDJY*E(GKJOYFDW^FBSDSPYE()#RBHKJI";
     public String enableRememberMe;
     public Double sessionLiveTime;
 

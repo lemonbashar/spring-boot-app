@@ -1,4 +1,4 @@
-package com.lemon.spring.config;
+package com.lemon.spring.config.database;
 
 import com.lemon.spring.config.properties.ApplicationProperties;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +12,7 @@ import java.util.Properties;
  * Created by lemon on 10/11/18.
  */
 
-@SuppressWarnings({"unused", "DefaultFileTemplate"})
+@SuppressWarnings({"unused", "DefaultFileTemplate", "SpringAutowiredFieldsWarningInspection"})
 @Configuration
 public class DataSourceConfig {
     @Inject
