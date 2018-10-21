@@ -1,5 +1,7 @@
 package com.lemon.spring.config.database;
 
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+
 import javax.sql.DataSource;
 
 /**
@@ -8,7 +10,10 @@ import javax.sql.DataSource;
 
 @SuppressWarnings({"unused", "DefaultFileTemplate"})
 public class HibernateConfig {
-    public AnnotationSessionFactoryBean localSessionFactoryBean(DataSource dataSource) {
+    public LocalSessionFactoryBean localSessionFactoryBean(DataSource dataSource) {
+        LocalSessionFactoryBean localSessionFactoryBean=new LocalSessionFactoryBean();
+        localSessionFactoryBean.setDataSource(dataSource);
+        return localSessionFactoryBean;
 
     }
 }
