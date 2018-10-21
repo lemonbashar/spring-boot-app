@@ -35,9 +35,20 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-security')
 
+	compile('org.springframework:spring-orm:5.1.1.RELEASE')
+
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
 	compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+
+
+    compile 'org.hibernate:hibernate-core:5.2.2.Final'
+    compile 'org.hibernate.common:hibernate-commons-annotations:5.2.2.Final'
+    compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
+    compile 'org.hibernate:hibernate-ehcache:5.2.2.Final'
+    compile 'org.hibernate:hibernate-entitymanager:5.2.2.Final'
+    compile 'org.hibernate:hibernate-validator-parent:5.2.2.Final'
+    compile 'org.hibernate:hibernate-envers:5.2.2.Final'
 
 
 	runtime('com.h2database:h2')
