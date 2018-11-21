@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -20,16 +21,12 @@ import java.util.Map;
 public class AccountControllerRest implements WebController<User> {
     private static final String BASE_PATH="/account-controller";
 
-    private final AccountService accountService;
-    private final UserRepository userRepository;
+    @Inject
+    private AccountService accountService;
+    //private final UserRepository userRepository;
 
     private Logger log= LogManager.getLogger(AccountControllerRest.class);
 
-    @Autowired
-    public AccountControllerRest(AccountService accountService, UserRepository userRepository) {
-        this.accountService = accountService;
-        this.userRepository = userRepository;
-    }
 
     @Override
     @PostMapping(value = BASE_PATH,produces = MediaType.APPLICATION_JSON_VALUE)

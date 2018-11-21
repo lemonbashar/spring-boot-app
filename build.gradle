@@ -40,7 +40,7 @@ dependencies {
 
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
-	implementationOnly "org.springframework.boot:spring-boot-configuration-processor"
+	compileOnly "org.springframework.boot:spring-boot-configuration-processor"
 
     /*implementation 'org.hibernate.common:hibernate-commons-annotations:5.2.2.Final'
     implementation 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'

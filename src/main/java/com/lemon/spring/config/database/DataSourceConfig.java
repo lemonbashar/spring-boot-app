@@ -36,7 +36,7 @@ public class DataSourceConfig {
         properties.setProperty("maxActive",applicationProperties.getDatabase().getMaximumActiveConnectionSize());
         properties.setProperty("maxIdle",applicationProperties.getDatabase().getMaxIdleConnectionSize());
         dataSource.setConnectionProperties(properties);
-        if(!applicationProperties.getDatabase().getSchema().isEmpty())dataSource.setSchema(applicationProperties.getDatabase().getSchema());
+        //if(!applicationProperties.getDatabase().getSchema().isEmpty())dataSource.setSchema(applicationProperties.getDatabase().getSchema());
     }
 
 }
