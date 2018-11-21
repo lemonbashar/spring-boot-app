@@ -33,7 +33,7 @@ public class AccountControllerRest implements WebController<User> {
 
     @Override
     @PostMapping(value = BASE_PATH,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String, Object>> save(@RequestBody User entity) {
+    public ResponseEntity<Map<String, Object>> save(@ModelAttribute User user) {
 
         return null;
     }
@@ -81,6 +81,6 @@ public class AccountControllerRest implements WebController<User> {
 
     @GetMapping(value = BASE_PATH+"/login")
     public void login() throws IOException {
-        System.out.println("<><><><><>");
+        System.out.println("<><><><><> A Login Processor For Rest Control");
     }
 }

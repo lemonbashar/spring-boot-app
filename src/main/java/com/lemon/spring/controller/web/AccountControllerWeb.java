@@ -1,5 +1,6 @@
 package com.lemon.spring.controller.web;
 
+import com.lemon.spring.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -30,7 +31,8 @@ public class AccountControllerWeb {
     }
 
     @GetMapping(value = BASE_PATH+"/register")
-    public String register() {
+    public String register(Model model) {
+        model.addAttribute("user",new User());
         return "account/register";
     }
 }

@@ -1,6 +1,7 @@
 package com.lemon.spring.config.security;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -75,6 +76,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(logoutSuccessHandler).and()
                 /*Url Invoker Interceptor*/
           .authorizeRequests()
+                .mvcMatchers(HttpMethod.GET,"/","/home*").permitAll()/* Disable This Line if You Want The Login Page At-Startup*/
+                .mvcMatchers(HttpMethod.POST,"/api/account-controller/login*").permitAll()/*Rest-API Permission for Login Purposes*/
+                .mvcMatchers(HttpMethod.GET,"/web/account-controller/register*").permitAll()/*Register API Permit For Registration*/
+                .mvcMatchers(HttpMethod.POST,"/api/account-controller*").permitAll()/*When Click to Register, All User Data need to Store on Database, and for this reason it has been permitted */
                 .anyRequest().authenticated();
                 //.antMatchers("/api/**","/web/**").authenticated();
     }
