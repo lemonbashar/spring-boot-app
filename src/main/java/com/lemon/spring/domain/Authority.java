@@ -1,5 +1,6 @@
 package com.lemon.spring.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 public class Authority {
     @Id
     @NotNull
+    @Column(unique = true)
     private String name;
 
     public Authority() {

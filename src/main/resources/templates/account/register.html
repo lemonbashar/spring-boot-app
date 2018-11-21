@@ -7,8 +7,14 @@
     <body>
         <h1>Register Please</h1>
         <form action="#" th:action="@{/api/account-controller}" th:object="${user}" method="post">
-            <p>Username:<input type="text" th:field="*{username}"></p><br>
-            <p>Password:<input type="password" th:field="*{password}"></p><br>
+            <p>Full-Name:<input type="text" th:field="*{fullName}" ></p>
+            <p>Username:<input type="text" th:field="*{username}"></p>
+            <p>Password:<input type="password" th:field="*{password}"></p>
+            <p>E-Mail:<input type="email" th:field="*{email}" ></p>
+            <p>Authorities</p>
+            <select th:field="*{authorities}" multiple="multiple">
+                <option th:each="auth : ${authorities}" th:value="${auth.name}" th:text="${auth.name}"></option>
+            </select>
             <input type="submit" value="Register">
         </form>
     </body>

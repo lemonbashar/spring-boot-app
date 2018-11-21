@@ -14,7 +14,7 @@ public class User {
     @SequenceGenerator(name = "USER_SEQUENCE",sequenceName = "USER_SEQ")
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String username;
 
     @Column
@@ -26,7 +26,7 @@ public class User {
     @Column
     private String fullName;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_AUTHORITIES",
             joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "AUTHORITY",referencedColumnName = "name")})
