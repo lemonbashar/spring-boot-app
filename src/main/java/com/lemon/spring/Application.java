@@ -1,6 +1,7 @@
 package com.lemon.spring;
 
 import com.lemon.spring.config.Constants;
+import com.lemon.spring.config.properties.ApplicationProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -22,11 +23,12 @@ import static com.lemon.spring.config.Constants.PROFILE_PRODUCTION;
 
 @SuppressWarnings("SpellCheckingInspection")
 @SpringBootApplication
-@EnableAutoConfiguration
 public class Application {
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 
 	private final Environment env;
+	@Inject
+	private ApplicationProperties applicationProperties;
 
 	@Inject
 	public Application(Environment env) {

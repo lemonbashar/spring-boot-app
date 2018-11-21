@@ -1,6 +1,9 @@
 settings:
   general:
     name: Application
+  security:
+    secretKey: BHWTBWQE(&#RHDNKJLSH&EHWDJY*E(GKJOYFDW^FBSDSPYE()#RBHKJI
+    sessionLiveTime: 20F
 
 
 

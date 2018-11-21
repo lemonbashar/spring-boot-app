@@ -5,11 +5,13 @@ public class Database {
     public String schema;
     public String username;
     public String password;
-    public boolean enableStatistics=false;
     public String driver;
+    public boolean enableStatistics=false;
     public String initialConnectionSize="0";
     public String maximumActiveConnectionSize="8";
     public String maxIdleConnectionSize="8";
+
+    public Hibernate hibernate;
 
     public String getDriver() {
         return driver;
@@ -49,6 +51,14 @@ public class Database {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Hibernate getHibernate() {
+        return hibernate;
+    }
+
+    public void setHibernate(Hibernate hibernate) {
+        this.hibernate = hibernate;
     }
 
     public boolean isEnableStatistics() {

@@ -1,0 +1,58 @@
+{
+  "properties": [
+    {
+      "name": "settings.general.name",
+      "type": "java.lang.String",
+      "description": "Description for settings.general.name."
+    },
+    {
+      "name": "settings.security.secretKey",
+      "type": "java.lang.String",
+      "description": "Description for settings.security.secretKey."
+    },
+    {
+      "name": "settings.security.sessionLiveTime",
+      "type": "java.lang.Double",
+      "description": "Description for settings.security.sessionLiveTime."
+    },
+    {
+      "name": "database.url",
+      "type": "java.lang.String",
+      "description": "Description for database.url."
+    },
+    {
+      "name": "database.schema",
+      "type": "java.lang.String",
+      "description": "Description for database.schema."
+    },
+    {
+      "name": "database.username",
+      "type": "java.lang.String",
+      "description": "Description for database.username."
+    },
+    {
+      "name": "database.password",
+      "type": "java.lang.String",
+      "description": "Description for database.password."
+    },
+    {
+      "name": "database.driver",
+      "type": "java.lang.String",
+      "description": "Description for database.driver."
+    },
+    {
+      "name": "database.hibernate.hbm2DDLAuto",
+      "type": "java.lang.Boolean",
+      "description": "Description for database.hibernate.hbm2DDLAuto."
+    },
+    {
+      "name": "database.hibernate.dialect",
+      "type": "java.lang.String",
+      "description": "Description for database.hibernate.dialect."
+    },
+    {
+      "name": "database.hibernate.formatSQL",
+      "type": "java.lang.Boolean",
+      "description": "Description for database.hibernate.formatSQL."
+    }
+  ] }

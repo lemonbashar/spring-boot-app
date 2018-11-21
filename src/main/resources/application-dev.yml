@@ -1,0 +1,10 @@
+database:
+  url: jdbc:postgresql://localhost:5432/spring
+  schema: spring
+  username: lemon
+  password: lemon
+  driver: org.postgresql.Driver
+  hibernate:
+    hbm2DDLAuto: update
+    dialect: org.hibernate.dialect.PostgreSQL82Dialect
+    formatSQL: true
