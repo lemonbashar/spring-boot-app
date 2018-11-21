@@ -2,6 +2,7 @@ package com.lemon.spring.config.database;
 
 import com.lemon.spring.config.properties.ApplicationProperties;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
 import org.hibernate.cfg.Environment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +45,7 @@ public class HibernateConfig {
         hbmProperties.setProperty(Environment.USE_SQL_COMMENTS,""+properties.database.hibernate.comments);
         hbmProperties.setProperty(Environment.SHOW_SQL,""+properties.database.hibernate.showSql);
         hbmProperties.setProperty(Environment.FORMAT_SQL,""+properties.database.hibernate.formatSQL);
+        localSessionFactoryBean.setPhysicalNamingStrategy(new AllCapitalPhysicalNaming());
         //hbmProperties.setProperty(Environment.DEFAULT_SCHEMA,properties.database.schema);
         localSessionFactoryBean.setPackagesToScan(annotatedPackages);
         localSessionFactoryBean.setHibernateProperties(hbmProperties);

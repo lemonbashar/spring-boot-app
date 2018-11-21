@@ -1,16 +1,17 @@
 package com.lemon.spring.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @SuppressWarnings("unused")
 @Entity
-@Table(name = "spring_user")
+@Table(name = "SPRING_USER")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "USER_SEQUENCE",sequenceName = "USER_SEQ")
     private Long id;
 
     @Column
@@ -24,6 +25,12 @@ public class User {
 
     @Column
     private String fullName;
+
+    @ManyToMany
+    @JoinTable(name = "USER_AUTHORITIES",
+            joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY",referencedColumnName = "name")})
+    private Set<Authority> authorities=new HashSet<>();
 
     public User() {
     }
@@ -76,6 +83,14 @@ public class User {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
     }
 
     @Override

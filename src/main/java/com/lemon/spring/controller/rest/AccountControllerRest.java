@@ -31,7 +31,7 @@ public class AccountControllerRest implements WebController<User> {
     @Override
     @PostMapping(value = BASE_PATH,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Object>> save(@ModelAttribute User user) {
-
+        accountService.register(user);
         return null;
     }
 
