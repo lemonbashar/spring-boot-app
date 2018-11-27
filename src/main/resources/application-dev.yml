@@ -8,3 +8,5 @@ database:
     hbm2DDLAuto: update
     dialect: org.hibernate.dialect.PostgreSQL82Dialect
     formatSQL: true
+  jpa:
+    persistentUnit: SPRING

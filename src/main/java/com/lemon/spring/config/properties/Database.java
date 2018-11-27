@@ -12,6 +12,7 @@ public class Database {
     public String maxIdleConnectionSize="8";
 
     public Hibernate hibernate;
+    public Jpa jpa;
 
     public String getDriver() {
         return driver;
@@ -91,5 +92,13 @@ public class Database {
 
     public void setMaxIdleConnectionSize(String maxIdleConnectionSize) {
         this.maxIdleConnectionSize = maxIdleConnectionSize;
+    }
+
+    public Jpa getJpa() {
+        return jpa;
+    }
+
+    public void setJpa(Jpa jpa) {
+        this.jpa = jpa;
     }
 }

@@ -23,12 +23,11 @@ import java.util.Properties;
 @SuppressWarnings({"unused", "DefaultFileTemplate"})
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.lemon.spring.repository")
 @EnableTransactionManagement
 public class HibernateConfig {
     @Inject
     private ApplicationProperties properties;
-    private final String[] annotatedPackages={"com.lemon.spring.domain"};
+    public static final String[] annotatedPackages={"com.lemon.spring.domain"};
 
     @Bean
     public LocalSessionFactoryBean localSessionFactoryBean(DataSource dataSource) {

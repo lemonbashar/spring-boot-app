@@ -2,6 +2,7 @@ package com.lemon.spring.service.security;
 
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.spring.domain.User;
+import com.lemon.spring.repository.UserRepository;
 import com.lemon.spring.security.CustomUserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
