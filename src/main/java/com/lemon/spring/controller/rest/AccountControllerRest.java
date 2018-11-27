@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +33,10 @@ public class AccountControllerRest implements WebController<User> {
     @PostMapping(value = BASE_PATH,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Object>> save(@ModelAttribute User user) {
         accountService.register(user);
-        return null;
+        Map<String,Object> objectMap=new HashMap<>();
+        objectMap.put("REGISTER_SUCCESS",true);
+        objectMap.put("OBJECT",user);
+        return ResponseEntity.ok(objectMap);
     }
 
     @Override

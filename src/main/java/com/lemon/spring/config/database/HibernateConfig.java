@@ -1,23 +1,18 @@
 package com.lemon.spring.config.database;
 
+import com.lemon.framework.orm.capture.hbm.HbmCapture;
+import com.lemon.framework.orm.capture.hbm.impl.HibernateCapture;
 import com.lemon.spring.config.properties.ApplicationProperties;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
 import org.hibernate.cfg.Environment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.orm.jpa.JpaVendorAdapter;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -54,6 +49,22 @@ public class HibernateConfig {
     }
 
     /*@Bean
+    public LocalEntityManagerFactoryBean localEntityManagerFactoryBean(DataSource dataSource,JpaVendorAdapter vendorAdapter) {
+        LocalEntityManagerFactoryBean factoryBean=new LocalEntityManagerFactoryBean();
+        factoryBean.setJpaVendorAdapter(vendorAdapter);
+        return factoryBean;
+    }
+
+    @Bean
+    public JpaVendorAdapter jpaVendorAdapter() {
+        HibernateJpaVendorAdapter adapter=new HibernateJpaVendorAdapter();
+        adapter.setShowSql(true);
+        adapter.setDatabasePlatform(properties.database.hibernate.dialect);
+        adapter.setGenerateDdl(true);
+        return adapter;
+    }*/
+
+    /*@Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
         LocalContainerEntityManagerFactoryBean bean=new LocalContainerEntityManagerFactoryBean();
         bean.setDataSource(dataSource);
@@ -82,6 +93,11 @@ public class HibernateConfig {
     @Bean
     public EntityManager entityManager(SessionFactory sessionFactory) {
         return sessionFactory.createEntityManager();
+    }
+
+    @Bean
+    public HbmCapture hbmCapture(SessionFactory sessionFactory) {
+        return new HibernateCapture(sessionFactory);
     }
 
 
