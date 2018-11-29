@@ -3,7 +3,16 @@ package com.lemon.spring.service.account.impl;
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.domain.User;
+import com.lemon.spring.security.CustomUserDetails;
+import com.lemon.spring.security.SecurityUtils;
 import com.lemon.spring.service.account.AccountService;
+import com.lemon.spring.service.security.CustomUserDetailsService;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,16 +28,23 @@ public class AccountServiceImpl implements AccountService {
     private HbmCapture hbmCapture;
 
     @Inject
+    private CustomUserDetailsService userDetailsService;
+
+    @Inject
     private PasswordEncoder passwordEncoder;
 
     @Override
     public String currentUsername() {
-        return "lemon";
+        return SecurityUtils.currentUserLogin();
     }
 
     @Override
     public User login(String username, String password) {
-        return username.equals(currentUsername())&&password.equals("123456")?new User(1L,username,password):null;
+        UserDetails userDetails=userDetailsService.loadUserByUsername(username);
+        /*UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken();*/
+        SecurityContext context= SecurityContextHolder.getContext();
+        context.setAuthentication(new UsernamePasswordAuthenticationToken(userDetails.getUsername(),userDetails.getPassword(),userDetails.getAuthorities()));
+        return null;
     }
 
     @Override
@@ -43,6 +59,7 @@ public class AccountServiceImpl implements AccountService {
         });
         user.setAuthorities(authorities);
         hbmCapture.save(user);
+        login(user.getUsername(),user.getPassword());
     }
 
     @Override

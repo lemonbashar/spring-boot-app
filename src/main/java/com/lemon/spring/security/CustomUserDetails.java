@@ -31,6 +31,17 @@ public class CustomUserDetails implements UserDetails {
         this.enabled=true;
     }
 
+    public CustomUserDetails(Long id,String username, String password, Set<? extends GrantedAuthority> grantedAuthorities) {
+        this.id=id;
+        this.username = username;
+        this.password = password;
+        this.grantedAuthorities = grantedAuthorities;
+        this.accountNonExpired=true;
+        this.accountNonLocked=true;
+        this.credentialsNonExpired=true;
+        this.enabled=true;
+    }
+
     public Long getId() {
         return id;
     }
