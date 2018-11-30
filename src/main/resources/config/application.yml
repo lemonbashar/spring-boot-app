@@ -9,7 +9,7 @@ settings:
 
 spring:
   profiles:
-    active: dev,mysql
+    active: dev,postgre
 
 
 
