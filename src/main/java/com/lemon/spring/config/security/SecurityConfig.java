@@ -1,5 +1,6 @@
 package com.lemon.spring.config.security;
 
+import com.lemon.spring.security.AuthoritiesConstant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -82,6 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers(HttpMethod.POST,"/api/account-controller/login*").permitAll()/*Rest-API Permission for Login Purposes*/
                 .mvcMatchers(HttpMethod.GET,"/web/account-controller/register*").permitAll()/*Register API Permit For Registration*/
                 .mvcMatchers(HttpMethod.POST,"/api/account-controller*").permitAll()/*When Click to Register, All User Data need to Store on Database, and for this reason it has been permitted */
+                .mvcMatchers(HttpMethod.GET,"/api/account-controller/key/*").hasAnyAuthority(AuthoritiesConstant.ROLE_ADMIN)
                 .anyRequest().authenticated();
                 //.antMatchers("/api/**","/web/**").authenticated();
     }

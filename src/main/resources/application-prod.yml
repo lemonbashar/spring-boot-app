@@ -1,0 +1,8 @@
+database:
+  hibernate:
+    hbm2DDLAuto: update
+    formatSQL: false
+    comments: false
+    showSql: false
+  jpa:
+    persistentUnit: SPRING_PRODUCTION

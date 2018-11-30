@@ -2,5 +2,7 @@ database:
   hibernate:
     hbm2DDLAuto: update
     formatSQL: true
+    comments: true
+    showSql: true
   jpa:
     persistentUnit: SPRING

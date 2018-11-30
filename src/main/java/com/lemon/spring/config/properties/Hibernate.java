@@ -39,4 +39,12 @@ public class Hibernate {
     public void setComments(boolean comments) {
         this.comments = comments;
     }
+
+    public boolean isShowSql() {
+        return showSql;
+    }
+
+    public void setShowSql(boolean showSql) {
+        this.showSql = showSql;
+    }
 }
