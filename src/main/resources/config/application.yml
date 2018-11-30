@@ -10,7 +10,7 @@ settings:
 spring:
   profiles:
     active: dev,postgre
-
+#Active Profile is always should two or more & The First one is must dev or prod and second or next is any database configuration
 
 
 server:
