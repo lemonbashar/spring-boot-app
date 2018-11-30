@@ -9,7 +9,7 @@ import java.util.Set;
 public interface AccountService {
     String currentUsername();
 
-    User login(String username, String password);
+    boolean login(String username, String password);
 
     void register(User user);
 

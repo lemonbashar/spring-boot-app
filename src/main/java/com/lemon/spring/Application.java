@@ -67,7 +67,7 @@ public class Application {
         if (!propertySource.containsProperty("spring.profiles.active") &&
                 !System.getenv().containsKey("SPRING_PROFILES_ACTIVE")) {
 
-            application.setAdditionalProfiles(PROFILE_DEVELOPMENT);
+            //application.setAdditionalProfiles(PROFILE_DEVELOPMENT);
         }
     }
 }

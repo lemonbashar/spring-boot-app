@@ -7,7 +7,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Environment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -27,7 +26,7 @@ import java.util.Properties;
 public class HibernateConfig {
     @Inject
     private ApplicationProperties properties;
-    public static final String[] annotatedPackages={"com.lemon.spring.domain"};
+    static final String[] annotatedPackages={"com.lemon.spring.domain"};
 
     @Bean
     public LocalSessionFactoryBean localSessionFactoryBean(DataSource dataSource) {

@@ -10,6 +10,7 @@ import com.lemon.spring.service.security.CustomUserDetailsService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,12 +40,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public User login(String username, String password) {
+    public boolean login(String username, String password) {
         UserDetails userDetails=userDetailsService.loadUserByUsername(username);
-        /*UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken();*/
-        SecurityContext context= SecurityContextHolder.getContext();
-        context.setAuthentication(new UsernamePasswordAuthenticationToken(userDetails.getUsername(),userDetails.getPassword(),userDetails.getAuthorities()));
-        return null;
+        if(passwordEncoder.matches(password,userDetails.getPassword())) {
+            SecurityContext context = SecurityContextHolder.getContext();
+            context.setAuthentication(new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities()));
+            return true;
+        }
+        return false;
     }
 
     @Override

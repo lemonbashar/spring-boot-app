@@ -1,0 +1,8 @@
+database:
+  url: jdbc:mysql://localhost:3306/spring
+  schema: spring
+  username: root
+  password: lemon
+  driver: com.mysql.jdbc.Driver
+  hibernate:
+    dialect: org.hibernate.dialect.MySQL5Dialect
