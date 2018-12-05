@@ -49,6 +49,7 @@ dependencies {
 	//implementation 'org.ehcache:ehcache:3.6.1'
     implementation 'net.sf.ehcache:ehcache:2.10.4'
     //implementation 'javax.cache:cache-api:1.1.0'
+    compile 'org.hibernate:hibernate-ehcache:5.2.2.Final'
 
 	/*Database*/
 	implementation 'org.postgresql:postgresql:42.2.2'
