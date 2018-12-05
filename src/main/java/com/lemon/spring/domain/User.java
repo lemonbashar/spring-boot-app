@@ -1,5 +1,8 @@
 package com.lemon.spring.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,7 +10,10 @@ import java.util.Set;
 @SuppressWarnings("unused")
 @Entity
 @Table(name = "SPRING_USER")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User {
+    @Transient
+    public static final String ENTITY_NAME=User.class.getName();
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
