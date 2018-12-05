@@ -1,5 +1,6 @@
-package com.lemon.spring.config.properties;
+package com.lemon.spring.config.properties.database;
 
+@SuppressWarnings("WeakerAccess")
 public class Database {
     public String url;
     public String schema;

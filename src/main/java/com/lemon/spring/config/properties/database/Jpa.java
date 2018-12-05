@@ -1,4 +1,4 @@
-package com.lemon.spring.config.properties;
+package com.lemon.spring.config.properties.database;
 
 public class Jpa {
     public String persistentUnit="SPRING";
