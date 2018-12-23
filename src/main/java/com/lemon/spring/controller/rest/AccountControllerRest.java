@@ -1,5 +1,6 @@
 package com.lemon.spring.controller.rest;
 
+import com.lemon.spring.data.UserInfo;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.interfaces.WebController;
 import com.lemon.spring.repository.UserRepository;
@@ -20,7 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class AccountControllerRest implements WebController<User> {
-    private static final String BASE_PATH="/account-controller";
+    public static final String BASE_PATH="/account-controller";
 
     @Inject
     private AccountService accountService;
@@ -31,7 +32,7 @@ public class AccountControllerRest implements WebController<User> {
 
     @Override
     @PostMapping(value = BASE_PATH,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String, Object>> save(@ModelAttribute User user) {
+    public ResponseEntity<Map<String, Object>> save(@RequestBody User user) {
         accountService.register(user);
         Map<String,Object> objectMap=new HashMap<>();
         objectMap.put("REGISTER_SUCCESS",true);
@@ -65,7 +66,7 @@ public class AccountControllerRest implements WebController<User> {
     }
 
     @GetMapping(value = BASE_PATH+"/key/{key}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public String login(@PathVariable String key) {
+    public String keyVal(@PathVariable String key) {
         if(key.equals("username")) return accountService.currentUsername();
         return "Not Found";
     }
@@ -80,8 +81,8 @@ public class AccountControllerRest implements WebController<User> {
     }*/
 
 
-    @GetMapping(value = BASE_PATH+"/login")
-    public void login() throws IOException {
+    @PostMapping(value = BASE_PATH+"/login-rest",produces = MediaType.APPLICATION_JSON_VALUE)
+    public void login(@RequestBody UserInfo userInfo) throws IOException {
         System.out.println("<><><><><> A Login Processor For Rest Control");
     }
 }
