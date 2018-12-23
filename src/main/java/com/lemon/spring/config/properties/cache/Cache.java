@@ -3,7 +3,7 @@ package com.lemon.spring.config.properties.cache;
 public class Cache {
     public Long timeToLiveSeconds=3600L;
 
-    public EhCache ehCache;
+    public EhCache ehCache=new EhCache();
 
     public Long getTimeToLiveSeconds() {
         return timeToLiveSeconds;

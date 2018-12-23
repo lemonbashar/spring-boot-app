@@ -6,3 +6,7 @@ database:
     showSql: true
   jpa:
     persistentUnit: SPRING
+
+cache:
+  ehCache:
+    maxLocalHeapSize: 20M

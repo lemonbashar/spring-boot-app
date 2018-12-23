@@ -29,4 +29,13 @@ public class CacheConfig {
         factoryBean.setConfigLocation(new ClassPathResource("config/cache/ehcache.xml"));
         return factoryBean;
     }
+
+    /*@Bean
+    public CacheManager cacheManager() {
+        CacheManager cacheManager = net.sf.ehcache.CacheManager.create();
+        cacheManager.getConfiguration().setMaxBytesLocalHeap("16M");
+        EhCacheCacheManager ehCacheManager = new EhCacheCacheManager();
+        ehCacheManager.setCacheManager(cacheManager);
+        return ehCacheManager;
+    }*/
 }

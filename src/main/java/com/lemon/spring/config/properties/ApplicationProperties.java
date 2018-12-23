@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationProperties {
     public Settings settings;
     public Database database;
-    public Cache cache;
+    public Cache cache=new Cache();
 
     public Cache getCache() {
         return cache;
