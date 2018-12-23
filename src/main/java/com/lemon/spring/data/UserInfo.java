@@ -3,7 +3,7 @@ package com.lemon.spring.data;
 @SuppressWarnings("unused")
 public class UserInfo {
     private String username;
-    private String encodedPassword;
+    private String password;
     private boolean rememberMe;
 
     public String getUsername() {
@@ -14,12 +14,12 @@ public class UserInfo {
         this.username = username;
     }
 
-    public String getEncodedPassword() {
-        return encodedPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setEncodedPassword(String encodedPassword) {
-        this.encodedPassword = encodedPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public boolean isRememberMe() {

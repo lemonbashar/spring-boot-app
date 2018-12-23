@@ -82,7 +82,11 @@ public class AccountControllerRest implements WebController<User> {
 
 
     @PostMapping(value = BASE_PATH+"/login-rest",produces = MediaType.APPLICATION_JSON_VALUE)
-    public void login(@RequestBody UserInfo userInfo) throws IOException {
+    public ResponseEntity<Map<String,Object>> login(@RequestBody UserInfo userInfo) throws IOException {
         System.out.println("<><><><><> A Login Processor For Rest Control");
+        boolean success=accountService.login(userInfo.getUsername(),userInfo.getPassword());
+        Map<String,Object> map=new HashMap<>();
+        map.put("success",success);
+        return ResponseEntity.ok(map);
     }
 }
