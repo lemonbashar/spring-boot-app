@@ -1,5 +1,6 @@
 package com.lemon.spring.controller.rest;
 
+import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.spring.data.UserInfo;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.interfaces.WebController;
@@ -27,6 +28,12 @@ public class AccountControllerRest implements WebController<User> {
     private AccountService accountService;
     //private final UserRepository userRepository;
 
+    @Inject
+    private HbmCapture hbmCapture;
+
+    @Inject
+    private UserRepository userRepository;
+
     private Logger log= LogManager.getLogger(AccountControllerRest.class);
 
 
@@ -50,13 +57,14 @@ public class AccountControllerRest implements WebController<User> {
     @GetMapping(value = BASE_PATH+"/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> findOne(@PathVariable Long id) {
         log.info("Finding One User by Id:"+id);
-        return null;
+        return ResponseEntity.ok(hbmCapture.findOne(User.class,id));
     }
 
     @Override
     @GetMapping(value = BASE_PATH,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> findAll() {
-        return null;
+        log.info("Finding All Users");
+        return ResponseEntity.ok(hbmCapture.getAll(User.class));
     }
 
     @Override
