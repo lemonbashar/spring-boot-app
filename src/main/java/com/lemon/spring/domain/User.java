@@ -12,6 +12,7 @@ import java.util.Set;
 @Table(name = "SPRING_USER")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User {
+    public static final String CACHE = "UserCache";
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "USER_SEQUENCE",sequenceName = "USER_SEQ")

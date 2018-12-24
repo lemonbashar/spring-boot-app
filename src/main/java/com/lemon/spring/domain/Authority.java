@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "authority")
 public class Authority {
+    public static final String CACHE = "AuthorityCache";
+
     @Id
     @NotNull
     @Column(unique = true)

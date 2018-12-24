@@ -9,6 +9,7 @@ import com.lemon.spring.service.account.AccountService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -60,6 +61,7 @@ public class AccountControllerRest implements WebController<User> {
         return ResponseEntity.ok(hbmCapture.findOne(User.class,id));
     }
 
+    @Cacheable(value = User.CACHE)
     @Override
     @GetMapping(value = BASE_PATH,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> findAll() {

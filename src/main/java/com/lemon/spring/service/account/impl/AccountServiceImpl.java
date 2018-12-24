@@ -7,6 +7,7 @@ import com.lemon.spring.security.CustomUserDetails;
 import com.lemon.spring.security.SecurityUtils;
 import com.lemon.spring.service.account.AccountService;
 import com.lemon.spring.service.security.CustomUserDetailsService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -65,6 +66,7 @@ public class AccountServiceImpl implements AccountService {
         login(user.getUsername(),user.getPassword());
     }
 
+    @Cacheable(value = Authority.CACHE)
     @Override
     public Set<Authority> authorities() {
         return new HashSet<>(hbmCapture.getAll("SELECT auth FROM Authority auth"));
