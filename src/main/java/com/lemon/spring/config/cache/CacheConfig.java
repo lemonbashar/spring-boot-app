@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 @Configuration
@@ -16,6 +17,9 @@ import javax.inject.Inject;
 public class CacheConfig {
     @Inject
     private ApplicationProperties properties;
+
+    @Inject
+    private CacheManager cacheManager;
 
     @Bean
     public EhCacheCacheManager ehCacheManager(CacheManager cacheManager) {
@@ -38,4 +42,10 @@ public class CacheConfig {
         ehCacheManager.setCacheManager(cacheManager);
         return ehCacheManager;
     }*/
+
+
+    @PreDestroy
+    public void destroy() {
+        cacheManager.shutdown();
+    }
 }
