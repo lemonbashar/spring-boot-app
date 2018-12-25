@@ -5,6 +5,7 @@ import com.lemon.spring.data.UserInfo;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.interfaces.WebController;
 import com.lemon.spring.repository.UserRepository;
+import com.lemon.spring.security.AuthoritiesConstant;
 import com.lemon.spring.service.account.AccountService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -54,6 +57,7 @@ public class AccountControllerRest implements WebController<User> {
         return null;
     }
 
+    @PostAuthorize("returnObject.body.username==principal.username")
     @Override
     @GetMapping(value = BASE_PATH+"/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> findOne(@PathVariable Long id) {
@@ -71,10 +75,11 @@ public class AccountControllerRest implements WebController<User> {
 
     @Override
     @DeleteMapping(value = BASE_PATH+"/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String, Object>> delete(Long id) {
+    public ResponseEntity<Map<String, Object>> delete(@PathVariable Long id) {
         return null;
     }
 
+    @Secured(AuthoritiesConstant.ROLE_ADMIN)
     @GetMapping(value = BASE_PATH+"/key/{key}",produces = MediaType.APPLICATION_JSON_VALUE)
     public String keyVal(@PathVariable String key) {
         if(key.equals("username")) return accountService.currentUsername();

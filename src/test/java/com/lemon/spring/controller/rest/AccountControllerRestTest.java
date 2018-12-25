@@ -5,6 +5,7 @@ import com.lemon.spring.Application;
 import com.lemon.spring.data.UserInfo;
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.domain.User;
+import com.lemon.spring.service.account.AccountService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,15 +14,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import javax.inject.Inject;
-import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import static com.lemon.spring.controller.rest.AccountControllerRest.BASE_PATH;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.MOCK;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -43,37 +44,75 @@ public class AccountControllerRestTest {
     @MockBean
     private AccountService accountService;*/
 
+    //@MockBean
+    //private AccountService accountService;
+
     @Before
     public void setUp() throws Exception {
         System.out.print("");
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test
     public void save() throws Exception {
+        User user= adminCreation();
+        /*objectMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson=ow.writeValueAsString(user );*/
+
+        mockMvc.perform(post("/api"+ BASE_PATH)
+        .contentType(MediaType.APPLICATION_JSON_VALUE).content(objectMapper.writeValueAsString(user)).accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk());
+    }
+
+    private User simpleUserCreation() {
         User user=new User();
         user.setUsername("lemon");
         user.setAuthorities(new HashSet<>(Arrays.asList(new Authority("ROLE_USER"),new Authority("ROLE_REST_TEST"))));
         user.setPassword("rest-test-123");
         user.setEmail("resttest@mail.com");
         user.setFullName("Rest Test Full Name");
-        /*objectMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = objectMapper.writer().withDefaultPrettyPrinter();
-        String requestJson=ow.writeValueAsString(user );*/
+        return user;
+    }
 
-        mockMvc.perform(post("/api"+AccountControllerRest.BASE_PATH)
-        .contentType(MediaType.APPLICATION_JSON_VALUE).content(objectMapper.writeValueAsString(user)).accept(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk());
+    private User adminCreation() {
+        User user=new User();
+        user.setUsername("adminCreation");
+        user.setAuthorities(new HashSet<>(Arrays.asList(new Authority("ROLE_USER"),new Authority("ROLE_REST_TEST"),new Authority("ROLE_ADMIN"))));
+        user.setPassword("adminCreation");
+        user.setEmail("adminCreation@mail.com");
+        user.setFullName("Admin Test Full Name");
+        return user;
     }
 
     @Test
     public void login() throws Exception {
-        UserInfo userInfo =new UserInfo();
-        userInfo.setUsername("lemon");
-        userInfo.setPassword("rest-test-123");
+        login("lemon","rest-test-123");
+    }
 
-        mockMvc.perform(post("/api"+AccountControllerRest.BASE_PATH+"/login-rest")
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
+    private void login(String username, String password) throws Exception {
+        UserInfo userInfo =new UserInfo();
+        userInfo.setUsername(username);
+        userInfo.setPassword(password);
+
+        mockMvc.perform(post("/api"+ BASE_PATH+"/login-rest")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(userInfo))
         ).andExpect(status().isOk());
+    }
+
+    @Test
+    public void keyVal() throws Exception {
+        loginAdmin();
+        mockMvc.perform(get("/api"+BASE_PATH+"/key/username")
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+        ).andExpect(status().isOk())
+                .andExpect(result -> {
+                    System.out.print(result.getAsyncResult());
+                });
+
+    }
+
+    private void loginAdmin() throws Exception {
+        login("admin","admin");
     }
 }
