@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -73,6 +74,7 @@ public class AccountControllerRest implements WebController<User> {
         return ResponseEntity.ok(hbmCapture.getAll(User.class));
     }
 
+    @Secured(AuthoritiesConstant.ROLE_ADMIN)
     @Override
     @DeleteMapping(value = BASE_PATH+"/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Object>> delete(@PathVariable Long id) {
@@ -103,5 +105,11 @@ public class AccountControllerRest implements WebController<User> {
         Map<String,Object> map=new HashMap<>();
         map.put("success",success);
         return ResponseEntity.ok(map);
+    }
+
+
+    @GetMapping(value = BASE_PATH+"/login",produces = MediaType.APPLICATION_JSON_VALUE)
+    public void loginAfter(Model model) throws IOException {
+        System.out.println("<><><><><> A Login Processor For Rest Control");
     }
 }

@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/web")
 public class AccountControllerWeb {
     @Inject
     private AccountService accountService;
-    private static final String BASE_PATH="/account-controller";
+    public static final String BASE_PATH="/account-controller";
 
-    @GetMapping(value = BASE_PATH+"/profile/{username}")
-    public String profile(@PathVariable String username, ModelMap modelMap) {
-        modelMap.put("username",username);
+    @GetMapping(value = BASE_PATH+"/profile")
+    public String profile(HttpServletResponse httpServletResponse) {
         return "account/profile";
     }
 

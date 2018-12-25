@@ -1,11 +1,14 @@
 package com.lemon.spring.service.security;
 
 import com.lemon.spring.config.properties.ApplicationProperties;
+import com.lemon.spring.controller.web.AccountControllerWeb;
+import com.lemon.spring.security.CustomUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,5 +26,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         System.out.println("Authenticated Success:--->:"+authentication);
+        httpServletResponse.sendRedirect("/web"+AccountControllerWeb.BASE_PATH+"/profile");
     }
 }
