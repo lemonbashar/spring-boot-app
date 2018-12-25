@@ -25,7 +25,7 @@ import static com.lemon.spring.security.AuthoritiesConstant.ROLE_ADMIN;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private static final String[] LIST_OF_COOKIES_TO_DELETE_WHEN_LOG_OUT = {"LOGIN_ID_COOKIE"};
+    private static final String[] LIST_OF_COOKIES_TO_DELETE_WHEN_LOG_OUT = {"LOGIN_ID_COOKIE","JSESSIONID"};
     @Inject
     private PasswordEncoder passwordEncoder;
 
