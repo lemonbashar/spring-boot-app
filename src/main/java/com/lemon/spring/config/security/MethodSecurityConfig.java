@@ -1,6 +1,6 @@
 package com.lemon.spring.config.security;
 
-import com.lemon.spring.service.security.method.GlobalPermissionEvaluator;
+import com.lemon.spring.component.security.method.GlobalPermissionEvaluator;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;

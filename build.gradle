@@ -58,6 +58,12 @@ dependencies {
 	//runtime('com.h2database:h2')
 
 	implementation 'com.lemon.framework:orm:1.0.1'
+	implementation 'com.lemon.framework:properties:1.0.1'
+
+
+	implementation 'io.jsonwebtoken:jjwt-api:0.10.5'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.10.5'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.10.5'
 
 
 	testImplementation('org.springframework.boot:spring-boot-starter-test')

@@ -1,14 +1,12 @@
-package com.lemon.spring.service.security;
+package com.lemon.spring.component.security;
 
-import com.lemon.spring.config.properties.ApplicationProperties;
+import com.lemon.framework.properties.ApplicationProperties;
 import com.lemon.spring.controller.web.AccountControllerWeb;
-import com.lemon.spring.security.CustomUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +17,7 @@ import java.io.IOException;
  */
 
 @SuppressWarnings({"unused", "DefaultFileTemplate"})
-@Service
+@Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Inject
     private ApplicationProperties applicationProperties;

@@ -1,7 +1,10 @@
 package com.lemon.spring.config.security;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -9,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -40,10 +44,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Inject
     private LogoutHandler logoutHandler;
 
+    @Inject
+    private SecurityConfigurerAdapter<DefaultSecurityFilterChain,HttpSecurity> securityConfigurerAdapter;
+
 
     @Override
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/resources/**");
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     @Override
@@ -80,10 +93,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .authorizeRequests()
                 .mvcMatchers(HttpMethod.GET,"/","/home*").permitAll()/* Disable This Line if You Want The Login Page At-Startup*/
                 .mvcMatchers(HttpMethod.POST,"/api/account-controller/login*").permitAll()/*Rest-API Permission for Login Purposes*/
+                .mvcMatchers(HttpMethod.POST,"/api/account-controller/login-rest*").permitAll()/*Rest-API Permission for Login Purposes*/
+                .mvcMatchers(HttpMethod.POST,"/api/account-controller/login-jwt*").permitAll()/*Rest-API Permission for Login Purposes*/
                 .mvcMatchers(HttpMethod.GET,"/web/account-controller/register*").permitAll()/*Register API Permit For Registration*/
                 .mvcMatchers(HttpMethod.POST,"/api/account-controller*").permitAll()/*When Click to Register, All User Data need to Store on Database, and for this reason it has been permitted */
                 .mvcMatchers(HttpMethod.GET,"/api/account-controller/key/*").hasAnyAuthority(ROLE_ADMIN)
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
                 //.antMatchers("/api/**","/web/**").authenticated();
+        .and().apply(securityConfigurerAdapter);
     }
 }

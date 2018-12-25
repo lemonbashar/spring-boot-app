@@ -1,4 +1,4 @@
-package com.lemon.spring.service.security.method;
+package com.lemon.spring.component.security.method;
 
 import com.lemon.spring.domain.Authority;
 import org.springframework.security.access.PermissionEvaluator;

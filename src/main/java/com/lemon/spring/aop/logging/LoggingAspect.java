@@ -37,7 +37,12 @@ public class LoggingAspect {
 
     }
 
-    @Pointcut("controllerPointcut() || repositoryPointcut() || servicePointcut()")
+    @Pointcut("within(com.lemon.spring.component..*)")
+    public void componentPointcut() {
+
+    }
+
+    @Pointcut("controllerPointcut() || repositoryPointcut() || servicePointcut() || componentPointcut()")
     public void allPointcut() {
 
     }

@@ -1,3 +1,14 @@
+settings:
+  security:
+    secretKey: BHWTBWQE(&#RHDNKJLSH&EHWDJY*E(GKJOYFDW^FBSDSPYE()#RBHKJI
+    sessionLiveTime: 20F
+    authentication:
+      jwt:
+        secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZDkxMGJ
+        base64Secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZjcyZDkxMGJiMDhiZmEyZTc2MTA0YWM0YjlmZDU1YzlkM2RlYWZjYWYwYjdiNDE3YmY5ZjBjYzQ2OWFmMDc1YzRjYzlhZjU5OGU3NmQ
+        tokenValidityInSeconds: 3600
+        tokenValidityInSecondsForRememberMe: 2592000
+
 database:
   hibernate:
     hbm2DDLAuto: update
@@ -6,3 +17,7 @@ database:
     showSql: false
   jpa:
     persistentUnit: SPRING_PRODUCTION
+
+cache:
+  ehCache:
+    maxLocalHeapSize: 20M

@@ -1,17 +1,17 @@
 package com.lemon.spring.service.account.impl;
 
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
+import com.lemon.spring.component.security.jwt.TokenProvider;
+import com.lemon.spring.data.UserInfo;
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.domain.User;
-import com.lemon.spring.security.CustomUserDetails;
 import com.lemon.spring.security.SecurityUtils;
 import com.lemon.spring.service.account.AccountService;
-import com.lemon.spring.service.security.CustomUserDetailsService;
+import com.lemon.spring.component.security.CustomUserDetailsService;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,6 +34,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Inject
     private PasswordEncoder passwordEncoder;
+
+    @Inject
+    private AuthenticationManager authenticationManager;
+
+    @Inject
+    private TokenProvider tokenProvider;
 
     @Override
     public String currentUsername() {
@@ -70,5 +76,15 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Set<Authority> authorities() {
         return new HashSet<>(hbmCapture.getAll("SELECT auth FROM Authority auth"));
+    }
+
+    @Override
+    public String authenticate(UserInfo userInfo) {
+        UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken(userInfo.getUsername(),userInfo.getPassword());
+        Authentication authentication=authenticationManager.authenticate(authenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token=tokenProvider.createToken(authentication,userInfo.isRememberMe());
+
+        return token;
     }
 }

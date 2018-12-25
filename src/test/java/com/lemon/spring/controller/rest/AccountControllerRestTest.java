@@ -45,8 +45,8 @@ public class AccountControllerRestTest {
     @MockBean
     private AccountService accountService;*/
 
-    @MockBean
-    private AccountService accountService;
+    /*@MockBean
+    private AccountService accountService;*/
 
     @Before
     public void setUp() throws Exception {
@@ -95,7 +95,7 @@ public class AccountControllerRestTest {
         userInfo.setUsername(username);
         userInfo.setPassword(password);
 
-        mockMvc.perform(post("/api"+ BASE_PATH+"/login-rest")
+        mockMvc.perform(post("/api"+ BASE_PATH+"/login-jwt")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(userInfo))
         ).andExpect(status().isOk());

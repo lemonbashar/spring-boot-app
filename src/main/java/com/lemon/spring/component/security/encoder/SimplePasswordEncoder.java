@@ -1,8 +1,8 @@
-package com.lemon.spring.service.security.encoder;
+package com.lemon.spring.component.security.encoder;
 
-import com.lemon.spring.config.properties.ApplicationProperties;
+import com.lemon.framework.properties.ApplicationProperties;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.util.Base64;
@@ -12,7 +12,7 @@ import java.util.Base64;
  */
 
 @SuppressWarnings({"unused", "DefaultFileTemplate"})
-@Service
+@Component
 public class SimplePasswordEncoder implements PasswordEncoder {
     @Inject
     private ApplicationProperties properties;

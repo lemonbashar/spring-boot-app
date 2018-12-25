@@ -1,6 +1,6 @@
 package com.lemon.spring.config.database;
 
-import com.lemon.spring.config.properties.ApplicationProperties;
+import com.lemon.framework.properties.ApplicationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;

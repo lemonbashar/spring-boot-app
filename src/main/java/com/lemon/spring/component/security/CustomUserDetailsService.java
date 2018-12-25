@@ -1,14 +1,13 @@
-package com.lemon.spring.service.security;
+package com.lemon.spring.component.security;
 
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.spring.domain.User;
-import com.lemon.spring.repository.UserRepository;
 import com.lemon.spring.security.CustomUserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.util.stream.Collectors;
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
  */
 
 @SuppressWarnings({"unused", "DefaultFileTemplate"})
-@Service
+@Component
 public class CustomUserDetailsService implements UserDetailsService {
     @Inject
     private HbmCapture hbmCapture;

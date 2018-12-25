@@ -2,7 +2,7 @@ package com.lemon.spring.config.database;
 
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.framework.orm.capture.hbm.impl.HibernateCapture;
-import com.lemon.spring.config.properties.ApplicationProperties;
+import com.lemon.framework.properties.ApplicationProperties;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Environment;
 import org.springframework.context.annotation.Bean;

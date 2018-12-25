@@ -1,8 +1,8 @@
-package com.lemon.spring.service.security;
+package com.lemon.spring.component.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 
 @SuppressWarnings({"unused", "DefaultFileTemplate"})
-@Service
+@Component
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {

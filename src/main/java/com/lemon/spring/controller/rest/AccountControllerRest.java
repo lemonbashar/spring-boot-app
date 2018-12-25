@@ -1,6 +1,8 @@
 package com.lemon.spring.controller.rest;
 
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
+import com.lemon.spring.component.security.jwt.JWTFilter;
+import com.lemon.spring.data.JWTToken;
 import com.lemon.spring.data.UserInfo;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.interfaces.WebController;
@@ -11,6 +13,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -100,11 +104,18 @@ public class AccountControllerRest implements WebController<User> {
 
     @PostMapping(value = BASE_PATH+"/login-rest",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String,Object>> login(@RequestBody UserInfo userInfo) throws IOException {
-        System.out.println("<><><><><> A Login Processor For Rest Control");
         boolean success=accountService.login(userInfo.getUsername(),userInfo.getPassword());
         Map<String,Object> map=new HashMap<>();
         map.put("success",success);
         return ResponseEntity.ok(map);
+    }
+
+    @PostMapping(value = BASE_PATH+"/login-jwt",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<JWTToken> loginJwt(@RequestBody UserInfo userInfo) {
+        String token=accountService.authenticate(userInfo);
+        HttpHeaders httpHeaders=new HttpHeaders();
+        httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER,JWTFilter.BEARER+token);
+        return new ResponseEntity<>(new JWTToken(token),httpHeaders, HttpStatus.OK);
     }
 
 
