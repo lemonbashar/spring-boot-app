@@ -106,10 +106,7 @@ public class AccountControllerRestTest {
         loginAdmin();
         mockMvc.perform(get("/api"+BASE_PATH+"/key/username")
             .contentType(MediaType.APPLICATION_JSON_VALUE)
-        ).andExpect(status().isOk())
-                .andExpect(result -> {
-                    System.out.print(result.getAsyncResult());
-                });
+        ).andExpect(status().isOk());
 
     }
 
