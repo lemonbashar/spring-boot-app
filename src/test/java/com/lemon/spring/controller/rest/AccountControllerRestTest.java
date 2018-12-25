@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -44,8 +45,8 @@ public class AccountControllerRestTest {
     @MockBean
     private AccountService accountService;*/
 
-    //@MockBean
-    //private AccountService accountService;
+    @MockBean
+    private AccountService accountService;
 
     @Before
     public void setUp() throws Exception {
