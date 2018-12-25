@@ -87,10 +87,21 @@ public class AccountControllerRestTest {
 
     @Test
     public void login() throws Exception {
-        login("lemon","rest-test-123");
+        loginSimple("lemon","rest-test-123");
     }
 
-    private void login(String username, String password) throws Exception {
+    private void loginSimple(String username, String password) throws Exception {
+        UserInfo userInfo =new UserInfo();
+        userInfo.setUsername(username);
+        userInfo.setPassword(password);
+
+        mockMvc.perform(post("/api"+ BASE_PATH+"/login-rest")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(userInfo))
+        ).andExpect(status().isOk());
+    }
+
+    private void loginJwt(String username, String password) throws Exception {
         UserInfo userInfo =new UserInfo();
         userInfo.setUsername(username);
         userInfo.setPassword(password);
@@ -100,6 +111,7 @@ public class AccountControllerRestTest {
                 .content(objectMapper.writeValueAsString(userInfo))
         ).andExpect(status().isOk());
     }
+
 
     @Test
     public void keyVal() throws Exception {
@@ -111,6 +123,6 @@ public class AccountControllerRestTest {
     }
 
     private void loginAdmin() throws Exception {
-        login("admin","admin");
+        loginJwt("admin","admin");
     }
 }
