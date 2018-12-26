@@ -1,9 +1,9 @@
 package com.lemon.spring.controller.rest;
 
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
-import com.lemon.spring.component.security.jwt.JWTFilter;
-import com.lemon.spring.data.JWTToken;
-import com.lemon.spring.data.UserInfo;
+import com.lemon.framework.springsecurity.jwt.JWTFilter;
+import com.lemon.framework.web.data.JWToken;
+import com.lemon.framework.web.data.UserInfo;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.interfaces.WebController;
 import com.lemon.spring.repository.UserRepository;
@@ -11,7 +11,6 @@ import com.lemon.spring.security.AuthoritiesConstant;
 import com.lemon.spring.service.account.AccountService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -111,11 +110,11 @@ public class AccountControllerRest implements WebController<User> {
     }
 
     @PostMapping(value = BASE_PATH+"/login-jwt",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JWTToken> loginJwt(@RequestBody UserInfo userInfo) {
+    public ResponseEntity<JWToken> loginJwt(@RequestBody UserInfo userInfo) {
         String token=accountService.authenticate(userInfo);
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER,JWTFilter.BEARER+token);
-        return new ResponseEntity<>(new JWTToken(token),httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(new JWToken(token),httpHeaders, HttpStatus.OK);
     }
 
 

@@ -1,9 +1,8 @@
 package com.lemon.spring.service.account;
 
-import com.lemon.spring.data.UserInfo;
+import com.lemon.framework.web.data.UserInfo;
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.domain.User;
-import com.lemon.spring.security.CustomUserDetails;
 
 import java.util.Set;
 

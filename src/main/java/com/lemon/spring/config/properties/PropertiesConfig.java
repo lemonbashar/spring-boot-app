@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties
 public class PropertiesConfig {
 
-    @Bean
+    @Bean("applicationProperties")
     @ConfigurationProperties
     public ApplicationProperties applicationProperties() {
         return new ApplicationProperties();

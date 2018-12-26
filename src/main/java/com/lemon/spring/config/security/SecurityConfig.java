@@ -1,5 +1,10 @@
 package com.lemon.spring.config.security;
 
+import com.lemon.framework.properties.ApplicationProperties;
+import com.lemon.framework.springsecurity.jwt.JWTAuthConfigAdapter;
+import com.lemon.framework.springsecurity.jwt.TokenProvider;
+import com.lemon.framework.springsecurity.jwt.auth.JWTAuthenticationService;
+import com.lemon.framework.springsecurity.jwt.auth.simple.SimpleJwtAuthenticationService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -26,6 +31,16 @@ import static com.lemon.spring.security.AuthoritiesConstant.ROLE_ADMIN;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] LIST_OF_COOKIES_TO_DELETE_WHEN_LOG_OUT = {"LOGIN_ID_COOKIE","JSESSIONID"};
+
+    @Inject
+    private ApplicationProperties applicationProperties;
+
+    @Inject
+    private TokenProvider tokenProvider;
+
+    @Inject
+    private AuthenticationManager authenticationManager;
+
     @Inject
     private PasswordEncoder passwordEncoder;
 
@@ -46,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Inject
     private SecurityConfigurerAdapter<DefaultSecurityFilterChain,HttpSecurity> securityConfigurerAdapter;
+
 
 
     @Override
@@ -101,5 +117,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 //.antMatchers("/api/**","/web/**").authenticated();
         .and().apply(securityConfigurerAdapter);
+    }
+
+    @Bean(initMethod = "init")
+    public TokenProvider tokenProvider() {
+        return new TokenProvider(applicationProperties);
+    }
+
+    @Bean
+    public JWTAuthConfigAdapter jwtAuthConfigAdapter() {
+        return new JWTAuthConfigAdapter(tokenProvider);
+    }
+
+    @Bean
+    public JWTAuthenticationService jwtAuthenticationService() {
+        return new SimpleJwtAuthenticationService(authenticationManager,tokenProvider);
     }
 }

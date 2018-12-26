@@ -1,8 +1,10 @@
 package com.lemon.spring.service.account.impl;
 
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
-import com.lemon.spring.component.security.jwt.TokenProvider;
-import com.lemon.spring.data.UserInfo;
+import com.lemon.framework.springsecurity.jwt.TokenProvider;
+import com.lemon.framework.springsecurity.jwt.auth.JWTAuthenticationService;
+import com.lemon.framework.web.data.JWToken;
+import com.lemon.framework.web.data.UserInfo;
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.security.SecurityUtils;
@@ -40,6 +42,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Inject
     private TokenProvider tokenProvider;
+
+    @Inject
+    private JWTAuthenticationService jwtAuthenticationService;
 
     @Override
     public String currentUsername() {
@@ -80,11 +85,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public String authenticate(UserInfo userInfo) {
-        UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken(userInfo.getUsername(),userInfo.getPassword());
-        Authentication authentication=authenticationManager.authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token=tokenProvider.createToken(authentication,userInfo.isRememberMe());
-
-        return token;
+        return jwtAuthenticationService.authenticate(userInfo).getToken();
     }
 }

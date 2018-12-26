@@ -6,8 +6,8 @@ settings:
       jwt:
         secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZjcyZDkxMGJiMDhiZmEyZTc2MTA0YWM0YjlmZDU1YzlkM2RlYWZjYWYwYjdiNDE3YmY5ZjBjYzQ2OWFmMDc1YzRjYzlhZjU5OGU3NmQ
         base64Secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZjcyZDkxMGJiMDhiZmEyZTc2MTA0YWM0YjlmZDU1YzlkM2RlYWZjYWYwYjdiNDE3YmY5ZjBjYzQ2OWFmMDc1YzRjYzlhZjU5OGU3NmQ
-        tokenValidityInSeconds: 3600
-        tokenValidityInSecondsForRememberMe: 2592000
+        tokenValidityInSeconds: 300
+        tokenValidityInSecondsForRememberMe: 1800
 
 
 database:
