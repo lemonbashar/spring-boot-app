@@ -1,8 +1,10 @@
 package com.lemon.spring.controller.web;
 
+import com.lemon.spring.controller.rest.AccountControllerRest;
 import com.lemon.spring.domain.User;
-import com.lemon.spring.interfaces.WebController;
 import com.lemon.spring.service.account.AccountService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,15 +12,19 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
-@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
+@SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection", "Duplicates"})
 @Controller
 @RequestMapping("/web")
-public class AccountControllerWeb implements WebController<User> {
+public class AccountControllerWeb {
+    private final Logger log= LogManager.getLogger(AccountControllerRest.class);
+
+
     @Inject
     private AccountService accountService;
+
     public static final String BASE_PATH="/account-controller";
 
     @GetMapping(value = BASE_PATH+"/register")
@@ -29,30 +35,12 @@ public class AccountControllerWeb implements WebController<User> {
     }
 
     @PostMapping(value = BASE_PATH)
-    @Override
-    public ResponseEntity<Map<String, Object>> save(@ModelAttribute User entity) {
-        System.out.print(entity);
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Map<String, Object>> update(User entity) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<User> findOne(Long id) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<List<User>> findAll() {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Map<String, Object>> delete(Long id) {
-        return null;
+    public ResponseEntity<Map<String, Object>> save(@ModelAttribute User user) {
+        accountService.register(user);
+        Map<String,Object> objectMap=new HashMap<>();
+        objectMap.put("REGISTER_SUCCESS",true);
+        log.debug("Successfully Registered...");
+        return ResponseEntity.ok(objectMap);
     }
 
     @GetMapping(value = BASE_PATH+"/profile")
@@ -67,6 +55,7 @@ public class AccountControllerWeb implements WebController<User> {
 
     @GetMapping(value = BASE_PATH+"/logout")
     public String logout() {
+        accountService.logout();
         return "account/login";
     }
 }

@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings({"Duplicates", "WeakerAccess", "RedundantThrows", "unused"})
 @RestController
 @RequestMapping("/api")
 public class AccountControllerRest implements WebController<User> {
@@ -51,7 +52,7 @@ public class AccountControllerRest implements WebController<User> {
         accountService.register(user);
         Map<String,Object> objectMap=new HashMap<>();
         objectMap.put("REGISTER_SUCCESS",true);
-        objectMap.put("OBJECT",user);
+        log.debug("Successfully Registered...");
         return ResponseEntity.ok(objectMap);
     }
 
@@ -119,7 +120,7 @@ public class AccountControllerRest implements WebController<User> {
 
 
     @GetMapping(value = BASE_PATH+"/login",produces = MediaType.APPLICATION_JSON_VALUE)
-    public void loginAfter(Model model) throws IOException {
+    public void loginAfter(Model  model) throws IOException {
         System.out.println("<><><><><> A Login Processor For Rest Control");
     }
 }

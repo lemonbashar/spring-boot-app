@@ -19,4 +19,6 @@ public interface AccountService {
      * Authenticate & Return JWT Token
      * */
     String authenticate(UserInfo userInfo);
+
+    void logout();
 }

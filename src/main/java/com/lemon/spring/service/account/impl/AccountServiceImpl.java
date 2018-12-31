@@ -71,7 +71,6 @@ public class AccountServiceImpl implements AccountService {
         });
         user.setAuthorities(authorities);
         hbmCapture.save(user);
-        login(user.getUsername(),user.getPassword());
     }
 
     @Override
@@ -82,5 +81,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public String authenticate(UserInfo userInfo) {
         return jwtAuthenticationService.authenticate(userInfo).getToken();
+    }
+
+    @Override
+    public void logout() {
+        SecurityContextHolder.clearContext();
+
     }
 }
