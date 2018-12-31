@@ -1,17 +1,15 @@
 package com.lemon.spring.controller.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lemon.framework.web.data.UserInfo;
 import com.lemon.spring.Application;
-import com.lemon.spring.data.UserInfo;
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.domain.User;
-import com.lemon.spring.service.account.AccountService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -77,10 +75,10 @@ public class AccountControllerRestTest {
 
     private User adminCreation() {
         User user=new User();
-        user.setUsername("adminCreation");
+        user.setUsername("admin");
         user.setAuthorities(new HashSet<>(Arrays.asList(new Authority("ROLE_USER"),new Authority("ROLE_REST_TEST"),new Authority("ROLE_ADMIN"))));
-        user.setPassword("adminCreation");
-        user.setEmail("adminCreation@mail.com");
+        user.setPassword("admin");
+        user.setEmail("admin@mail.com");
         user.setFullName("Admin Test Full Name");
         return user;
     }

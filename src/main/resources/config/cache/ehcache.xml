@@ -11,6 +11,7 @@
     <defaultCache eternal="false" overflowToDisk="false"/>
 
     <cache name="com.lemon.spring.domain.User" timeToLiveSeconds="3600"> </cache>
+    <cache name="com.lemon.spring.domain.Authority" timeToLiveSeconds="3600"> </cache>
 
 
 </ehcache>

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "authority")
 public class Authority {
-    public static final String CACHE = "AuthorityCache";
+    public static final String CACHE = "Authority";
 
     @Id
     @NotNull

@@ -3,17 +3,14 @@ package com.lemon.spring.service.account.impl;
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.framework.springsecurity.jwt.TokenProvider;
 import com.lemon.framework.springsecurity.jwt.auth.JWTAuthenticationService;
-import com.lemon.framework.web.data.JWToken;
 import com.lemon.framework.web.data.UserInfo;
+import com.lemon.spring.component.security.CustomUserDetailsService;
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.security.SecurityUtils;
 import com.lemon.spring.service.account.AccountService;
-import com.lemon.spring.component.security.CustomUserDetailsService;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +21,7 @@ import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.Set;
 
-@SuppressWarnings({"unchecked", "JpaQlInspection"})
+@SuppressWarnings({"unchecked", "JpaQlInspection", "SpringJavaAutowiredFieldsWarningInspection"})
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -77,7 +74,6 @@ public class AccountServiceImpl implements AccountService {
         login(user.getUsername(),user.getPassword());
     }
 
-    @Cacheable(value = Authority.CACHE)
     @Override
     public Set<Authority> authorities() {
         return new HashSet<>(hbmCapture.getAll("SELECT auth FROM Authority auth"));
