@@ -73,3 +73,30 @@
 2019-01-01 13:40:49 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
 2019-01-01 13:42:02 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
 2019-01-01 13:45:10 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
+2019-01-01 20:22:01 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
+2019-01-01 21:53:35 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
+2019-01-01 22:00:45 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
+2019-01-01 22:03:52 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:04:07 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:04:11 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:04:51 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:06:31 DEBUG HibernateConfig:166 - -> preFlush
+2019-01-01 22:06:31 DEBUG HibernateConfig:171 - -> postFlush
+2019-01-01 22:08:12 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:08:13 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:08:14 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:09:06 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:11:32 DEBUG HibernateConfig:166 - -> preFlush
+2019-01-01 22:11:32 DEBUG HibernateConfig:171 - -> postFlush
+2019-01-01 22:11:38 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
+2019-01-01 22:11:56 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:11:56 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:11:57 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:12:21 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:12:26 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:15:46 DEBUG HibernateConfig:166 - -> preFlush
+2019-01-01 22:15:50 DEBUG HibernateConfig:171 - -> postFlush
+2019-01-01 22:17:51 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:17:52 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:17:52 DEBUG HibernateConfig:121 - -> OnLoad
+2019-01-01 22:18:16 DEBUG HibernateConfig:121 - -> OnLoad

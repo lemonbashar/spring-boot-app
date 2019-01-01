@@ -18,5 +18,6 @@ public class CustomLogoutHandler implements LogoutHandler {
     public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {
         System.out.println("Logout Handle:-->");
         //throw new RuntimeException("User Should not Logout That Time");
+        /* TODO:Related Token Will be Deleted */
     }
 }

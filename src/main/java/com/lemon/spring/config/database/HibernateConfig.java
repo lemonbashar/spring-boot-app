@@ -3,10 +3,9 @@ package com.lemon.spring.config.database;
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.framework.orm.capture.hbm.impl.HibernateCapture;
 import com.lemon.framework.properties.ApplicationProperties;
-import com.lemon.spring.domain.AbstractAudit;
-import org.hibernate.*;
+import org.apache.log4j.Logger;
+import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Environment;
-import org.hibernate.type.Type;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -15,9 +14,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.Iterator;
 import java.util.Properties;
 
 /**
@@ -32,8 +28,8 @@ public class HibernateConfig {
     @Inject
     private ApplicationProperties properties;
 
-    @Inject
-    private Interceptor interceptor;
+    private final Logger log=Logger.getLogger(HibernateConfig.class);
+
     static final String[] annotatedPackages={"com.lemon.spring.domain"};
 
     @Bean
@@ -47,11 +43,11 @@ public class HibernateConfig {
         hbmProperties.setProperty(Environment.SHOW_SQL,""+properties.database.hibernate.showSql);
         hbmProperties.setProperty(Environment.FORMAT_SQL,""+properties.database.hibernate.formatSQL);
         localSessionFactoryBean.setPhysicalNamingStrategy(new AllCapitalPhysicalNaming());
+        localSessionFactoryBean.getConfiguration().setPhysicalNamingStrategy(new AllCapitalPhysicalNaming());
         //hbmProperties.setProperty(Environment.DEFAULT_SCHEMA,properties.database.schema);
         localSessionFactoryBean.setPackagesToScan(annotatedPackages);
         localSessionFactoryBean.setHibernateProperties(hbmProperties);
-        localSessionFactoryBean.setEntityInterceptor(interceptor);
-
+        //localSessionFactoryBean.setEntityInterceptor(interceptor);
         return localSessionFactoryBean;
 
     }
@@ -106,110 +102,5 @@ public class HibernateConfig {
     @Bean
     public HbmCapture hbmCapture(SessionFactory sessionFactory) {
         return new HibernateCapture(sessionFactory);
-    }
-
-
-    @Bean
-    public Interceptor interceptor() {
-        return new Interceptor() {
-            @Override
-            public boolean onLoad(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) throws CallbackException {
-                if(entity instanceof AbstractAudit) {
-                    AbstractAudit abstractAudit= (AbstractAudit) entity;
-                    abstractAudit.setCreateDate(LocalDate.now().plusMonths(1));
-                    abstractAudit.setUpdateDate(LocalDate.now().plusMonths(1));
-                }
-                return true;
-            }
-
-            @Override
-            public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState, String[] propertyNames, Type[] types) throws CallbackException {
-                return false;
-            }
-
-            @Override
-            public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) throws CallbackException {
-                if(entity instanceof AbstractAudit) {
-                    AbstractAudit abstractAudit= (AbstractAudit) entity;
-                    abstractAudit.setCreateDate(LocalDate.now());
-                }
-                return true;
-            }
-
-            @Override
-            public void onDelete(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) throws CallbackException {
-
-            }
-
-            @Override
-            public void onCollectionRecreate(Object collection, Serializable key) throws CallbackException {
-
-            }
-
-            @Override
-            public void onCollectionRemove(Object collection, Serializable key) throws CallbackException {
-
-            }
-
-            @Override
-            public void onCollectionUpdate(Object collection, Serializable key) throws CallbackException {
-
-            }
-
-            @Override
-            public void preFlush(Iterator entities) throws CallbackException {
-
-            }
-
-            @Override
-            public void postFlush(Iterator entities) throws CallbackException {
-
-            }
-
-            @Override
-            public Boolean isTransient(Object entity) {
-                return null;
-            }
-
-            @Override
-            public int[] findDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState, String[] propertyNames, Type[] types) {
-                return new int[0];
-            }
-
-            @Override
-            public Object instantiate(String entityName, EntityMode entityMode, Serializable id) throws CallbackException {
-                return null;
-            }
-
-            @Override
-            public String getEntityName(Object object) throws CallbackException {
-                return null;
-            }
-
-            @Override
-            public Object getEntity(String entityName, Serializable id) throws CallbackException {
-                return null;
-            }
-
-            @Override
-            public void afterTransactionBegin(Transaction tx) {
-
-            }
-
-            @Override
-            public void beforeTransactionCompletion(Transaction tx) {
-
-            }
-
-            @Override
-            public void afterTransactionCompletion(Transaction tx) {
-
-            }
-
-            @Override
-            public String onPrepareStatement(String sql) {
-                return null;
-            }
-        };
     }
 }
