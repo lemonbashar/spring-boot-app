@@ -43,7 +43,6 @@ public class HibernateConfig {
         hbmProperties.setProperty(Environment.SHOW_SQL,""+properties.database.hibernate.showSql);
         hbmProperties.setProperty(Environment.FORMAT_SQL,""+properties.database.hibernate.formatSQL);
         localSessionFactoryBean.setPhysicalNamingStrategy(new AllCapitalPhysicalNaming());
-        localSessionFactoryBean.getConfiguration().setPhysicalNamingStrategy(new AllCapitalPhysicalNaming());
         //hbmProperties.setProperty(Environment.DEFAULT_SCHEMA,properties.database.schema);
         localSessionFactoryBean.setPackagesToScan(annotatedPackages);
         localSessionFactoryBean.setHibernateProperties(hbmProperties);

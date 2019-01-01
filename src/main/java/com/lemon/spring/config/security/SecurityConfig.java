@@ -3,7 +3,9 @@ package com.lemon.spring.config.security;
 import com.lemon.framework.properties.ApplicationProperties;
 import com.lemon.framework.springsecurity.jwt.JWTAuthConfigAdapter;
 import com.lemon.framework.springsecurity.jwt.TokenProvider;
+import com.lemon.framework.springsecurity.jwt.auth.AuthenticationService;
 import com.lemon.framework.springsecurity.jwt.auth.JWTAuthenticationService;
+import com.lemon.framework.springsecurity.jwt.auth.simple.SimpleAuthenticationService;
 import com.lemon.framework.springsecurity.jwt.auth.simple.SimpleJwtAuthenticationService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -132,6 +134,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public JWTAuthenticationService jwtAuthenticationService() {
-        return new SimpleJwtAuthenticationService(authenticationManager,tokenProvider);
+        return new SimpleJwtAuthenticationService(authenticationManager,tokenProvider,customUserDetailsService,passwordEncoder);
+    }
+
+    @Bean
+    public AuthenticationService authenticationService() {
+        return new SimpleAuthenticationService(authenticationManager,customUserDetailsService,passwordEncoder);
     }
 }
