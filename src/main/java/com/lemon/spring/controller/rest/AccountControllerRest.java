@@ -35,7 +35,6 @@ public class AccountControllerRest implements WebController<User> {
 
     @Inject
     private AccountService accountService;
-    //private final UserRepository userRepository;
 
     @Inject
     private HbmCapture hbmCapture;

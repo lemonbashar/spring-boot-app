@@ -35,12 +35,10 @@ public class AccountControllerWeb {
     }
 
     @PostMapping(value = BASE_PATH)
-    public ResponseEntity<Map<String, Object>> save(@ModelAttribute User user) {
+    public String save(@ModelAttribute User user) {
         accountService.register(user);
-        Map<String,Object> objectMap=new HashMap<>();
-        objectMap.put("REGISTER_SUCCESS",true);
         log.debug("Successfully Registered...");
-        return ResponseEntity.ok(objectMap);
+        return "account/login";
     }
 
     @GetMapping(value = BASE_PATH+"/profile")

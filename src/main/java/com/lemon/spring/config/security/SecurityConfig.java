@@ -112,6 +112,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers(HttpMethod.POST,"/api/account-controller/login-rest*").permitAll()/*Rest-API Permission for Login Purposes*/
                 .mvcMatchers(HttpMethod.POST,"/api/account-controller/login-jwt*").permitAll()/*Rest-API Permission for Login Purposes*/
                 .mvcMatchers(HttpMethod.GET,"/web/account-controller/register*").permitAll()/*Register API Permit For Registration*/
+                .mvcMatchers(HttpMethod.POST,"/web/account-controller*").permitAll()/*Register API Permit For Registration*/
                 .mvcMatchers(HttpMethod.POST,"/api/account-controller*").permitAll()/*When Click to Register, All User Data need to Store on Database, and for this reason it has been permitted */
                 .mvcMatchers(HttpMethod.GET,"/api/account-controller/key/*").hasAnyAuthority(ROLE_ADMIN)
                 .anyRequest().authenticated()
