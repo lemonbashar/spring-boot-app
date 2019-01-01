@@ -4,6 +4,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,12 +13,12 @@ import java.util.Set;
 @Entity
 @Table(name = "SPRING_USER")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class User {
+public class User extends AbstractAudit {
     public static final String CACHE = "UserCache";
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "USER_SEQUENCE",sequenceName = "USER_SEQ")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO,generator = "spring_user_pk")
+    @SequenceGenerator(name = "spring_user_pk",sequenceName = "spring_user_seq",allocationSize = 1)
+    private BigInteger id;
 
     @Column(unique = true)
     private String username;
@@ -30,6 +32,12 @@ public class User {
     @Column
     private String fullName;
 
+    @Column
+    private boolean active;
+
+    @Column
+    private LocalDate activeDate;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_AUTHORITIES",
             joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "id")},
@@ -39,21 +47,21 @@ public class User {
     public User() {
     }
 
-    public User(Long id) {
+    public User(BigInteger id) {
         this.id = id;
     }
 
-    public User(Long id, String username, String password) {
+    public User(BigInteger id, String username, String password) {
         this.id=id;
         this.username=username;
         this.password=password;
     }
 
-    public Long getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
@@ -88,6 +96,24 @@ public class User {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
+
+    public LocalDate getActiveDate() {
+        return activeDate;
+    }
+
+    public void setActiveDate(LocalDate activeDate) {
+        this.activeDate = activeDate;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+
 
     public Set<Authority> getAuthorities() {
         return authorities;

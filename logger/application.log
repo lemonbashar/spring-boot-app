@@ -62,3 +62,10 @@
 2018-12-31 19:59:15 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
 2019-01-01 10:35:43 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
 2019-01-01 10:45:00 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
+2019-01-01 11:16:54 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
+2019-01-01 12:46:55 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
+2019-01-01 12:50:03 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
+2019-01-01 12:58:24 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
+2019-01-01 13:08:22 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
+2019-01-01 13:17:44 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
+2019-01-01 13:25:15 WARN  TokenProvider:41 - Warning: the JWT key used is not Base64-encoded. We recommend using the `jhipster.security.authenticate.jwt.base64-secret` key for optimum security.
