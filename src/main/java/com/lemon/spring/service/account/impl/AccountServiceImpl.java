@@ -49,7 +49,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public String currentUsername() {
-        return SecurityUtils.currentUserId().toString();
+        return SecurityUtils.currentUserLogin();
     }
 
     @Override
