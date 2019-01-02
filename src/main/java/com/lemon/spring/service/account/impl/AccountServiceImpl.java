@@ -54,7 +54,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public boolean login(String username, String password) {
-        return authenticationService.authenticate(username,password);
+        return authenticationService.authenticate(username,password)!=null;
     }
 
     @Override

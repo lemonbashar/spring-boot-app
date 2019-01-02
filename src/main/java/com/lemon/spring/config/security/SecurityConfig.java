@@ -3,12 +3,12 @@ package com.lemon.spring.config.security;
 import com.lemon.framework.properties.ApplicationProperties;
 import com.lemon.framework.springsecurity.auth.AuthenticationService;
 import com.lemon.framework.springsecurity.auth.complete.CompleteUserInfoAuthenticationService;
-import com.lemon.framework.springsecurity.auth.simple.SimpleAuthenticationService;
 import com.lemon.framework.springsecurity.jwt.JWTAuthConfigAdapter;
 import com.lemon.framework.springsecurity.jwt.auth.JWTAuthenticationService;
-import com.lemon.framework.springsecurity.jwt.auth.simple.CompleteUserInfoJwtAuthenticationTokenService;
+import com.lemon.framework.springsecurity.jwt.auth.complete.CompleteUserInfoJwtAuthenticationTokenService;
 import com.lemon.framework.springsecurity.jwt.provider.AuthenticationTokenTokenProvider;
 import com.lemon.framework.springsecurity.jwt.provider.TokenProvider;
+import com.lemon.spring.component.security.CompleteTokenStoreBridge;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -35,6 +35,9 @@ import static com.lemon.spring.security.AuthoritiesConstant.ROLE_ADMIN;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] LIST_OF_COOKIES_TO_DELETE_WHEN_LOG_OUT = {"LOGIN_ID_COOKIE","JSESSIONID"};
+
+    @Inject
+    private CompleteTokenStoreBridge completeTokenStoreBridge;
 
     @Inject
     private ApplicationProperties applicationProperties;
@@ -126,7 +129,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean(initMethod = "init")
     public TokenProvider tokenProvider() {
-        return new AuthenticationTokenTokenProvider(applicationProperties);
+        return new AuthenticationTokenTokenProvider(applicationProperties,completeTokenStoreBridge);
     }
 
     @Bean

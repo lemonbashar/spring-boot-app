@@ -31,5 +31,6 @@ ALTER SEQUENCE public.abstract_audit_seq
 
 
 SELECT last_value from spring_user_seq;
-SELECT setval('spring_user_seq',nextval('spring_user_seq')+1023);
+-- SELECT setval('spring_user_seq',nextval('spring_user_seq')+1023);
+-- SELECT setval('token_store_seq',1023);
 -- SELECT setval('spring_user_seq',1023);

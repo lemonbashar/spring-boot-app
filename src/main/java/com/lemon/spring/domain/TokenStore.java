@@ -2,7 +2,7 @@ package com.lemon.spring.domain;
 
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "TOKEN_STORE")
@@ -21,7 +21,7 @@ public class TokenStore extends AbstractAudit {
     private User user;
 
     @Column(name = "VALIDATE_DATE")
-    private LocalDate validateDate;
+    private Date validateDate;
 
     public BigInteger getId() {
         return id;
@@ -47,11 +47,11 @@ public class TokenStore extends AbstractAudit {
         this.user = user;
     }
 
-    public LocalDate getValidateDate() {
+    public Date getValidateDate() {
         return validateDate;
     }
 
-    public void setValidateDate(LocalDate validateDate) {
+    public void setValidateDate(Date validateDate) {
         this.validateDate = validateDate;
     }
 }
