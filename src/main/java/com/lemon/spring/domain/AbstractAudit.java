@@ -20,13 +20,13 @@ public abstract class AbstractAudit {
     private LocalDate updateDate;
 
     @Column(name = "ACTIVE")
-    private boolean active;
+    private Boolean active;
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 

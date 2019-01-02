@@ -57,10 +57,10 @@ dependencies {
 	implementation 'mysql:mysql-connector-java:5.1.46'
 	//runtime('com.h2database:h2')
 
-	implementation 'com.lemon.framework:orm:1.0.1'
-	implementation 'com.lemon.framework:properties:1.0.1'
-	implementation 'com.lemon.framework:web:1.0.1'
-	implementation 'com.lemon.framework:spring-security:1.0.1'
+	implementation 'com.lemon.framework:orm:1.0.2'
+	implementation 'com.lemon.framework:properties:1.0.2'
+	implementation 'com.lemon.framework:web:1.0.2'
+	implementation 'com.lemon.framework:spring-security:1.0.2'
 
 
 	implementation 'io.jsonwebtoken:jjwt-api:0.10.5'

@@ -1,8 +1,9 @@
 package com.lemon.spring.service.account.impl;
 
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
-import com.lemon.framework.springsecurity.jwt.TokenProvider;
+import com.lemon.framework.springsecurity.auth.AuthenticationService;
 import com.lemon.framework.springsecurity.jwt.auth.JWTAuthenticationService;
+import com.lemon.framework.springsecurity.jwt.provider.TokenProvider;
 import com.lemon.framework.web.data.UserInfo;
 import com.lemon.spring.component.security.CustomUserDetailsService;
 import com.lemon.spring.domain.Authority;
@@ -43,20 +44,17 @@ public class AccountServiceImpl implements AccountService {
     @Inject
     private JWTAuthenticationService jwtAuthenticationService;
 
+    @Inject
+    private AuthenticationService authenticationService;
+
     @Override
     public String currentUsername() {
-        return SecurityUtils.currentUserLogin();
+        return SecurityUtils.currentUserId().toString();
     }
 
     @Override
     public boolean login(String username, String password) {
-        UserDetails userDetails=userDetailsService.loadUserByUsername(username);
-        if(passwordEncoder.matches(password,userDetails.getPassword())) {
-            SecurityContext context = SecurityContextHolder.getContext();
-            context.setAuthentication(new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities()));
-            return true;
-        }
-        return false;
+        return authenticationService.authenticate(username,password);
     }
 
     @Override
@@ -86,6 +84,5 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void logout() {
         SecurityContextHolder.clearContext();
-
     }
 }

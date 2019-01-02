@@ -1,12 +1,14 @@
 package com.lemon.spring.config.security;
 
 import com.lemon.framework.properties.ApplicationProperties;
+import com.lemon.framework.springsecurity.auth.AuthenticationService;
+import com.lemon.framework.springsecurity.auth.complete.CompleteUserInfoAuthenticationService;
+import com.lemon.framework.springsecurity.auth.simple.SimpleAuthenticationService;
 import com.lemon.framework.springsecurity.jwt.JWTAuthConfigAdapter;
-import com.lemon.framework.springsecurity.jwt.TokenProvider;
-import com.lemon.framework.springsecurity.jwt.auth.AuthenticationService;
 import com.lemon.framework.springsecurity.jwt.auth.JWTAuthenticationService;
-import com.lemon.framework.springsecurity.jwt.auth.simple.SimpleAuthenticationService;
-import com.lemon.framework.springsecurity.jwt.auth.simple.SimpleJwtAuthenticationService;
+import com.lemon.framework.springsecurity.jwt.auth.simple.CompleteUserInfoJwtAuthenticationTokenService;
+import com.lemon.framework.springsecurity.jwt.provider.AuthenticationTokenTokenProvider;
+import com.lemon.framework.springsecurity.jwt.provider.TokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -124,7 +126,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean(initMethod = "init")
     public TokenProvider tokenProvider() {
-        return new TokenProvider(applicationProperties);
+        return new AuthenticationTokenTokenProvider(applicationProperties);
     }
 
     @Bean
@@ -134,11 +136,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public JWTAuthenticationService jwtAuthenticationService() {
-        return new SimpleJwtAuthenticationService(authenticationManager,tokenProvider,customUserDetailsService,passwordEncoder);
+        return new CompleteUserInfoJwtAuthenticationTokenService(authenticationManager, (AuthenticationTokenTokenProvider) tokenProvider,customUserDetailsService,passwordEncoder);
     }
 
     @Bean
     public AuthenticationService authenticationService() {
-        return new SimpleAuthenticationService(authenticationManager,customUserDetailsService,passwordEncoder);
+        return new CompleteUserInfoAuthenticationService(authenticationManager,customUserDetailsService,passwordEncoder);
     }
 }
