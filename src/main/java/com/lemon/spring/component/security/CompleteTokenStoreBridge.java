@@ -20,7 +20,9 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
 
     @Override
     public String tokenByUsername(String username) {
-        return tokenStoreRepository.findByUsername(username);
+        TokenStore tokenStore = tokenStoreRepository.findByUsername(username);
+        if(tokenStore !=null) return tokenStore.getToken();
+        return null;
     }
 
     @Override

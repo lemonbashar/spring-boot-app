@@ -21,5 +21,5 @@ public interface TokenStoreRepository extends JpaRepository<TokenStore, BigInteg
     TokenStore findByActiveStatus(@Param("token") String token, @Param("active") boolean active);
 
     @Query("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.user.username=:username")
-    String findByUsername(@Param("username") String username);
+    TokenStore findByUsername(@Param("username") String username);
 }
