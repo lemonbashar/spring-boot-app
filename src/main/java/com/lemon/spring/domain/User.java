@@ -20,28 +20,25 @@ public class User extends AbstractAudit {
     @SequenceGenerator(name = "spring_user_pk",sequenceName = "spring_user_seq",allocationSize = 1)
     private BigInteger id;
 
-    @Column(unique = true)
+    @Column(unique = true,name = "USERNAME")
     private String username;
 
-    @Column
+    @Column(name = "PASSWORD")
     private String password;
 
-    @Column
+    @Column(unique = true,name = "E_MAIL")
     private String email;
 
-    @Column
+    @Column(name = "FULL_NAME")
     private String fullName;
 
-    @Column
-    private boolean active;
-
-    @Column
+    @Column(name = "ACTIVE_DATE")
     private LocalDate activeDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_AUTHORITIES",
             joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY",referencedColumnName = "name")})
+            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY",referencedColumnName = "AUTHORITY_NAME")})
     private Set<Authority> authorities=new HashSet<>();
 
     public User() {
@@ -104,16 +101,6 @@ public class User extends AbstractAudit {
     public void setActiveDate(LocalDate activeDate) {
         this.activeDate = activeDate;
     }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-
 
     public Set<Authority> getAuthorities() {
         return authorities;
