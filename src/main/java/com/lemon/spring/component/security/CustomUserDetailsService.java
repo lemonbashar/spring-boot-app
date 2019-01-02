@@ -31,6 +31,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user;
         user= (User) hbmCapture.findOne("SELECT user FROM User user WHERE user.username='"+username+"'");
         if(user==null) throw new UsernameNotFoundException("User with Username :"+username +"Not Found");
-        return new CustomUserDetails(user.getUsername(),user.getPassword(),user.getAuthorities().stream().map(val->new SimpleGrantedAuthority(val.getName())).collect(Collectors.toSet()));
+        return new CustomUserDetails(user.getId(),user.getUsername(),user.getPassword(),user.isActive(),user.getAuthorities().stream().map(val->new SimpleGrantedAuthority(val.getName())).collect(Collectors.toSet()));
     }
 }

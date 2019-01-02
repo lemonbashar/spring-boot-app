@@ -3,6 +3,7 @@ package com.lemon.spring.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ import java.util.Set;
 
 @SuppressWarnings({"unused", "DefaultFileTemplate"})
 public class CustomUserDetails implements UserDetails {
-    private Long id;
+    private BigInteger id;
     private String username;
     private String password;
     private boolean accountNonExpired;
@@ -31,7 +32,7 @@ public class CustomUserDetails implements UserDetails {
         this.enabled=true;
     }
 
-    public CustomUserDetails(Long id,String username, String password, Set<? extends GrantedAuthority> grantedAuthorities) {
+    public CustomUserDetails(BigInteger id,String username, String password, Set<? extends GrantedAuthority> grantedAuthorities) {
         this.id=id;
         this.username = username;
         this.password = password;
@@ -42,7 +43,18 @@ public class CustomUserDetails implements UserDetails {
         this.enabled=true;
     }
 
-    public Long getId() {
+    public CustomUserDetails(BigInteger id, String username, String password, boolean enabled, Set<? extends GrantedAuthority> grantedAuthorities) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.accountNonExpired=true;
+        this.accountNonLocked=true;
+        this.credentialsNonExpired=true;
+        this.grantedAuthorities = grantedAuthorities;
+    }
+
+    public BigInteger getId() {
         return id;
     }
 

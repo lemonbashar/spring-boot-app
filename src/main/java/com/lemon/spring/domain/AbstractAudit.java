@@ -19,15 +19,15 @@ public abstract class AbstractAudit {
     @Column(name = "UPDATE_DATE")
     private LocalDate updateDate;
 
-    @Column(name = "ACTIVE_STATUS")
-    private boolean activeStatus;
+    @Column(name = "ACTIVE")
+    private boolean active;
 
-    public boolean isActiveStatus() {
-        return activeStatus;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setActiveStatus(boolean activeStatus) {
-        this.activeStatus = activeStatus;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public User getCreateBy() {
