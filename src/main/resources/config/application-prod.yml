@@ -11,7 +11,7 @@ settings:
 
 database:
   hibernate:
-    hbm2DDLAuto: update
+    hbm2DDLAuto: none
     formatSQL: false
     comments: false
     showSql: false

@@ -27,16 +27,7 @@ public class AccountServiceImpl implements AccountService {
     private HbmCapture hbmCapture;
 
     @Inject
-    private CustomUserDetailsService userDetailsService;
-
-    @Inject
     private PasswordEncoder passwordEncoder;
-
-    @Inject
-    private AuthenticationManager authenticationManager;
-
-    @Inject
-    private TokenProvider tokenProvider;
 
     @Inject
     private JWTAuthenticationService jwtAuthenticationService;

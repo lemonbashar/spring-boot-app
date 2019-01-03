@@ -14,8 +14,8 @@ import java.util.Date;
 public class TokenStore extends AbstractAudit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "token_store_pk")
-    @SequenceGenerator(name = "token_store_pk",sequenceName = "token_store_seq",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO,generator = "TOKEN_STORE_PK")
+    @SequenceGenerator(name = "TOKEN_STORE_PK",sequenceName = "TOKEN_STORE_SEQ",allocationSize = 1)
     private BigInteger id;
 
     @Column(name = "JWT_TOKEN",length = 2048,unique = true)

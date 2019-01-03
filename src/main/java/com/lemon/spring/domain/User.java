@@ -16,8 +16,8 @@ import java.util.Set;
 public class User extends AbstractAudit {
     public static final String CACHE = "UserCache";
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "spring_user_pk")
-    @SequenceGenerator(name = "spring_user_pk",sequenceName = "spring_user_seq",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO,generator = "SPRING_USER_PK")
+    @SequenceGenerator(name = "SPRING_USER_PK",sequenceName = "SPRING_USER_SEQ",allocationSize = 1)
     private BigInteger id;
 
     @Column(unique = true,name = "USERNAME")

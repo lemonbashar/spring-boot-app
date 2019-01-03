@@ -133,3 +133,7 @@
 2019-01-03 16:05:50 INFO  TokenProvider:108 - Expired JWT token.
 2019-01-03 16:09:34 WARN  TokenProvider:43 - Warning: the JWT key used is not Base64-encoded. We recommend using the `applicationProperties.settings.security.authentication.jwt.base64Secret` key for optimum security.
 2019-01-03 16:11:58 WARN  TokenProvider:43 - Warning: the JWT key used is not Base64-encoded. We recommend using the `applicationProperties.settings.security.authentication.jwt.base64Secret` key for optimum security.
+2019-01-03 16:34:55 WARN  TokenProvider:43 - Warning: the JWT key used is not Base64-encoded. We recommend using the `applicationProperties.settings.security.authentication.jwt.base64Secret` key for optimum security.
+2019-01-03 16:38:38 WARN  TokenProvider:43 - Warning: the JWT key used is not Base64-encoded. We recommend using the `applicationProperties.settings.security.authentication.jwt.base64Secret` key for optimum security.
+2019-01-03 16:45:44 WARN  TokenProvider:43 - Warning: the JWT key used is not Base64-encoded. We recommend using the `applicationProperties.settings.security.authentication.jwt.base64Secret` key for optimum security.
+2019-01-03 16:49:22 WARN  TokenProvider:43 - Warning: the JWT key used is not Base64-encoded. We recommend using the `applicationProperties.settings.security.authentication.jwt.base64Secret` key for optimum security.
