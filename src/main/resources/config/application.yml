@@ -6,7 +6,8 @@ settings:
 
 spring:
   profiles:
-    active: dev,postgre
+#    active: dev,postgre
+    active: dev,mysql
 #Active Profile is always should two or more & The First one is must dev or prod and second or next is any database configuration
 
 

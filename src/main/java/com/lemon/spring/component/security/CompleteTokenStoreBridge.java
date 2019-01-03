@@ -9,6 +9,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.math.BigInteger;
 import java.util.Date;
 
 @DependsOn("tokenStoreRepository")
@@ -45,5 +46,25 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
         tokenStore.setActive(true);
 
         tokenStoreRepository.save(tokenStore);
+    }
+
+    @Override
+    public void updateTokenActiveStatus(String token, boolean activeStatus) {
+        tokenStoreRepository.updateTokenStatus(token,activeStatus);
+    }
+
+    @Override
+    public void deactivateAllByUidAndIpAddress(BigInteger userId, String ipAddress) {
+        tokenStoreRepository.deactivateTokenByUidAndIp(userId,ipAddress);
+    }
+
+    @Override
+    public int totalTokenByActiveStatus(BigInteger userId, boolean activeStatus) {
+        return (int) tokenStoreRepository.countByUidAndActiveStatus(userId,activeStatus);
+    }
+
+    @Override
+    public void deactivateAllByUid(BigInteger userId) {
+        tokenStoreRepository.updateTokenStatusByUid(userId,false);
     }
 }

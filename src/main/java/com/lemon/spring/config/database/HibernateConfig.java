@@ -3,7 +3,9 @@ package com.lemon.spring.config.database;
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.framework.orm.capture.hbm.impl.HibernateCapture;
 import com.lemon.framework.properties.ApplicationProperties;
-import org.apache.log4j.Logger;
+import com.lemon.spring.controller.rest.AccountControllerRest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Environment;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +30,7 @@ public class HibernateConfig {
     @Inject
     private ApplicationProperties properties;
 
-    private final Logger log=Logger.getLogger(HibernateConfig.class);
+    private Logger log= LogManager.getLogger(AccountControllerRest.class);
 
     static final String[] annotatedPackages={"com.lemon.spring.domain"};
 
