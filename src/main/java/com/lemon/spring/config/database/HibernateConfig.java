@@ -6,8 +6,9 @@ import com.lemon.framework.properties.ApplicationProperties;
 import com.lemon.spring.controller.rest.AccountControllerRest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.cfg.Environment;
+import org.hibernate.type.Type;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -16,6 +17,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
+import java.io.Serializable;
+import java.util.Iterator;
 import java.util.Properties;
 
 /**

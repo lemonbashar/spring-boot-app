@@ -5,6 +5,7 @@ import com.lemon.framework.springsecurity.auth.AuthenticationService;
 import com.lemon.framework.springsecurity.jwt.auth.JWTAuthenticationService;
 import com.lemon.framework.springsecurity.jwt.provider.TokenProvider;
 import com.lemon.framework.web.data.UserInfo;
+import com.lemon.spring.component.audit.AuditAware;
 import com.lemon.spring.component.security.CustomUserDetailsService;
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.domain.User;
@@ -35,6 +36,9 @@ public class AccountServiceImpl implements AccountService {
     @Inject
     private AuthenticationService authenticationService;
 
+    @Inject
+    private AuditAware auditAware;
+
     @Override
     public String currentUsername() {
         return SecurityUtils.currentUserLogin();
@@ -56,6 +60,7 @@ public class AccountServiceImpl implements AccountService {
             authorities.add(v);
         });
         user.setAuthorities(authorities);
+        auditAware.awareCreate(user);
         hbmCapture.save(user);
     }
 
@@ -71,6 +76,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void logout() {
+
         SecurityContextHolder.clearContext();
     }
 }

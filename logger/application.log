@@ -137,3 +137,9 @@
 2019-01-03 16:38:38 WARN  TokenProvider:43 - Warning: the JWT key used is not Base64-encoded. We recommend using the `applicationProperties.settings.security.authentication.jwt.base64Secret` key for optimum security.
 2019-01-03 16:45:44 WARN  TokenProvider:43 - Warning: the JWT key used is not Base64-encoded. We recommend using the `applicationProperties.settings.security.authentication.jwt.base64Secret` key for optimum security.
 2019-01-03 16:49:22 WARN  TokenProvider:43 - Warning: the JWT key used is not Base64-encoded. We recommend using the `applicationProperties.settings.security.authentication.jwt.base64Secret` key for optimum security.
+2019-01-03 18:07:04 WARN  TokenProvider:43 - Warning: the JWT key used is not Base64-encoded. We recommend using the `applicationProperties.settings.security.authentication.jwt.base64Secret` key for optimum security.
+2019-01-03 19:08:51 WARN  TokenProvider:43 - Warning: the JWT key used is not Base64-encoded. We recommend using the `applicationProperties.settings.security.authentication.jwt.base64Secret` key for optimum security.
+2019-01-03 19:10:07 WARN  TokenProvider:43 - Warning: the JWT key used is not Base64-encoded. We recommend using the `applicationProperties.settings.security.authentication.jwt.base64Secret` key for optimum security.
+2019-01-03 20:29:24 WARN  TokenProvider:43 - Warning: the JWT key used is not Base64-encoded. We recommend using the `applicationProperties.settings.security.authentication.jwt.base64Secret` key for optimum security.
+2019-01-03 21:54:01 WARN  TokenProvider:43 - Warning: the JWT key used is not Base64-encoded. We recommend using the `applicationProperties.settings.security.authentication.jwt.base64Secret` key for optimum security.
+2019-01-03 21:56:54 WARN  TokenProvider:43 - Warning: the JWT key used is not Base64-encoded. We recommend using the `applicationProperties.settings.security.authentication.jwt.base64Secret` key for optimum security.

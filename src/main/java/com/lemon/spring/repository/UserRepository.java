@@ -1,14 +1,25 @@
 package com.lemon.spring.repository;
 
+import com.lemon.spring.domain.Authority;
 import com.lemon.spring.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
+import java.util.List;
 
 
 @Repository
 @Transactional
 public interface UserRepository extends JpaRepository<User, BigInteger> {
+
+    @Query("SELECT user FROM User user WHERE user.username=:username")
+    User findOneByUsername(@Param("username") String username);
+
+    @Query("SELECT user FROM User user INNER JOIN user.authorities auth WHERE auth.name=:authority")
+    List<User> findAllByAuthority(@Param("authority") String authority);
+
 }

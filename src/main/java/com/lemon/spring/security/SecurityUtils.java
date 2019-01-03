@@ -1,6 +1,7 @@
 package com.lemon.spring.security;
 
 import com.lemon.framework.springsecurity.auth.AuthenticationToken;
+import com.lemon.framework.springsecurity.data.CustomUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +22,8 @@ public final class SecurityUtils {
 
     public static BigInteger currentUserId() {
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        if(authentication.getPrincipal() instanceof CustomUserDetails)
+            return ((CustomUserDetails)authentication.getPrincipal()).getId();
         if(authentication instanceof AuthenticationToken) {
             return ((AuthenticationToken)authentication).getUserId();
         }

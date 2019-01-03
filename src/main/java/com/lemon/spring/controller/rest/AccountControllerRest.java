@@ -4,6 +4,7 @@ import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.framework.springsecurity.jwt.JWTFilter;
 import com.lemon.framework.web.data.JWToken;
 import com.lemon.framework.web.data.UserInfo;
+import com.lemon.spring.component.audit.AuditAware;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.interfaces.WebController;
 import com.lemon.spring.repository.UserRepository;
@@ -22,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +44,10 @@ public class AccountControllerRest implements WebController<User> {
     @Inject
     private UserRepository userRepository;
 
-    private Logger log= LogManager.getLogger(AccountControllerRest.class);
+    @Inject
+    private AuditAware auditAware;
+
+    private Logger log = LogManager.getLogger(AccountControllerRest.class);
 
 
     @Override
@@ -58,6 +63,8 @@ public class AccountControllerRest implements WebController<User> {
     @Override
     @PutMapping(value = BASE_PATH)
     public ResponseEntity<Map<String, Object>> update(@RequestBody User entity) {
+        auditAware.awareUpdate(entity);
+        userRepository.save(entity);
         return null;
     }
 
@@ -110,7 +117,8 @@ public class AccountControllerRest implements WebController<User> {
     }
 
     @PostMapping(value = BASE_PATH+"/login-jwt",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JWToken> loginJwt(@RequestBody UserInfo userInfo) {
+    public ResponseEntity<JWToken> loginJwt(@RequestBody UserInfo userInfo, HttpServletRequest httpServletRequest) {
+        userInfo.setIpAddress(httpServletRequest.getRemoteAddr());
         String token=accountService.authenticate(userInfo);
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER,JWTFilter.BEARER+token);
