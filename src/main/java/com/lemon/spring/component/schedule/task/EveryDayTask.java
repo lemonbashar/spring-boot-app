@@ -44,7 +44,7 @@ public class EveryDayTask {
      */
     @Scheduled(cron = "0 0 0 * * ?")
     public void deleteOldPersistentToken() {
-        LocalDate localDate=LocalDate.now().minusDays(applicationProperties.settings.security.authentication.clearInactiveUserAfterGivenDays);
+        LocalDate localDate=LocalDate.now().minusDays(applicationProperties.settings.security.authentication.clearInactiveJwtAfterGivenDays);
         tokenStoreRepository.deleteAll(tokenStoreRepository.findAllBeforeDate(localDate));
     }
 }

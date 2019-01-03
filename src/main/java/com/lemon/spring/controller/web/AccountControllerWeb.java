@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,12 +49,6 @@ public class AccountControllerWeb {
 
     @GetMapping(value = BASE_PATH+"/login")
     public String login(Model model, @RequestParam(name = "error",required = false) String error,@RequestParam(name = "logout",required = false) String logout) {
-        return "account/login";
-    }
-
-    @GetMapping(value = BASE_PATH+"/logout")
-    public String logout() {
-        accountService.logout();
         return "account/login";
     }
 }

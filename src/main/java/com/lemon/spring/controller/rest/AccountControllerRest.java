@@ -3,6 +3,7 @@ package com.lemon.spring.controller.rest;
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.framework.springsecurity.jwt.JWTFilter;
 import com.lemon.framework.web.data.JWToken;
+import com.lemon.framework.web.data.LogoutInfo;
 import com.lemon.framework.web.data.UserInfo;
 import com.lemon.spring.component.audit.AuditAware;
 import com.lemon.spring.domain.User;
@@ -123,6 +124,11 @@ public class AccountControllerRest implements WebController<User> {
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER,JWTFilter.BEARER+token);
         return new ResponseEntity<>(new JWToken(token),httpHeaders, HttpStatus.OK);
+    }
+
+    @PostMapping(value = BASE_PATH+"/logout")
+    public void logout(@RequestBody LogoutInfo logoutInfo, HttpServletRequest httpServletRequest) {
+        accountService.logout(logoutInfo,httpServletRequest);
     }
 
 

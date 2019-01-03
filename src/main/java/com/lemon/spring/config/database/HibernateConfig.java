@@ -36,6 +36,7 @@ public class HibernateConfig {
     private Logger log= LogManager.getLogger(AccountControllerRest.class);
 
     static final String[] annotatedPackages={"com.lemon.spring.domain"};
+    static final String[] mappingFiles={"config/hibernate/mapping/token.hbm.xml"};
 
     @Bean
     public LocalSessionFactoryBean localSessionFactoryBean(DataSource dataSource) {
@@ -50,6 +51,7 @@ public class HibernateConfig {
         localSessionFactoryBean.setPhysicalNamingStrategy(new AllCapitalPhysicalNaming());
         //hbmProperties.setProperty(Environment.DEFAULT_SCHEMA,properties.database.schema);
         localSessionFactoryBean.setPackagesToScan(annotatedPackages);
+        //localSessionFactoryBean.setMappingResources(mappingFiles);
         localSessionFactoryBean.setHibernateProperties(hbmProperties);
         //localSessionFactoryBean.setEntityInterceptor(interceptor);
         return localSessionFactoryBean;

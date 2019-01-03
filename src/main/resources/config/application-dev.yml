@@ -8,6 +8,8 @@ settings:
         base64Secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZjcyZDkxMGJiMDhiZmEyZTc2MTA0YWM0YjlmZDU1YzlkM2RlYWZjYWYwYjdiNDE3YmY5ZjBjYzQ2OWFmMDc1YzRjYzlhZjU5OGU3NmQ
         tokenValidityInSeconds: 300
         tokenValidityInSecondsForRememberMe: 1800
+        maximumLiveJwtCount: 10
+        maximumLoginLimitInDay: 2
 
 
 database:

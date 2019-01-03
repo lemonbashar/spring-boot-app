@@ -8,10 +8,13 @@ import com.lemon.spring.domain.TokenStore;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.repository.TokenStoreRepository;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -72,12 +75,7 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
 
     @Override
     public void deactivateAllByUidAndIpAddress(BigInteger userId, String ipAddress) {
-        List<TokenStore> tokenStores=tokenStoreRepository.findAllByUidAndIp(userId,ipAddress);
-        tokenStores.forEach(tokenStore->{
-            tokenStore.setActive(false);
-            auditAware.awareUpdate(tokenStore);
-            tokenStoreRepository.save(tokenStore);
-        });
+        deactivate(tokenStoreRepository.findAllByUidAndIp(userId,ipAddress));
     }
 
     @Override
@@ -87,17 +85,50 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
 
     @Override
     public void deactivateAllByUid(BigInteger userId) {
-        List<TokenStore> tokenStores=tokenStoreRepository.findAllByUid(userId);
-        tokenStores.forEach(tokenStore->{
-            tokenStore.setActive(false);
-            auditAware.awareUpdate(tokenStore);
-            tokenStoreRepository.save(tokenStore);
-        });
+        deactivate(tokenStoreRepository.findAllByUid(userId));
     }
 
     @Override
     public void deleteToken(String token) {
         TokenStore tokenStore=tokenStoreRepository.findByToken(token);
         if(tokenStore!=null) tokenStoreRepository.delete(tokenStore);
+    }
+
+    @Override
+    public int countTokenByDate(LocalDate fromDate, LocalDate toDate,BigInteger userId){
+        return (int)tokenStoreRepository.countTokenByDate(fromDate,toDate,userId);
+    }
+
+    @Override
+    public int countTokenByDate(LocalDate now,BigInteger userId){
+        return (int)tokenStoreRepository.countTokenByDate(now,userId);
+    }
+
+    @Override
+    public int countTokenByUserIdAndStatus(BigInteger userId, boolean activeStatus){
+        return (int) tokenStoreRepository.countByUidAndActiveStatus(userId,activeStatus);
+    }
+
+    @Override
+    public void deactivateOlderTokenCountByUid(int count, BigInteger userId){
+        deactivate(tokenStoreRepository.findAllByUid(new PageRequest(0,count),userId,true));
+    }
+
+    @Override
+    public int countTokenByUserIdIpAndStatus(BigInteger userId, String ipAddress, boolean activeStatus){
+        return (int) tokenStoreRepository.countByUidIpAndActiveStatus(userId,ipAddress,activeStatus);
+    }
+
+    @Override
+    public void deactivateOlderTokenCountByUidAndIp(int count, BigInteger userId, String ipAddress){
+        deactivate(tokenStoreRepository.findAllByUidAndIp(new PageRequest(0,count),userId,ipAddress,true));
+    }
+
+    private void deactivate(List<TokenStore> tokenStores) {
+        tokenStores.forEach(tokenStore->{
+            tokenStore.setActive(false);
+            auditAware.awareUpdate(tokenStore);
+            tokenStoreRepository.save(tokenStore);
+        });
     }
 }

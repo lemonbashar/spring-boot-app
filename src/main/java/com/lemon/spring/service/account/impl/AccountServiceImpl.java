@@ -4,6 +4,7 @@ import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.framework.springsecurity.auth.AuthenticationService;
 import com.lemon.framework.springsecurity.jwt.auth.JWTAuthenticationService;
 import com.lemon.framework.springsecurity.jwt.provider.TokenProvider;
+import com.lemon.framework.web.data.LogoutInfo;
 import com.lemon.framework.web.data.UserInfo;
 import com.lemon.spring.component.audit.AuditAware;
 import com.lemon.spring.component.security.CustomUserDetailsService;
@@ -15,8 +16,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -75,8 +78,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void logout() {
-
+    public void logout(LogoutInfo logoutInfo,HttpServletRequest httpServletRequest) {
+        logoutInfo.setUserId(SecurityUtils.currentUserId());
+        jwtAuthenticationService.logout(logoutInfo,httpServletRequest);
         SecurityContextHolder.clearContext();
+    }
+
+    private String resolveToken(HttpServletRequest httpServletRequest) {
+        String bearer = httpServletRequest.getHeader("Authorization");
+        return StringUtils.hasText(bearer) && bearer.startsWith("Bearer ") ? bearer.substring("Bearer ".length()) : null;
     }
 }

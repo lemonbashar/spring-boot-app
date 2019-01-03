@@ -1,10 +1,13 @@
 package com.lemon.spring.repository;
 
 import com.lemon.spring.domain.TokenStore;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,9 +56,30 @@ public interface TokenStoreRepository extends JpaRepository<TokenStore, BigInteg
     @Query("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId")
     List<TokenStore> findAllByUid(@Param("userId") BigInteger userId);
 
+    @Query("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId ORDER BY tokenStore.id ASC ")
+    List<TokenStore> findAllByUid(Pageable pageable, @Param("userId") BigInteger userId);
+
+    @Query("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.active=:activeStatus ORDER BY tokenStore.id ASC  ")
+    List<TokenStore> findAllByUid(Pageable pageable, @Param("userId") BigInteger userId, @Param("activeStatus") boolean activeStatus);
+
     @Query("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.ipAddress=:ipAddress")
     List<TokenStore> findAllByUidAndIp(@Param("userId") BigInteger userId , @Param("ipAddress") String ipAddress);
 
+    @Query("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.ipAddress=:ipAddress ORDER BY tokenStore.id ASC ")
+    List<TokenStore> findAllByUidAndIp(Pageable pageable,@Param("userId") BigInteger userId , @Param("ipAddress") String ipAddress);
+
+    @Query("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.ipAddress=:ipAddress AND tokenStore.active=:activeStatus ORDER BY tokenStore.id ASC ")
+    List<TokenStore> findAllByUidAndIp(Pageable pageable,@Param("userId") BigInteger userId , @Param("ipAddress") String ipAddress, @Param("activeStatus") boolean activeStatus);
+
     @Query("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.token=:token AND tokenStore.ipAddress=:remoteIpAddress AND tokenStore.active=:activeStatus")
     TokenStore findByTokenIpAndStatus(@Param("token") String token, @Param("remoteIpAddress") String remoteIpAddress, @Param("activeStatus") boolean activeStatus);
+
+    @Query("SELECT count(tokenStore.id) FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.createDate>=:fromDate AND tokenStore.createDate<=:toDate")
+    long countTokenByDate(@Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate,@Param("userId") BigInteger userId);
+
+    @Query("SELECT count(tokenStore.id) FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.createDate=:date")
+    long countTokenByDate(@Param("date") LocalDate date,@Param("userId") BigInteger userId);
+
+    @Query("SELECT count(tokenStore.id) FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.ipAddress=:ipAddress AND tokenStore.active=:activeStatus")
+    long countByUidIpAndActiveStatus(@Param("userId") BigInteger userId, @Param("ipAddress") String ipAddress, @Param("activeStatus") boolean activeStatus);
 }
