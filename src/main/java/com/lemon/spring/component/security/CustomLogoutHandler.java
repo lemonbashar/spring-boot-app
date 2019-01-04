@@ -1,5 +1,8 @@
 package com.lemon.spring.component.security;
 
+import com.lemon.spring.controller.rest.AccountControllerRest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Component;
@@ -14,9 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings({"unused", "DefaultFileTemplate"})
 @Component
 public class CustomLogoutHandler implements LogoutHandler {
+    private final Logger log= LogManager.getLogger(AccountControllerRest.class);
     @Override
     public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {
-        System.out.println("Logout Handle:-->");
+        log.debug("Logout Handle:-->");
         //throw new RuntimeException("User Should not Logout That Time");
         /* TODO:Related Token Will be Deleted */
     }

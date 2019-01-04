@@ -1,5 +1,8 @@
 package com.lemon.spring.component.security;
 
+import com.lemon.spring.controller.rest.AccountControllerRest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -16,8 +19,10 @@ import java.io.IOException;
 @SuppressWarnings({"unused", "DefaultFileTemplate"})
 @Component
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
+    private final Logger log= LogManager.getLogger(AccountControllerRest.class);
+
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-        System.out.println("Log-Out Success:--->");
+        log.debug("Log-Out Success:--->");
     }
 }

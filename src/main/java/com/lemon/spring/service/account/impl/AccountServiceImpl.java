@@ -6,10 +6,13 @@ import com.lemon.framework.springsecurity.jwt.auth.JWTAuthenticationService;
 import com.lemon.framework.web.data.LogoutInfo;
 import com.lemon.framework.web.data.UserInfo;
 import com.lemon.spring.component.audit.AuditAware;
+import com.lemon.spring.controller.rest.AccountControllerRest;
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.security.SecurityUtils;
 import com.lemon.spring.service.account.AccountService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +27,8 @@ import java.util.Set;
 @SuppressWarnings({"unchecked", "JpaQlInspection", "SpringJavaAutowiredFieldsWarningInspection"})
 @Service
 public class AccountServiceImpl implements AccountService {
+
+    private final Logger log= LogManager.getLogger(AccountControllerRest.class);
 
     @Inject
     private HbmCapture hbmCapture;

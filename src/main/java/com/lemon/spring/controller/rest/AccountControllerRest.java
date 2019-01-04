@@ -138,6 +138,6 @@ public class AccountControllerRest implements WebController<User> {
 
     @GetMapping(value = BASE_PATH+"/login",produces = MediaType.APPLICATION_JSON_VALUE)
     public void loginAfter(Model  model) throws IOException {
-        System.out.println("<><><><><> A Login Processor For Rest Control");
+        log.debug("<><><><><> A Login Processor For Rest Control");
     }
 }

@@ -131,22 +131,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers(HttpMethod.GET,"/api/account-controller/key/*").hasAnyAuthority(ROLE_ADMIN)
                 .anyRequest().authenticated();
                 //.antMatchers("/api/**","/web/**").authenticated();
-        if(applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_STATELESS))http.apply(securityConfigurerAdapter);
+        if(applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_STATELESS) || applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_BOTH))http.apply(securityConfigurerAdapter);
     }
 
-    @Profile(value = Constants.PROFILE_STATELESS)
+    @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
     @Bean(initMethod = "init")
     public TokenProvider tokenProvider() {
         return new AuthenticationTokenTokenProvider(applicationProperties,completeTokenStoreBridge);
     }
 
-    @Profile(value = Constants.PROFILE_STATELESS)
+    @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
     @Bean
     public JWTAuthConfigAdapter jwtAuthConfigAdapter() {
         return new JWTAuthConfigAdapter(tokenProvider);
     }
 
-    @Profile(value = Constants.PROFILE_STATELESS)
+    @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
     @Bean
     public JWTAuthenticationService jwtAuthenticationService() {
         return new CompleteUserInfoJwtAuthenticationTokenService(authenticationManager, (AuthenticationTokenTokenProvider) tokenProvider,customUserDetailsService,passwordEncoder);
