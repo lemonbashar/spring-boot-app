@@ -6,9 +6,10 @@ settings:
 
 spring:
   profiles:
-    active: dev,postgre
+    active: dev,stateless,postgre
+#    active: dev,stateful,postgre
 #    active: dev,mysql
-#Active Profile is always should two or more & The First one is must dev or prod and second or next is any database configuration
+#Active Profile is always should two or more & The First one is must dev or prod and next is application type like stateful or stateless third is any database configuration
 
 
 server:

@@ -82,4 +82,10 @@ public interface TokenStoreRepository extends JpaRepository<TokenStore, BigInteg
 
     @Query("SELECT count(tokenStore.id) FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.ipAddress=:ipAddress AND tokenStore.active=:activeStatus")
     long countByUidIpAndActiveStatus(@Param("userId") BigInteger userId, @Param("ipAddress") String ipAddress, @Param("activeStatus") boolean activeStatus);
+
+    @Query("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.ipAddress !=:ipAddress")
+    List<TokenStore> findAllByUidRatherThanCurrentIp(@Param("userId") BigInteger userId, @Param("ipAddress") String ipAddress);
+
+    @Query("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.token !=:token")
+    List<TokenStore> findAllByUidRatherThanCurrentToken(@Param("userId") BigInteger userId, @Param("token") String token);
 }

@@ -66,9 +66,7 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
     public void updateTokenActiveStatus(String token, boolean activeStatus) {
         TokenStore tokenStore=tokenStoreRepository.findByToken(token);
         if(tokenStore !=null) {
-            tokenStore.setActive(activeStatus);
-            auditAware.awareUpdate(tokenStore);
-            tokenStoreRepository.save(tokenStore);
+            updateTokenActiveStatus(tokenStore,activeStatus);
         }
     }
 
@@ -123,11 +121,30 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
         deactivate(tokenStoreRepository.findAllByUidAndIp(new PageImpl(count),userId,ipAddress,true));
     }
 
+    @Override
+    public void deactivate(String token) {
+        updateTokenActiveStatus(token,false);
+    }
+
+    @Override
+    public void deactivateAllByUidRatherThanIp(BigInteger userId, String ipAddress) {
+        deactivate(tokenStoreRepository.findAllByUidRatherThanCurrentIp(userId,ipAddress));
+    }
+
+    @Override
+    public void deactivateAllByUidRatherThanToken(BigInteger userId, String token) {
+        deactivate(tokenStoreRepository.findAllByUidRatherThanCurrentToken(userId,token));
+    }
+
     private void deactivate(List<TokenStore> tokenStores) {
         tokenStores.forEach(tokenStore->{
-            tokenStore.setActive(false);
-            auditAware.awareUpdate(tokenStore);
-            tokenStoreRepository.save(tokenStore);
+            updateTokenActiveStatus(tokenStore,false);
         });
+    }
+
+    private void updateTokenActiveStatus(TokenStore tokenStore,boolean activeStatus) {
+        tokenStore.setActive(activeStatus);
+        auditAware.awareUpdate(tokenStore);
+        tokenStoreRepository.save(tokenStore);
     }
 }

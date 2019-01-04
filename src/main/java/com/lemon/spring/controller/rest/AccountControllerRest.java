@@ -6,6 +6,7 @@ import com.lemon.framework.web.data.JWToken;
 import com.lemon.framework.web.data.LogoutInfo;
 import com.lemon.framework.web.data.UserInfo;
 import com.lemon.spring.component.audit.AuditAware;
+import com.lemon.spring.config.Constants;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.interfaces.WebController;
 import com.lemon.spring.repository.UserRepository;
@@ -127,8 +128,11 @@ public class AccountControllerRest implements WebController<User> {
     }
 
     @PostMapping(value = BASE_PATH+"/logout")
-    public void logout(@RequestBody LogoutInfo logoutInfo, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Map<String,Object>> logout(@RequestBody LogoutInfo logoutInfo, HttpServletRequest httpServletRequest) {
         accountService.logout(logoutInfo,httpServletRequest);
+        Map<String ,Object> map=new HashMap<>();
+        map.put(Constants.GLOBAL_MESSAGE,"Logout is Success For Condition:"+logoutInfo.getLogoutRule().name());
+        return ResponseEntity.ok(map);
     }
 
 

@@ -1,6 +1,7 @@
 package com.lemon.spring.config.security;
 
 import com.lemon.framework.properties.ApplicationProperties;
+import com.lemon.framework.properties.constants.PropertiesConstants;
 import com.lemon.framework.springsecurity.auth.AuthenticationService;
 import com.lemon.framework.springsecurity.auth.complete.CompleteUserInfoAuthenticationService;
 import com.lemon.framework.springsecurity.jwt.JWTAuthConfigAdapter;
@@ -9,8 +10,11 @@ import com.lemon.framework.springsecurity.jwt.auth.complete.CompleteUserInfoJwtA
 import com.lemon.framework.springsecurity.jwt.provider.AuthenticationTokenTokenProvider;
 import com.lemon.framework.springsecurity.jwt.provider.TokenProvider;
 import com.lemon.spring.component.security.CompleteTokenStoreBridge;
+import com.lemon.spring.config.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -38,12 +42,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] LIST_OF_COOKIES_TO_DELETE_WHEN_LOG_OUT = {"LOGIN_ID_COOKIE","JSESSIONID"};
 
     @Inject
-    private CompleteTokenStoreBridge completeTokenStoreBridge;
-
-    @Inject
     private ApplicationProperties applicationProperties;
 
-    @Inject
+    @Autowired(required = false)
+    private CompleteTokenStoreBridge completeTokenStoreBridge;
+
+
+    @Autowired(required = false)
     private TokenProvider tokenProvider;
 
     @Inject
@@ -67,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Inject
     private LogoutHandler logoutHandler;
 
-    @Inject
+    @Autowired(required = false)
     private SecurityConfigurerAdapter<DefaultSecurityFilterChain,HttpSecurity> securityConfigurerAdapter;
 
 
@@ -95,8 +100,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()/*Make Spring-Boot Application Stateless*/
-          .csrf().disable()
+          if(applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_STATELESS))
+            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();/*Make Spring-Boot Application Stateless*/
+          http.csrf().disable()
                 /*Login Related*/
           .formLogin()
                 .loginPage("/web/account-controller/login")
@@ -123,21 +129,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers(HttpMethod.POST,"/web/account-controller*").permitAll()/*Register API Permit For Registration*/
                 .mvcMatchers(HttpMethod.POST,"/api/account-controller*").permitAll()/*When Click to Register, All User Data need to Store on Database, and for this reason it has been permitted */
                 .mvcMatchers(HttpMethod.GET,"/api/account-controller/key/*").hasAnyAuthority(ROLE_ADMIN)
-                .anyRequest().authenticated()
+                .anyRequest().authenticated();
                 //.antMatchers("/api/**","/web/**").authenticated();
-        .and().apply(securityConfigurerAdapter);
+        if(applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_STATELESS))http.apply(securityConfigurerAdapter);
     }
 
+    @Profile(value = Constants.PROFILE_STATELESS)
     @Bean(initMethod = "init")
     public TokenProvider tokenProvider() {
         return new AuthenticationTokenTokenProvider(applicationProperties,completeTokenStoreBridge);
     }
 
+    @Profile(value = Constants.PROFILE_STATELESS)
     @Bean
     public JWTAuthConfigAdapter jwtAuthConfigAdapter() {
         return new JWTAuthConfigAdapter(tokenProvider);
     }
 
+    @Profile(value = Constants.PROFILE_STATELESS)
     @Bean
     public JWTAuthenticationService jwtAuthenticationService() {
         return new CompleteUserInfoJwtAuthenticationTokenService(authenticationManager, (AuthenticationTokenTokenProvider) tokenProvider,customUserDetailsService,passwordEncoder);

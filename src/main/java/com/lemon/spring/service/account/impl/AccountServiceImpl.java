@@ -3,16 +3,14 @@ package com.lemon.spring.service.account.impl;
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.framework.springsecurity.auth.AuthenticationService;
 import com.lemon.framework.springsecurity.jwt.auth.JWTAuthenticationService;
-import com.lemon.framework.springsecurity.jwt.provider.TokenProvider;
 import com.lemon.framework.web.data.LogoutInfo;
 import com.lemon.framework.web.data.UserInfo;
 import com.lemon.spring.component.audit.AuditAware;
-import com.lemon.spring.component.security.CustomUserDetailsService;
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.security.SecurityUtils;
 import com.lemon.spring.service.account.AccountService;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,7 +31,7 @@ public class AccountServiceImpl implements AccountService {
     @Inject
     private PasswordEncoder passwordEncoder;
 
-    @Inject
+    @Autowired(required = false)
     private JWTAuthenticationService jwtAuthenticationService;
 
     @Inject
@@ -81,7 +79,6 @@ public class AccountServiceImpl implements AccountService {
     public void logout(LogoutInfo logoutInfo,HttpServletRequest httpServletRequest) {
         logoutInfo.setUserId(SecurityUtils.currentUserId());
         jwtAuthenticationService.logout(logoutInfo,httpServletRequest);
-        SecurityContextHolder.clearContext();
     }
 
     private String resolveToken(HttpServletRequest httpServletRequest) {

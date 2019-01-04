@@ -1,5 +1,7 @@
 package com.lemon.spring;
 
+import com.lemon.framework.properties.ApplicationProperties;
+import com.lemon.framework.properties.constants.PropertiesConstants;
 import com.lemon.spring.config.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,9 @@ public class Application {
 
     @Inject
     private Environment env;
+
+    @Inject
+    private ApplicationProperties properties;
 
 
     @PostConstruct
@@ -64,10 +69,10 @@ public class Application {
     }
 
     private static void addDefaultProfile(SpringApplication application, SimpleCommandLinePropertySource propertySource) {
-        if (!propertySource.containsProperty("spring.profiles.active") &&
+        /*if (!propertySource.containsProperty("spring.profiles.active") &&
                 !System.getenv().containsKey("SPRING_PROFILES_ACTIVE")) {
 
             //application.setAdditionalProfiles(PROFILE_DEVELOPMENT);
-        }
+        }*/
     }
 }
