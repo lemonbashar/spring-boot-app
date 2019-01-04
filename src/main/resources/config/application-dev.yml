@@ -19,6 +19,10 @@ database:
     formatSQL: true
     comments: true
     showSql: true
+    enable-second-level-cache: true
+    enableStruturedCache: true
+    enableAutoEvictCollCache: true
+    enableQueryCache: true
   jpa:
     persistentUnit: SPRING
 

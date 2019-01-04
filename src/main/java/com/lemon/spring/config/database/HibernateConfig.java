@@ -48,6 +48,12 @@ public class HibernateConfig {
         hbmProperties.setProperty(Environment.USE_SQL_COMMENTS,""+properties.database.hibernate.comments);
         hbmProperties.setProperty(Environment.SHOW_SQL,""+properties.database.hibernate.showSql);
         hbmProperties.setProperty(Environment.FORMAT_SQL,""+properties.database.hibernate.formatSQL);
+        hbmProperties.setProperty(Environment.USE_SECOND_LEVEL_CACHE,""+properties.database.hibernate.enableSecondLevelCache);
+        hbmProperties.setProperty(Environment.USE_QUERY_CACHE,""+properties.database.hibernate.enableQueryCache);
+        hbmProperties.setProperty(Environment.AUTO_EVICT_COLLECTION_CACHE,""+properties.database.hibernate.enableAutoEvictCollCache);
+        hbmProperties.setProperty(Environment.USE_STRUCTURED_CACHE,""+properties.database.hibernate.enableStruturedCache);
+        hbmProperties.setProperty(Environment.CACHE_REGION_FACTORY,""+properties.database.hibernate.secondLevelCacheRegionFactoryClass);
+        hbmProperties.setProperty(Environment.CACHE_PROVIDER_CONFIG,"config/cache/ehcache.xml");
         localSessionFactoryBean.setPhysicalNamingStrategy(new AllCapitalPhysicalNaming());
         //hbmProperties.setProperty(Environment.DEFAULT_SCHEMA,properties.database.schema);
         localSessionFactoryBean.setPackagesToScan(annotatedPackages);
@@ -107,6 +113,6 @@ public class HibernateConfig {
 
     @Bean
     public HbmCapture hbmCapture(SessionFactory sessionFactory) {
-        return new HibernateCapture(sessionFactory);
+        return new HibernateCapture(sessionFactory,properties.database.hibernate.enableSecondLevelCache);
     }
 }

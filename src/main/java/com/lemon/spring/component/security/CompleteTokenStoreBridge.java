@@ -1,5 +1,6 @@
 package com.lemon.spring.component.security;
 
+import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.framework.springsecurity.auth.AuthenticationToken;
 import com.lemon.framework.springsecurity.jwt.bridge.TokenStoreBridge;
 import com.lemon.framework.web.data.UserInfo;
@@ -8,6 +9,7 @@ import com.lemon.spring.domain.TokenStore;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.repository.TokenStoreRepository;
 import com.lemon.spring.web.page.PageImpl;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +29,9 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
     @Inject
     private AuditAware auditAware;
 
+    @Inject
+    private HbmCapture hbmCapture;
+
     @Override
     public String tokenByUsername(String username) {
         TokenStore tokenStore = tokenStoreRepository.findByUsername(username);
@@ -36,6 +41,7 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
 
     @Override
     public boolean isActiveToken(String token) {
+        //return hbmCapture.findOne("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.token='"+token+"' AND tokenStore.active=true")!=null;
         return tokenStoreRepository.findByActiveStatus(token,true)!=null;
     }
 

@@ -1,5 +1,8 @@
 package com.lemon.spring.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;
@@ -11,6 +14,8 @@ import java.util.Date;
  * */
 @Entity
 @Table(name = "TOKEN_STORE")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class TokenStore extends AbstractAudit {
 
     @Id

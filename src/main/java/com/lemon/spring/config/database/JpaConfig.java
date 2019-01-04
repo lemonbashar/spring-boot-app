@@ -15,6 +15,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.inject.Inject;
+import javax.persistence.SharedCacheMode;
 import javax.sql.DataSource;
 
 @Configuration
@@ -32,15 +33,16 @@ public class JpaConfig {
         factoryBean.setPersistenceProvider(new HibernatePersistenceProvider());
         factoryBean.setDataSource(dataSource);
         factoryBean.setPackagesToScan(HibernateConfig.annotatedPackages);
+        factoryBean.setSharedCacheMode(SharedCacheMode.ENABLE_SELECTIVE);
         return factoryBean;
     }
 
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter adapter=new HibernateJpaVendorAdapter();
-        adapter.setShowSql(true);
+        adapter.setShowSql(properties.database.hibernate.showSql);
         adapter.setDatabasePlatform(properties.database.hibernate.dialect);
-        adapter.setGenerateDdl(true);
+        adapter.setGenerateDdl(properties.database.hibernate.formatSQL);
         adapter.setDatabase(Database.POSTGRESQL);
 
         return adapter;

@@ -44,13 +44,14 @@ dependencies {
 
 	compileOnly "org.springframework.boot:spring-boot-configuration-processor"
 
-	implementation 'org.hibernate:hibernate-entitymanager:5.2.2.Final'
+	implementation 'org.hibernate:hibernate-entitymanager:5.2.17.Final'
 	
 	/*CACHE*/
 	//implementation 'org.ehcache:ehcache:3.6.1'
     implementation 'net.sf.ehcache:ehcache:2.10.4'
     //implementation 'javax.cache:cache-api:1.1.0'
-	implementation 'org.hibernate:hibernate-ehcache:5.2.2.Final'
+	implementation 'org.hibernate:hibernate-ehcache:5.2.17.Final'
+	implementation 'com.github.debop:hibernate-redis:2.4.0'
 
 	/*Database*/
 	implementation 'org.postgresql:postgresql:42.2.2'

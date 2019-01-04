@@ -12,6 +12,7 @@ import java.util.Set;
 @SuppressWarnings("unused")
 @Entity
 @Table(name = "SPRING_USER")
+@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAudit {
     public static final String CACHE = "UserCache";
