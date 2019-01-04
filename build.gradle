@@ -37,6 +37,7 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-security')
 	implementation('org.springframework.boot:spring-boot-starter-cache')
 
+
 	implementation('org.springframework:spring-orm:5.1.1.RELEASE')
 	implementation 'io.springfox:springfox-swagger2:2.9.2'
 	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
@@ -51,7 +52,7 @@ dependencies {
     implementation 'net.sf.ehcache:ehcache:2.10.4'
     //implementation 'javax.cache:cache-api:1.1.0'
 	implementation 'org.hibernate:hibernate-ehcache:5.2.17.Final'
-	implementation 'com.github.debop:hibernate-redis:2.4.0'
+	//implementation 'com.github.debop:hibernate-redis:2.4.0'
 
 	/*Database*/
 	implementation 'org.postgresql:postgresql:42.2.2'
@@ -62,6 +63,7 @@ dependencies {
 	implementation 'com.lemon.framework:properties:1.0.3'
 	implementation 'com.lemon.framework:web:1.0.3'
 	implementation 'com.lemon.framework:spring-security:1.0.3'
+	implementation 'com.lemon.framework:spring-remote:1.0.3'
 
 
 	implementation 'io.jsonwebtoken:jjwt-api:0.10.5'
