@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
 
@@ -29,6 +30,8 @@ public class Application {
 
     @Inject
     private ApplicationProperties properties;
+
+    public static ApplicationContext applicationContext;
 
 
     @PostConstruct
@@ -58,7 +61,8 @@ public class Application {
         SpringApplication application = new SpringApplication(Application.class);
         SimpleCommandLinePropertySource propertySource = new SimpleCommandLinePropertySource(args);
         addDefaultProfile(application, propertySource);
-        Environment env = application.run(args).getEnvironment();
+        applicationContext=application.run(args);
+        Environment env = applicationContext.getEnvironment();
         log.info("Access URLs:\n----------------------------------------------------------\n\t" +
                         "Local: \t\thttp://127.0.0.1:{}\n\t" +
                         "External: \thttp://{}:{}\n----------------------------------------------------------",
