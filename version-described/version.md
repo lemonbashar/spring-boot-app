@@ -20,3 +20,6 @@
         g. Database Configuration For PostgreSQL & MySQL and integratable
         h. Logging-Aspect
         i. Database Configuration For Both: Hibernate & JPA  
+        
+###Version: v-1.0.3 Using Framework Version:v-1.0.3
+    a. Orm:->HbmCapture is Enable for Caching...

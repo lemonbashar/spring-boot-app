@@ -64,48 +64,6 @@ public class HibernateConfig {
 
     }
 
-    /*@Bean
-    public LocalEntityManagerFactoryBean localEntityManagerFactoryBean(DataSource dataSource,JpaVendorAdapter vendorAdapter) {
-        LocalEntityManagerFactoryBean factoryBean=new LocalEntityManagerFactoryBean();
-        factoryBean.setJpaVendorAdapter(vendorAdapter);
-        return factoryBean;
-    }
-
-    @Bean
-    public JpaVendorAdapter jpaVendorAdapter() {
-        HibernateJpaVendorAdapter adapter=new HibernateJpaVendorAdapter();
-        adapter.setShowSql(true);
-        adapter.setDatabasePlatform(properties.database.hibernate.dialect);
-        adapter.setGenerateDdl(true);
-        return adapter;
-    }*/
-
-    /*@Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
-        LocalContainerEntityManagerFactoryBean bean=new LocalContainerEntityManagerFactoryBean();
-        bean.setDataSource(dataSource);
-        bean.setJpaVendorAdapter(jpaVendorAdapter);
-        bean.setPackagesToScan(annotatedPackages);
-        return bean;
-    }
-
-    @Bean
-    public JpaVendorAdapter jpaVendorAdapter() {
-        HibernateJpaVendorAdapter adapter=new HibernateJpaVendorAdapter();
-        adapter.setShowSql(true);
-        adapter.setDatabasePlatform(properties.database.hibernate.dialect);
-        adapter.setGenerateDdl(true);
-        return adapter;
-    }*/
-
-    /*@Bean("transactionManager")
-    public PlatformTransactionManager hibernateTransactionManager(final LocalSessionFactoryBean sessionFactory) {
-        HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();
-        hibernateTransactionManager.setSessionFactory(sessionFactory.getObject());
-
-        return hibernateTransactionManager;
-    }*/
-
     @Bean
     public EntityManager entityManager(SessionFactory sessionFactory) {
         return sessionFactory.createEntityManager();
