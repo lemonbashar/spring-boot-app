@@ -3,14 +3,14 @@ settings:
     secretKey: BHWTBWQE(&#RHDNKJLSH&EHWDJY*E(GKJOYFDW^FBSDSPYE()#RBHKJI
     sessionLiveTime: 20F
     authentication:
+      maximumLiveSessionCount: 5
+      maximumLoginLimitInDay: 200
+      maximumLiveSessionFromSameIp: 3
       jwt:
         secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZjcyZDkxMGJiMDhiZmEyZTc2MTA0YWM0YjlmZDU1YzlkM2RlYWZjYWYwYjdiNDE3YmY5ZjBjYzQ2OWFmMDc1YzRjYzlhZjU5OGU3NmQ
         base64Secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZjcyZDkxMGJiMDhiZmEyZTc2MTA0YWM0YjlmZDU1YzlkM2RlYWZjYWYwYjdiNDE3YmY5ZjBjYzQ2OWFmMDc1YzRjYzlhZjU5OGU3NmQ
         tokenValidityInSeconds: 300
         tokenValidityInSecondsForRememberMe: 1800
-        maximumLiveJwtCount: 5
-        maximumLoginLimitInDay: 200
-        maximumLiveJwtFromSameIp: 3
 
 
 database:

@@ -77,7 +77,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public String authenticate(UserInfo userInfo) {
-        return jwtAuthenticationService.authenticate(userInfo).getToken();
+        try {
+            return jwtAuthenticationService.authenticate(userInfo).getToken();
+        } catch (NullPointerException e) {
+            throw new SecurityException("May-Be your Application is Not Enabled For Token-Based Authentication");
+        }
     }
 
     @Override
