@@ -7,9 +7,8 @@ import com.lemon.spring.component.audit.AuditAware;
 import com.lemon.spring.domain.TokenStore;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.repository.TokenStoreRepository;
+import com.lemon.spring.web.page.PageImpl;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -111,7 +110,7 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
 
     @Override
     public void deactivateOlderTokenCountByUid(int count, BigInteger userId){
-        deactivate(tokenStoreRepository.findAllByUid(new PageRequest(0,count),userId,true));
+        deactivate(tokenStoreRepository.findAllByUid(new PageImpl(count),userId,true));
     }
 
     @Override
@@ -121,7 +120,7 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
 
     @Override
     public void deactivateOlderTokenCountByUidAndIp(int count, BigInteger userId, String ipAddress){
-        deactivate(tokenStoreRepository.findAllByUidAndIp(new PageRequest(0,count),userId,ipAddress,true));
+        deactivate(tokenStoreRepository.findAllByUidAndIp(new PageImpl(count),userId,ipAddress,true));
     }
 
     private void deactivate(List<TokenStore> tokenStores) {

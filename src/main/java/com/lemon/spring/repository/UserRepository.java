@@ -2,6 +2,7 @@ package com.lemon.spring.repository;
 
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.domain.User;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,5 +22,8 @@ public interface UserRepository extends JpaRepository<User, BigInteger> {
 
     @Query("SELECT user FROM User user INNER JOIN user.authorities auth WHERE auth.name=:authority")
     List<User> findAllByAuthority(@Param("authority") String authority);
+
+    @Query("SELECT user FROM User user INNER JOIN user.authorities auth WHERE auth.name=:authority")
+    List<User> findAllByAuthority(Pageable pageable, @Param("authority") String authority);
 
 }

@@ -6,6 +6,7 @@ import com.lemon.spring.domain.User;
 import com.lemon.spring.repository.UserRepository;
 import com.lemon.spring.security.AuthoritiesConstant;
 import com.lemon.spring.security.SecurityUtils;
+import com.lemon.spring.web.page.PageImpl;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -42,7 +43,7 @@ public class AuditAwareImpl implements AuditAware {
             e.printStackTrace();
         }
 
-        return userRepository.findAllByAuthority(AuthoritiesConstant.ROLE_ADMIN).get(0).getId();
+        return userRepository.findAllByAuthority(new PageImpl(1), AuthoritiesConstant.ROLE_ADMIN).get(0).getId();
     }
 
     @Override
