@@ -1,31 +1,31 @@
 settings:
   security:
-    secretKey: BHWTBWQE(&#RHDNKJLSH&EHWDJY*E(GKJOYFDW^FBSDSPYE()#RBHKJI
-    sessionLiveTime: 20F
+    secret-key: BHWTBWQE(&#RHDNKJLSH&EHWDJY*E(GKJOYFDW^FBSDSPYE()#RBHKJI
+    session-live-time: 20F
     authentication:
-      maximumLiveSessionCount: 5
-      maximumLoginLimitInDay: 200
-      maximumLiveSessionFromSameIp: 3
+      maximum-live-session-count: 5
+      maximum-login-limit-in-day: 200
+      maximum-live-session-from-same-ip: 3
       jwt:
         secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZjcyZDkxMGJiMDhiZmEyZTc2MTA0YWM0YjlmZDU1YzlkM2RlYWZjYWYwYjdiNDE3YmY5ZjBjYzQ2OWFmMDc1YzRjYzlhZjU5OGU3NmQ
-        base64Secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZjcyZDkxMGJiMDhiZmEyZTc2MTA0YWM0YjlmZDU1YzlkM2RlYWZjYWYwYjdiNDE3YmY5ZjBjYzQ2OWFmMDc1YzRjYzlhZjU5OGU3NmQ
-        tokenValidityInSeconds: 300
-        tokenValidityInSecondsForRememberMe: 1800
+        base64-secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZjcyZDkxMGJiMDhiZmEyZTc2MTA0YWM0YjlmZDU1YzlkM2RlYWZjYWYwYjdiNDE3YmY5ZjBjYzQ2OWFmMDc1YzRjYzlhZjU5OGU3NmQ
+        token-validity-in-seconds: 300
+        token-validity-in-seconds-for-remember-me: 1800
 
 
 database:
   hibernate:
-    hbm2DDLAuto: update
-    formatSQL: true
+    hbm2-ddl-auto: none
+    format-sql: true
     comments: true
-    showSql: true
+    show-sql: true
     enable-second-level-cache: true
-    enableStruturedCache: true
-    enableAutoEvictCollCache: true
-    enableQueryCache: true
+    enable-strutured-cache: true
+    enable-auto-evict-coll-cache: true
+    enable-query-cache: true
   jpa:
-    persistentUnit: SPRING
+    persistent-unit: SPRING
 
 cache:
-  ehCache:
-    maxLocalHeapSize: 20M
+  eh-cache:
+    max-local-heap-size: 20M
