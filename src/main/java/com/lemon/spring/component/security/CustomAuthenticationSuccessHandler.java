@@ -1,7 +1,6 @@
 package com.lemon.spring.component.security;
 
 import com.lemon.framework.properties.ApplicationProperties;
-import com.lemon.spring.controller.rest.AccountControllerRest;
 import com.lemon.spring.controller.web.AccountControllerWeb;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +21,7 @@ import java.io.IOException;
 @SuppressWarnings({"unused", "DefaultFileTemplate"})
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-    private final Logger log= LogManager.getLogger(AccountControllerRest.class);
+    private final Logger log= LogManager.getLogger(CustomAuthenticationSuccessHandler.class);
 
     @Inject
     private ApplicationProperties applicationProperties;

@@ -33,7 +33,7 @@ public class HibernateConfig {
     @Inject
     private ApplicationProperties properties;
 
-    private Logger log= LogManager.getLogger(AccountControllerRest.class);
+    private Logger log= LogManager.getLogger(HibernateConfig.class);
 
     static final String[] annotatedPackages={"com.lemon.spring.domain"};
     static final String[] mappingFiles={"config/hibernate/mapping/token.hbm.xml"};

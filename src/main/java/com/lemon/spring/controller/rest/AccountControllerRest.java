@@ -15,6 +15,7 @@ import com.lemon.spring.service.account.AccountService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,6 +35,7 @@ import java.util.Map;
 @SuppressWarnings({"Duplicates", "WeakerAccess", "RedundantThrows", "unused"})
 @RestController
 @RequestMapping("/api")
+@Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
 public class AccountControllerRest implements WebController<User> {
     public static final String BASE_PATH="/account-controller";
 

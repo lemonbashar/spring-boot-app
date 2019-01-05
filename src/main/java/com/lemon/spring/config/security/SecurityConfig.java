@@ -90,48 +90,45 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        /*auth
-            .inMemoryAuthentication().passwordEncoder(passwordEncoder)
-                .withUser("lemon").password("123456").roles("ADMIN");*/
-
         auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder);
 
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-          if(applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_STATELESS))
-            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();/*Make Spring-Boot Application Stateless*/
-          http.csrf().disable()
+        http.csrf().disable();
+          if(applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_STATELESS)) /*That Means For Stateful & Both session generate not turn off*/
+              http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);/*Make Spring-Boot Application Stateless*/
                 /*Login Related*/
-          .formLogin()
-                .loginPage("/web/account-controller/login")
-                .failureForwardUrl("/web/account-controller/login?error")
-                .usernameParameter("username").passwordParameter("password")
-                .loginProcessingUrl("/api/account-controller/login")
-                .successForwardUrl("/home")
-                .successHandler(authenticationSuccessHandler)
-                .failureHandler(authenticationFailureHandler)
-                .permitAll().and()
-          .logout().logoutUrl("/web/account-controller/logout").addLogoutHandler(logoutHandler)
-                .clearAuthentication(true)
-                .deleteCookies(LIST_OF_COOKIES_TO_DELETE_WHEN_LOG_OUT)
-                .invalidateHttpSession(true)
-                .logoutSuccessUrl("/web/account-controller/login")
-                .logoutSuccessHandler(logoutSuccessHandler).and()
-                /*Url Invoker Interceptor*/
-          .authorizeRequests()
-                .mvcMatchers(HttpMethod.GET,"/","/home*").permitAll()/* Disable This Line if You Want The Login Page At-Startup*/
-                .mvcMatchers(HttpMethod.POST,"/api/account-controller/login*").permitAll()/*Rest-API Permission for Login Purposes*/
-                .mvcMatchers(HttpMethod.POST,"/api/account-controller/login-rest*").permitAll()/*Rest-API Permission for Login Purposes*/
-                .mvcMatchers(HttpMethod.POST,"/api/account-controller/login-jwt*").permitAll()/*Rest-API Permission for Login Purposes*/
-                .mvcMatchers(HttpMethod.GET,"/web/account-controller/register*").permitAll()/*Register API Permit For Registration*/
-                .mvcMatchers(HttpMethod.POST,"/web/account-controller*").permitAll()/*Register API Permit For Registration*/
-                .mvcMatchers(HttpMethod.POST,"/api/account-controller*").permitAll()/*When Click to Register, All User Data need to Store on Database, and for this reason it has been permitted */
-                .mvcMatchers(HttpMethod.GET,"/api/account-controller/key/*").hasAnyAuthority(ROLE_ADMIN)
+          if(!applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_STATELESS))  /*That means if only application is enabled stateless then it not handle form-login otherwise handle form-login*/
+              http.formLogin()
+                    .loginPage("/web/account-controller/login")
+                    .failureForwardUrl("/web/account-controller/login?error")
+                    .usernameParameter("username").passwordParameter("password")
+                    .loginProcessingUrl("/api/account-controller/login")
+                    .successForwardUrl("/home")
+                    .successHandler(authenticationSuccessHandler)
+                    .failureHandler(authenticationFailureHandler)
+                    .permitAll().and()
+              .logout().logoutUrl("/web/account-controller/logout").addLogoutHandler(logoutHandler)
+                    .clearAuthentication(true)
+                    .deleteCookies(LIST_OF_COOKIES_TO_DELETE_WHEN_LOG_OUT)
+                    .invalidateHttpSession(true)
+                    .logoutSuccessUrl("/web/account-controller/login")
+                    .logoutSuccessHandler(logoutSuccessHandler);
+                    /*Url Invoker Interceptor*/
+              http.authorizeRequests()
+                    .mvcMatchers(HttpMethod.GET,"/","/home*").permitAll()/* Disable This Line if You Want The Login Page At-Startup*/
+                    .mvcMatchers(HttpMethod.POST,"/api/account-controller/login*").permitAll()/*Rest-API Permission for Login Purposes*/
+                    .mvcMatchers(HttpMethod.POST,"/api/account-controller/login-rest*").permitAll()/*Rest-API Permission for Login Purposes*/
+                    .mvcMatchers(HttpMethod.POST,"/api/account-controller/login-jwt*").permitAll()/*Rest-API Permission for Login Purposes*/
+                    .mvcMatchers(HttpMethod.GET,"/web/account-controller/register*").permitAll()/*Register API Permit For Registration*/
+                    .mvcMatchers(HttpMethod.POST,"/web/account-controller*").permitAll()/*Register API Permit For Registration*/
+                    .mvcMatchers(HttpMethod.POST,"/api/account-controller*").permitAll()/*When Click to Register, All User Data need to Store on Database, and for this reason it has been permitted */
+                    .mvcMatchers(HttpMethod.GET,"/api/account-controller/key/*").hasAnyAuthority(ROLE_ADMIN)
                 .anyRequest().authenticated();
                 //.antMatchers("/api/**","/web/**").authenticated();
-        if(applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_STATELESS) || applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_BOTH))http.apply(securityConfigurerAdapter);
+        if(!applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_STATEFUL))http.apply(securityConfigurerAdapter); /*That means if only application is enabled stateful then it not handle token otherwise handle token*/
     }
 
     @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})

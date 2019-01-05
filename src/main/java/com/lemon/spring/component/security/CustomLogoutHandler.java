@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings({"unused", "DefaultFileTemplate"})
 @Component
 public class CustomLogoutHandler implements LogoutHandler {
-    private final Logger log= LogManager.getLogger(AccountControllerRest.class);
+    private final Logger log= LogManager.getLogger(CustomLogoutHandler.class);
     @Override
     public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {
         log.debug("Logout Handle:-->");

@@ -24,9 +24,6 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
     @Inject
     private TokenStoreRepository tokenStoreRepository;
 
-    @Inject
-    private HbmCapture hbmCapture;
-
     @Override
     public String tokenByUsername(String username) {
         TokenStore tokenStore = tokenStoreRepository.findByUsername(username);
@@ -140,10 +137,10 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
         tokenStores.forEach(tokenStore->{
             updateTokenActiveStatus(tokenStore,false);
         });
+        tokenStoreRepository.saveAll(tokenStores);
     }
 
     private void updateTokenActiveStatus(TokenStore tokenStore,boolean activeStatus) {
         tokenStore.setActive(activeStatus);
-        tokenStoreRepository.save(tokenStore);
     }
 }

@@ -27,7 +27,7 @@ import java.util.Set;
 @Service
 public class AccountServiceImpl implements AccountService {
 
-    private final Logger log= LogManager.getLogger(AccountControllerRest.class);
+    private final Logger log= LogManager.getLogger(AccountServiceImpl.class);
 
     @Inject
     private HbmCapture hbmCapture;

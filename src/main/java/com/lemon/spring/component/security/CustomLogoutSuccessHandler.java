@@ -19,7 +19,7 @@ import java.io.IOException;
 @SuppressWarnings({"unused", "DefaultFileTemplate"})
 @Component
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
-    private final Logger log= LogManager.getLogger(AccountControllerRest.class);
+    private final Logger log= LogManager.getLogger(CustomLogoutSuccessHandler.class);
 
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {

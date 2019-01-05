@@ -1,26 +1,26 @@
 package com.lemon.spring.controller.web;
 
+import com.lemon.framework.properties.constants.PropertiesConstants;
+import com.lemon.spring.config.Constants;
 import com.lemon.spring.controller.rest.AccountControllerRest;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.service.account.AccountService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.http.ResponseEntity;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 
 @SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection", "Duplicates"})
 @Controller
+@Profile(value = {Constants.PROFILE_STATEFUL,Constants.PROFILE_BOTH})
 @RequestMapping("/web")
 public class AccountControllerWeb {
-    private final Logger log= LogManager.getLogger(AccountControllerRest.class);
+    private final Logger log= LogManager.getLogger(AccountControllerWeb.class);
 
 
     @Inject

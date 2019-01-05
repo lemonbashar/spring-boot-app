@@ -20,7 +20,7 @@ import java.io.IOException;
 
 @Component
 public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {
-    private final Logger log= LogManager.getLogger(AccountControllerRest.class);
+    private final Logger log= LogManager.getLogger(CustomAuthenticationFailureHandler.class);
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
