@@ -1,4 +1,7 @@
 #Version Description
+    A Version format v-1.0.2 means, Development-Version and it's the last-updated-version
+    A Version format v-1.0.2-clean means, after developing the version at a specific position if needed to clean and reformat the code and clean with business then it will be the : after cleaning success version. and that position the v-1.0.2 and v-1.0.2-clean are the same.
+    A Version format v-1.0.2-dirty means, the state of the version before cleaning the version.
 ###Version: v-1.0.2 Using Framework Version:v-1.0.2
     This Version is for Spring-Based Web Application with Some Facilities:
         a. STATELESS,STATEFUL,BOTH
