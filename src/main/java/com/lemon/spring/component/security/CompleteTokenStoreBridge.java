@@ -4,12 +4,10 @@ import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.framework.springsecurity.auth.AuthenticationToken;
 import com.lemon.framework.springsecurity.jwt.bridge.TokenStoreBridge;
 import com.lemon.framework.web.data.UserInfo;
-import com.lemon.spring.component.audit.AuditAware;
 import com.lemon.spring.domain.TokenStore;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.repository.TokenStoreRepository;
 import com.lemon.spring.web.page.PageImpl;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -25,9 +23,6 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
 
     @Inject
     private TokenStoreRepository tokenStoreRepository;
-
-    @Inject
-    private AuditAware auditAware;
 
     @Inject
     private HbmCapture hbmCapture;
@@ -64,7 +59,6 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
         tokenStore.setValidateDate(validateDate);
         tokenStore.setActive(true);
         tokenStore.setIpAddress(userInfo.getIpAddress());
-        auditAware.awareCreate(tokenStore);
         tokenStoreRepository.save(tokenStore);
     }
 
@@ -150,7 +144,6 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
 
     private void updateTokenActiveStatus(TokenStore tokenStore,boolean activeStatus) {
         tokenStore.setActive(activeStatus);
-        auditAware.awareUpdate(tokenStore);
         tokenStoreRepository.save(tokenStore);
     }
 }

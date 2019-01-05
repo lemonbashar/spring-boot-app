@@ -21,8 +21,8 @@ public class AuditAwareImpl implements AuditAware {
 
     @Override
     public void aware(AbstractAudit audit) {
-        awareCreate(audit);
-        awareUpdate(audit);
+        if(!audit.isUpdate())awareCreate(audit);
+        else awareUpdate(audit);
     }
 
     @Override

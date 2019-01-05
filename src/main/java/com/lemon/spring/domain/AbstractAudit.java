@@ -62,4 +62,10 @@ public abstract class AbstractAudit {
         this.updateDate = updateDate;
     }
 
+    public boolean isUpdate() {
+        return getId() !=null;
+    }
+
+    protected abstract Object getId();
+
 }

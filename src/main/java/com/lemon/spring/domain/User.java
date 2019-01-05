@@ -1,5 +1,6 @@
 package com.lemon.spring.domain;
 
+import com.lemon.spring.annotation.AutoAudit;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -14,6 +15,7 @@ import java.util.Set;
 @Table(name = "SPRING_USER")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@AutoAudit
 public class User extends AbstractAudit {
     public static final String CACHE = "UserCache";
     @Id

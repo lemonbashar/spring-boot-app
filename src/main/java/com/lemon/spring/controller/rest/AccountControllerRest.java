@@ -46,9 +46,6 @@ public class AccountControllerRest implements WebController<User> {
     @Inject
     private UserRepository userRepository;
 
-    @Inject
-    private AuditAware auditAware;
-
     private Logger log = LogManager.getLogger(AccountControllerRest.class);
 
 
@@ -65,7 +62,6 @@ public class AccountControllerRest implements WebController<User> {
     @Override
     @PutMapping(value = BASE_PATH)
     public ResponseEntity<Map<String, Object>> update(@RequestBody User entity) {
-        auditAware.awareUpdate(entity);
         userRepository.save(entity);
         return null;
     }
