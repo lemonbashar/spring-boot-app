@@ -3,6 +3,7 @@ package com.lemon.spring.service.account.impl;
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.framework.springsecurity.auth.AuthenticationService;
 import com.lemon.framework.springsecurity.jwt.auth.JWTAuthenticationService;
+import com.lemon.framework.web.data.JWToken;
 import com.lemon.framework.web.data.LogoutInfo;
 import com.lemon.framework.web.data.UserInfo;
 import com.lemon.spring.controller.rest.AccountControllerRest;
@@ -70,9 +71,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public String authenticate(UserInfo userInfo) {
+    public JWToken authenticate(UserInfo userInfo) {
         try {
-            return jwtAuthenticationService.authenticate(userInfo).getToken();
+            return jwtAuthenticationService.authenticate(userInfo);
         } catch (NullPointerException e) {
             throw new SecurityException("May-Be your Application is Not Enabled For Token-Based Authentication");
         }
@@ -81,6 +82,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void logout(LogoutInfo logoutInfo,HttpServletRequest httpServletRequest) {
         logoutInfo.setUserId(SecurityUtils.currentUserId());
+        if(logoutInfo.getToken()==null || logoutInfo.getToken().isEmpty())
+            logoutInfo.setToken(resolveToken(httpServletRequest));
         jwtAuthenticationService.logout(logoutInfo,httpServletRequest);
     }
 

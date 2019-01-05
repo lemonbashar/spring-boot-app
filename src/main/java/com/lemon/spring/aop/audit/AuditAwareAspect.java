@@ -20,7 +20,10 @@ public class AuditAwareAspect {
     @Pointcut("execution(* org.springframework.data.jpa.repository.JpaRepository.save(..))")
     public void repositorySaveCallPointcut() {}
 
-    @Pointcut("repositorySaveCallPointcut()")
+    @Pointcut("execution(* com.lemon.framework.orm.capture.AbstractCapture.persist(..)) || execution(* com.lemon.framework.orm.capture.AbstractCapture.save(..))")
+    public void hibernateSessionSaveCall() {}
+
+    @Pointcut("repositorySaveCallPointcut() || hibernateSessionSaveCall()")
     public void allPointcut() {}
 
     @Before("allPointcut()")

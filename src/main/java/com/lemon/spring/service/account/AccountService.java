@@ -1,5 +1,6 @@
 package com.lemon.spring.service.account;
 
+import com.lemon.framework.web.data.JWToken;
 import com.lemon.framework.web.data.LogoutInfo;
 import com.lemon.framework.web.data.UserInfo;
 import com.lemon.spring.domain.Authority;
@@ -20,7 +21,7 @@ public interface AccountService {
     /**
      * Authenticate & Return JWT Token
      * */
-    String authenticate(UserInfo userInfo);
+    JWToken authenticate(UserInfo userInfo);
 
     void logout(LogoutInfo logoutInfo,HttpServletRequest httpServletRequest);
 }

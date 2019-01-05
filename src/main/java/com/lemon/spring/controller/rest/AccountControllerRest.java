@@ -117,7 +117,7 @@ public class AccountControllerRest implements WebController<User> {
     @PostMapping(value = BASE_PATH+"/login-jwt",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<JWToken> loginJwt(@RequestBody UserInfo userInfo, HttpServletRequest httpServletRequest) {
         userInfo.setIpAddress(httpServletRequest.getRemoteAddr());
-        String token=accountService.authenticate(userInfo);
+        String token=accountService.authenticate(userInfo).getToken();
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER,JWTFilter.BEARER+token);
         return new ResponseEntity<>(new JWToken(token),httpHeaders, HttpStatus.OK);
