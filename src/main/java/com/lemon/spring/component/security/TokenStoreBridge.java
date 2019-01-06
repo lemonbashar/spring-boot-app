@@ -2,7 +2,6 @@ package com.lemon.spring.component.security;
 
 import com.lemon.framework.data.UserInfo;
 import com.lemon.framework.springsecurity.auth.data.AuthenticationToken;
-import com.lemon.framework.springsecurity.jwt.bridge.TokenStoreBridge;
 import com.lemon.spring.domain.TokenStore;
 import com.lemon.spring.domain.UserModel;
 import com.lemon.spring.repository.TokenStoreRepository;
@@ -18,7 +17,7 @@ import java.util.List;
 
 @DependsOn("tokenStoreRepository")
 @Component
-public class CompleteTokenStoreBridge implements TokenStoreBridge {
+public class TokenStoreBridge implements com.lemon.framework.springsecurity.jwt.bridge.TokenStoreBridge {
 
     @Inject
     private TokenStoreRepository tokenStoreRepository;
@@ -136,10 +135,10 @@ public class CompleteTokenStoreBridge implements TokenStoreBridge {
         tokenStores.forEach(tokenStore->{
             updateTokenActiveStatus(tokenStore,false);
         });
-        tokenStoreRepository.saveAll(tokenStores);
     }
 
     private void updateTokenActiveStatus(TokenStore tokenStore,boolean activeStatus) {
         tokenStore.setActive(activeStatus);
+        tokenStoreRepository.save(tokenStore);
     }
 }

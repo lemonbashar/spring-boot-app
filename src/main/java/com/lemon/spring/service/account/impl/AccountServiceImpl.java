@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,6 +44,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public String currentUsername() {
         return SecurityUtils.currentUserLogin();
+    }
+
+    @Override
+    public BigInteger currentUserId() {
+        return SecurityUtils.currentUserId();
     }
 
     @Override

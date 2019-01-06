@@ -7,7 +7,7 @@ import com.lemon.framework.springsecurity.jwt.JwtAuthManager;
 import com.lemon.framework.springsecurity.jwt.provider.TokenProvider;
 import com.lemon.framework.springsecurity.jwt.provider.TokenStoreTokenProvider;
 import com.lemon.framework.springsecurity.session.SessionAuthManager;
-import com.lemon.spring.component.security.CompleteTokenStoreBridge;
+import com.lemon.spring.component.security.TokenStoreBridge;
 import com.lemon.spring.config.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private ApplicationProperties applicationProperties;
 
     @Autowired(required = false)
-    private CompleteTokenStoreBridge completeTokenStoreBridge;
+    private TokenStoreBridge tokenStoreBridge;
 
 
     @Autowired(required = false)
@@ -132,7 +132,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
     @Bean(initMethod = "init")
     public TokenProvider tokenProvider() {
-        return new TokenStoreTokenProvider(applicationProperties,completeTokenStoreBridge);
+        return new TokenStoreTokenProvider(applicationProperties, tokenStoreBridge);
     }
 
     @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
