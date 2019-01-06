@@ -121,7 +121,7 @@ public class AccountControllerRest implements WebController<UserModel> {
     public ResponseEntity<Map<String,Object>> logout(@RequestBody LogoutInfo logoutInfo, HttpServletRequest httpServletRequest) {
         if(logoutInfo.getToken()==null || logoutInfo.getToken().isEmpty())
             logoutInfo.setToken(resolveToken(httpServletRequest));
-
+        logoutInfo.setIpAddress(httpServletRequest.getRemoteAddr());
         accountService.logout(logoutInfo);
         Map<String ,Object> map=new HashMap<>();
         map.put(Constants.GLOBAL_MESSAGE,"Logout is Success For Condition:"+logoutInfo.getLogoutRule().name().toLowerCase());
