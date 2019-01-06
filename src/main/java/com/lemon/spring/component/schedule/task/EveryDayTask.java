@@ -31,7 +31,7 @@ public class EveryDayTask {
     @Scheduled(cron = "0 0 1 * * ?")
     public void deleteInactivatedUserIfTheyAreInactiveAGivenPeriod() {
         LocalDate localDate=LocalDate.now().minusDays(applicationProperties.settings.security.deleteAllInactiveUserIfTheyInactiveGivenDays);
-        //userRepository.deleteAll(userRepository.findAllInactiveAndBeforeUpdatedLastDate());
+        userRepository.deleteAll(userRepository.findAllInactiveAndBeforeUpdatedLastDate(localDate));
     }
 
     /**

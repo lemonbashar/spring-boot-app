@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -24,4 +25,6 @@ public interface UserRepository extends JpaRepository<UserModel, BigInteger> {
     @Query("SELECT user FROM UserModel user INNER JOIN user.authorities auth WHERE auth.name=:authority")
     List<UserModel> findAllByAuthority(Pageable pageable, @Param("authority") String authority);
 
+    @Query("SELECT user FROM UserModel user WHERE user.active=false AND user.updateDate<:date")
+    List<UserModel> findAllInactiveAndBeforeUpdatedLastDate(@Param("date") LocalDate date);
 }
