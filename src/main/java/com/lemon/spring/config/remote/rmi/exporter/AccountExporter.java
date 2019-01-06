@@ -1,4 +1,5 @@
 package com.lemon.spring.config.remote.rmi.exporter;
+/*
 
 import com.lemon.framework.springremote.rmi.RmiUserService;
 import com.lemon.spring.config.remote.RemoteConfig;
@@ -20,3 +21,4 @@ public class AccountExporter {
         return serviceExporter;
     }
 }
+*/

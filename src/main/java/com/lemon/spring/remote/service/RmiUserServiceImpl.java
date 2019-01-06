@@ -1,5 +1,6 @@
 package com.lemon.spring.remote.service;
 
+/*
 import com.lemon.framework.springremote.rmi.RmiUserService;
 import com.lemon.spring.security.SecurityUtils;
 import org.springframework.stereotype.Service;
@@ -16,3 +17,4 @@ public class RmiUserServiceImpl implements RmiUserService {
         return "LEMON";
     }
 }
+*/

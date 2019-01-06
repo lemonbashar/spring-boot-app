@@ -2,13 +2,11 @@ package com.lemon.spring.config.security;
 
 import com.lemon.framework.properties.ApplicationProperties;
 import com.lemon.framework.properties.constants.PropertiesConstants;
-import com.lemon.framework.springsecurity.auth.AuthenticationService;
-import com.lemon.framework.springsecurity.auth.complete.CompleteUserInfoAuthenticationService;
 import com.lemon.framework.springsecurity.jwt.JWTAuthConfigAdapter;
-import com.lemon.framework.springsecurity.jwt.auth.JWTAuthenticationService;
-import com.lemon.framework.springsecurity.jwt.auth.complete.CompleteUserInfoJwtAuthenticationTokenService;
-import com.lemon.framework.springsecurity.jwt.provider.AuthenticationTokenTokenProvider;
+import com.lemon.framework.springsecurity.jwt.JwtAuthManager;
 import com.lemon.framework.springsecurity.jwt.provider.TokenProvider;
+import com.lemon.framework.springsecurity.jwt.provider.TokenStoreTokenProvider;
+import com.lemon.framework.springsecurity.session.SessionAuthManager;
 import com.lemon.spring.component.security.CompleteTokenStoreBridge;
 import com.lemon.spring.config.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,7 +132,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
     @Bean(initMethod = "init")
     public TokenProvider tokenProvider() {
-        return new AuthenticationTokenTokenProvider(applicationProperties,completeTokenStoreBridge);
+        return new TokenStoreTokenProvider(applicationProperties,completeTokenStoreBridge);
     }
 
     @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
@@ -145,12 +143,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
     @Bean
-    public JWTAuthenticationService jwtAuthenticationService() {
-        return new CompleteUserInfoJwtAuthenticationTokenService(authenticationManager, (AuthenticationTokenTokenProvider) tokenProvider,customUserDetailsService,passwordEncoder);
+    public JwtAuthManager jwtAuthenticationService() {
+        return new JwtAuthManager(authenticationManager, tokenProvider);
     }
 
+    @Profile(value = {Constants.PROFILE_STATEFUL,Constants.PROFILE_BOTH})
     @Bean
-    public AuthenticationService authenticationService() {
-        return new CompleteUserInfoAuthenticationService(authenticationManager,customUserDetailsService,passwordEncoder);
+    public SessionAuthManager authenticationService() {
+        return new SessionAuthManager(authenticationManager);
     }
 }
