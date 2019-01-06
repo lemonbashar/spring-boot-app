@@ -21,7 +21,7 @@ public class CustomLogoutHandler implements LogoutHandler {
     @Override
     public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {
         log.debug("Logout Handle:-->");
-        //throw new RuntimeException("User Should not Logout That Time");
+        //throw new RuntimeException("UserModel Should not Logout That Time");
         /* TODO:Related Token Will be Deleted */
     }
 }

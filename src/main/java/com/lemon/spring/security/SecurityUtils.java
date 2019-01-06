@@ -1,7 +1,7 @@
 package com.lemon.spring.security;
 
-import com.lemon.framework.springsecurity.auth.AuthenticationToken;
-import com.lemon.framework.springsecurity.data.CustomUserDetails;
+import com.lemon.framework.springsecurity.auth.data.AuthenticationToken;
+import com.lemon.framework.springsecurity.auth.data.CustomUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +27,6 @@ public final class SecurityUtils {
         if(authentication instanceof AuthenticationToken) {
             return ((AuthenticationToken)authentication).getUserId();
         }
-        throw new SecurityException("Not a Valid Authentication to Find User-Id");
+        throw new SecurityException("Not a Valid Authentication to Find UserModel-Id");
     }
 }

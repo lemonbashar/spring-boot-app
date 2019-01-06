@@ -62,8 +62,9 @@ dependencies {
 
     implementation "com.lemon.framework:orm:${frameworkversion}"
     implementation "com.lemon.framework:properties:${frameworkversion}"
-    implementation "com.lemon.framework:web:${frameworkversion}"
+    implementation "com.lemon.framework:data:${frameworkversion}"
     implementation "com.lemon.framework:spring-security:${frameworkversion}"
+    implementation "com.lemon.framework:protocol-service:${frameworkversion}"
 
 
     implementation 'io.jsonwebtoken:jjwt-api:0.10.5'

@@ -1,25 +1,24 @@
 package com.lemon.spring.service.account.impl;
 
+import com.lemon.framework.data.JWToken;
+import com.lemon.framework.data.LogoutInfo;
+import com.lemon.framework.data.UserInfo;
+import com.lemon.framework.data.domain.Authority;
+import com.lemon.framework.data.domain.User;
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
-import com.lemon.framework.springsecurity.auth.AuthenticationService;
-import com.lemon.framework.springsecurity.jwt.auth.JWTAuthenticationService;
-import com.lemon.framework.web.data.JWToken;
-import com.lemon.framework.web.data.LogoutInfo;
-import com.lemon.framework.web.data.UserInfo;
-import com.lemon.spring.controller.rest.AccountControllerRest;
-import com.lemon.spring.domain.Authority;
-import com.lemon.spring.domain.User;
+import com.lemon.framework.protocolservice.auth.AccountService;
+import com.lemon.framework.springsecurity.jwt.JwtAuthManager;
+import com.lemon.framework.springsecurity.session.SessionAuthManager;
+import com.lemon.spring.domain.AuthorityModel;
+import com.lemon.spring.domain.UserModel;
 import com.lemon.spring.security.SecurityUtils;
-import com.lemon.spring.service.account.AccountService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,10 +35,10 @@ public class AccountServiceImpl implements AccountService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired(required = false)
-    private JWTAuthenticationService jwtAuthenticationService;
+    private JwtAuthManager jwtAuthManager;
 
     @Inject
-    private AuthenticationService authenticationService;
+    private SessionAuthManager sessionAuthManager;
 
     @Override
     public String currentUsername() {
@@ -47,16 +46,17 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean login(String username, String password) {
-        return authenticationService.authenticate(username,password)!=null;
+    public boolean login(UserInfo userInfo) {
+        return sessionAuthManager.authenticate(userInfo)!=null;
     }
 
     @Override
-    public void register(User user) {
+    public void register(Object userObj) {
+        UserModel user= (UserModel) userObj;
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Set<Authority> authorities=new HashSet<>();
+        Set<AuthorityModel> authorities=new HashSet<>();
         user.getAuthorities().forEach(v->{
-            if(hbmCapture.findOne("SELECT auth FROM Authority auth WHERE auth.name='"+v.getName()+"'")==null) {
+            if(hbmCapture.findOne("SELECT auth FROM AuthorityModel auth WHERE auth.name='"+v.getName()+"'")==null) {
                 hbmCapture.save(v);
             }
             authorities.add(v);
@@ -66,29 +66,24 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Set<Authority> authorities() {
-        return new HashSet<>(hbmCapture.getAll("SELECT auth FROM Authority auth"));
+    public Set<Object> authorities() {
+        return new HashSet<>(hbmCapture.getAll("SELECT auth FROM AuthorityModel auth"));
     }
 
     @Override
     public JWToken authenticate(UserInfo userInfo) {
         try {
-            return jwtAuthenticationService.authenticate(userInfo);
+            return jwtAuthManager.authenticate(userInfo).token();
         } catch (NullPointerException e) {
             throw new SecurityException("May-Be your Application is Not Enabled For Token-Based Authentication");
         }
     }
 
     @Override
-    public void logout(LogoutInfo logoutInfo,HttpServletRequest httpServletRequest) {
+    public void logout(LogoutInfo logoutInfo) {
         logoutInfo.setUserId(SecurityUtils.currentUserId());
-        if(logoutInfo.getToken()==null || logoutInfo.getToken().isEmpty())
-            logoutInfo.setToken(resolveToken(httpServletRequest));
-        jwtAuthenticationService.logout(logoutInfo,httpServletRequest);
+        jwtAuthManager.logout(logoutInfo);
     }
 
-    private String resolveToken(HttpServletRequest httpServletRequest) {
-        String bearer = httpServletRequest.getHeader("Authorization");
-        return StringUtils.hasText(bearer) && bearer.startsWith("Bearer ") ? bearer.substring("Bearer ".length()) : null;
-    }
+
 }

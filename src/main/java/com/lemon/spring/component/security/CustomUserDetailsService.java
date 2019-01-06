@@ -1,8 +1,8 @@
 package com.lemon.spring.component.security;
 
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
-import com.lemon.framework.springsecurity.data.CustomUserDetails;
-import com.lemon.spring.domain.User;
+import com.lemon.framework.springsecurity.auth.data.CustomUserDetails;
+import com.lemon.spring.domain.UserModel;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,9 +28,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     private UserDetails userByUsername(String username) {
-        User user;
-        user= (User) hbmCapture.findOne("SELECT user FROM User user WHERE user.username='"+username+"'");
-        if(user==null) throw new UsernameNotFoundException("User with Username :"+username +"Not Found");
+        UserModel user;
+        user= (UserModel) hbmCapture.findOne("SELECT user FROM UserModel user WHERE user.username='"+username+"'");
+        if(user==null) throw new UsernameNotFoundException("UserModel with Username :"+username +"Not Found");
         return new CustomUserDetails(user.getId(),user.getUsername(),user.getPassword(),user.isActive(),user.getAuthorities().stream().map(val->new SimpleGrantedAuthority(val.getName())).collect(Collectors.toSet()));
     }
 }

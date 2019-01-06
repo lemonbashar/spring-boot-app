@@ -10,8 +10,8 @@
 
     <defaultCache eternal="false" overflowToDisk="false"/>
 
-    <cache name="com.lemon.spring.domain.User" timeToLiveSeconds="60"> </cache>
-    <cache name="com.lemon.spring.domain.Authority" timeToLiveSeconds="3600"> </cache>
+    <cache name="com.lemon.spring.domain.UserModel" timeToLiveSeconds="60"> </cache>
+    <cache name="com.lemon.spring.domain.AuthorityModel" timeToLiveSeconds="3600"> </cache>
     <cache name="com.lemon.spring.domain.TokenStore" timeToLiveSeconds="10"> </cache>
 
 

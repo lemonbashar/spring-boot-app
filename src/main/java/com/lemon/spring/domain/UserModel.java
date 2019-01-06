@@ -10,13 +10,13 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "unchecked"})
 @Entity
 @Table(name = "SPRING_USER")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @AutoAudit
-public class User extends AbstractAudit {
+public class UserModel extends AbstractAudit{
     public static final String CACHE = "UserCache";
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "SPRING_USER_PK")
@@ -42,16 +42,16 @@ public class User extends AbstractAudit {
     @JoinTable(name = "USER_AUTHORITIES",
             joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "AUTHORITY",referencedColumnName = "AUTHORITY_NAME")})
-    private Set<Authority> authorities=new HashSet<>();
+    private Set<AuthorityModel> authorities=new HashSet<>();
 
-    public User() {
+    public UserModel() {
     }
 
-    public User(BigInteger id) {
+    public UserModel(BigInteger id) {
         this.id = id;
     }
 
-    public User(BigInteger id, String username, String password) {
+    public UserModel(BigInteger id, String username, String password) {
         this.id=id;
         this.username=username;
         this.password=password;
@@ -105,17 +105,17 @@ public class User extends AbstractAudit {
         this.activeDate = activeDate;
     }
 
-    public Set<Authority> getAuthorities() {
-        return authorities;
+    public void setAuthorities(Set<AuthorityModel> authorities) {
+        this.authorities = authorities;
     }
 
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
+    public Set<AuthorityModel> getAuthorities() {
+        return authorities;
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserModel{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

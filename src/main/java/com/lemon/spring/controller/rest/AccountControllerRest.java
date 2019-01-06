@@ -1,16 +1,16 @@
 package com.lemon.spring.controller.rest;
 
+import com.lemon.framework.data.JWToken;
+import com.lemon.framework.data.LogoutInfo;
+import com.lemon.framework.data.UserInfo;
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
+import com.lemon.framework.protocolservice.auth.AccountService;
 import com.lemon.framework.springsecurity.jwt.JWTFilter;
-import com.lemon.framework.web.data.JWToken;
-import com.lemon.framework.web.data.LogoutInfo;
-import com.lemon.framework.web.data.UserInfo;
 import com.lemon.spring.config.Constants;
-import com.lemon.spring.domain.User;
+import com.lemon.spring.domain.UserModel;
 import com.lemon.spring.interfaces.WebController;
 import com.lemon.spring.repository.UserRepository;
 import com.lemon.spring.security.AuthoritiesConstant;
-import com.lemon.spring.service.account.AccountService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Profile;
@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -34,7 +35,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
-public class AccountControllerRest implements WebController<User> {
+public class AccountControllerRest implements WebController<UserModel> {
     public static final String BASE_PATH="/account-controller";
 
     @Inject
@@ -51,7 +52,7 @@ public class AccountControllerRest implements WebController<User> {
 
     @Override
     @PostMapping(value = BASE_PATH,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String, Object>> save(@RequestBody User user) {
+    public ResponseEntity<Map<String, Object>> save(@RequestBody UserModel user) {
         accountService.register(user);
         Map<String,Object> objectMap=new HashMap<>();
         objectMap.put(Constants.GLOBAL_MESSAGE,"REGISTER_SUCCESS");
@@ -60,7 +61,7 @@ public class AccountControllerRest implements WebController<User> {
 
     @Override
     @PutMapping(value = BASE_PATH)
-    public ResponseEntity<Map<String, Object>> update(@RequestBody User entity) {
+    public ResponseEntity<Map<String, Object>> update(@RequestBody UserModel entity) {
         userRepository.save(entity);
         Map<String,Object> objectMap=new HashMap<>();
         objectMap.put(Constants.GLOBAL_MESSAGE,"UPDATE_SUCCESS");
@@ -70,16 +71,16 @@ public class AccountControllerRest implements WebController<User> {
     @PostAuthorize("returnObject.body.username==principal.username")
     @Override
     @GetMapping(value = BASE_PATH+"/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> findOne(@PathVariable BigInteger id) {
-        User user=hbmCapture.findOne(User.class,id);
+    public ResponseEntity<UserModel> findOne(@PathVariable BigInteger id) {
+        UserModel user=hbmCapture.findOne(UserModel.class,id);
         user.setPassword("");
         return ResponseEntity.ok(user);
     }
 
     @Override
     @GetMapping(value = BASE_PATH,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<User>> findAll() {
-        return ResponseEntity.ok(hbmCapture.getAll(User.class));
+    public ResponseEntity<List<UserModel>> findAll() {
+        return ResponseEntity.ok(hbmCapture.getAll(UserModel.class));
     }
 
     @Secured(AuthoritiesConstant.ROLE_ADMIN)
@@ -101,7 +102,7 @@ public class AccountControllerRest implements WebController<User> {
 
     @PostMapping(value = BASE_PATH+"/login-rest",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String,Object>> login(@RequestBody UserInfo userInfo) throws IOException {
-        boolean success=accountService.login(userInfo.getUsername(),userInfo.getPassword());
+        boolean success=accountService.login(userInfo);
         Map<String,Object> map=new HashMap<>();
         map.put(Constants.GLOBAL_MESSAGE,"LOGIN_SUCCESS");
         return ResponseEntity.ok(map);
@@ -118,9 +119,17 @@ public class AccountControllerRest implements WebController<User> {
 
     @PostMapping(value = BASE_PATH+"/logout")
     public ResponseEntity<Map<String,Object>> logout(@RequestBody LogoutInfo logoutInfo, HttpServletRequest httpServletRequest) {
-        accountService.logout(logoutInfo,httpServletRequest);
+        if(logoutInfo.getToken()==null || logoutInfo.getToken().isEmpty())
+            logoutInfo.setToken(resolveToken(httpServletRequest));
+
+        accountService.logout(logoutInfo);
         Map<String ,Object> map=new HashMap<>();
         map.put(Constants.GLOBAL_MESSAGE,"Logout is Success For Condition:"+logoutInfo.getLogoutRule().name().toLowerCase());
         return ResponseEntity.ok(map);
+    }
+
+    private String resolveToken(HttpServletRequest httpServletRequest) {
+        String bearer = httpServletRequest.getHeader("Authorization");
+        return StringUtils.hasText(bearer) && bearer.startsWith("Bearer ") ? bearer.substring("Bearer ".length()) : null;
     }
 }
