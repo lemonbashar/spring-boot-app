@@ -30,7 +30,7 @@ public class TokenStore extends AbstractAudit {
 
     @ManyToOne
     @JoinColumn(name = "SPRING_USER_TOKEN")
-    private UserModel user;
+    private User user;
 
     @Column(name = "VALIDATE_DATE")
     private Date validateDate;
@@ -54,11 +54,11 @@ public class TokenStore extends AbstractAudit {
         this.token = token;
     }
 
-    public UserModel getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserModel user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

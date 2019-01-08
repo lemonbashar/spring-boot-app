@@ -1,6 +1,8 @@
 package com.lemon.spring.domain;
 
 import com.lemon.spring.annotation.AutoAudit;
+import com.lemon.spring.enumeretion.audit.AutoActive;
+import com.lemon.spring.security.AuthoritiesConstant;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -15,8 +17,8 @@ import java.util.Set;
 @Table(name = "SPRING_USER")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@AutoAudit
-public class UserModel extends AbstractAudit{
+@AutoAudit(autoActive = AutoActive.ACTIVE_IF_HAS_ROLE,activeInactiveRole = {AuthoritiesConstant.ROLE_ADMIN})
+public class User extends AbstractAudit{
     public static final String CACHE = "UserCache";
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "SPRING_USER_PK")
@@ -42,16 +44,16 @@ public class UserModel extends AbstractAudit{
     @JoinTable(name = "USER_AUTHORITIES",
             joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "AUTHORITY",referencedColumnName = "AUTHORITY_NAME")})
-    private Set<AuthorityModel> authorities=new HashSet<>();
+    private Set<Authority> authorities=new HashSet<>();
 
-    public UserModel() {
+    public User() {
     }
 
-    public UserModel(BigInteger id) {
+    public User(BigInteger id) {
         this.id = id;
     }
 
-    public UserModel(BigInteger id, String username, String password) {
+    public User(BigInteger id, String username, String password) {
         this.id=id;
         this.username=username;
         this.password=password;
@@ -105,17 +107,17 @@ public class UserModel extends AbstractAudit{
         this.activeDate = activeDate;
     }
 
-    public void setAuthorities(Set<AuthorityModel> authorities) {
+    public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
     }
 
-    public Set<AuthorityModel> getAuthorities() {
+    public Set<Authority> getAuthorities() {
         return authorities;
     }
 
     @Override
     public String toString() {
-        return "UserModel{" +
+        return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

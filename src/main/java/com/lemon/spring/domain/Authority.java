@@ -8,18 +8,18 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "authority")
-public class AuthorityModel {
-    public static final String CACHE = "AuthorityModel";
+public class Authority {
+    public static final String CACHE = "Authority";
 
     @Id
     @NotNull
     @Column(unique = true,name = "AUTHORITY_NAME")
     private String name;
 
-    public AuthorityModel() {
+    public Authority() {
     }
 
-    public AuthorityModel(@NotNull String name) {
+    public Authority(@NotNull String name) {
         this.name = name;
     }
 
@@ -33,8 +33,6 @@ public class AuthorityModel {
 
     @Override
     public String toString() {
-        return "AuthorityModel{" +
-                "name='" + name + '\'' +
-                '}';
+        return name;
     }
 }

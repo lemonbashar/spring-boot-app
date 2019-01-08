@@ -1,9 +1,8 @@
 package com.lemon.spring.controller.web;
 
-import com.lemon.framework.data.domain.User;
 import com.lemon.framework.protocolservice.auth.AccountService;
 import com.lemon.spring.config.Constants;
-import com.lemon.spring.domain.UserModel;
+import com.lemon.spring.domain.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Profile;
@@ -29,13 +28,13 @@ public class AccountControllerWeb {
 
     @GetMapping(value = BASE_PATH+"/register")
     public String register(Model model) {
-        model.addAttribute("user",new UserModel());
+        model.addAttribute("user",new User());
         model.addAttribute("authorities",accountService.authorities());
         return "account/register";
     }
 
     @PostMapping(value = BASE_PATH)
-    public String save(@ModelAttribute UserModel user) {
+    public String save(@ModelAttribute User user) {
         accountService.register(user);
         log.debug("Successfully Registered...");
         return "account/login";

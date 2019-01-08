@@ -64,6 +64,7 @@ dependencies {
     implementation "com.lemon.framework:properties:${frameworkversion}"
     implementation "com.lemon.framework:data:${frameworkversion}"
     implementation "com.lemon.framework:spring-security:${frameworkversion}"
+    implementation "com.lemon.framework:security:${frameworkversion}"
     implementation "com.lemon.framework:protocol-service:${frameworkversion}"
 
 

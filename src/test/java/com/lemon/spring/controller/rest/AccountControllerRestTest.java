@@ -3,8 +3,8 @@ package com.lemon.spring.controller.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lemon.framework.web.data.UserInfo;
 import com.lemon.spring.Application;
-import com.lemon.spring.domain.AuthorityModel;
-import com.lemon.spring.domain.UserModel;
+import com.lemon.spring.domain.Authority;
+import com.lemon.spring.domain.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,7 +53,7 @@ public class AccountControllerRestTest {
 
     @Test
     public void save() throws Exception {
-        UserModel user= adminCreation();
+        User user= adminCreation();
         /*objectMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = objectMapper.writer().withDefaultPrettyPrinter();
         String requestJson=ow.writeValueAsString(user );*/
@@ -63,20 +63,20 @@ public class AccountControllerRestTest {
                 .andExpect(status().isOk());
     }
 
-    private UserModel simpleUserCreation() {
-        UserModel user=new UserModel();
+    private User simpleUserCreation() {
+        User user=new User();
         user.setUsername("lemon");
-        user.setAuthorities(new HashSet<>(Arrays.asList(new AuthorityModel("ROLE_USER"),new AuthorityModel("ROLE_REST_TEST"))));
+        user.setAuthorities(new HashSet<>(Arrays.asList(new Authority("ROLE_USER"),new Authority("ROLE_REST_TEST"))));
         user.setPassword("rest-test-123");
         user.setEmail("resttest@mail.com");
         user.setFullName("Rest Test Full Name");
         return user;
     }
 
-    private UserModel adminCreation() {
-        UserModel user=new UserModel();
+    private User adminCreation() {
+        User user=new User();
         user.setUsername("admin");
-        user.setAuthorities(new HashSet<>(Arrays.asList(new AuthorityModel("ROLE_USER"),new AuthorityModel("ROLE_REST_TEST"),new AuthorityModel("ROLE_ADMIN"))));
+        user.setAuthorities(new HashSet<>(Arrays.asList(new Authority("ROLE_USER"),new Authority("ROLE_REST_TEST"),new Authority("ROLE_ADMIN"))));
         user.setPassword("admin");
         user.setEmail("admin@mail.com");
         user.setFullName("Admin Test Full Name");

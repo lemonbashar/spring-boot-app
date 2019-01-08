@@ -7,11 +7,11 @@ import java.time.LocalDate;
 public abstract class AbstractAudit {
     @ManyToOne
     @JoinColumn(name = "CREATE_BY")
-    private UserModel createBy;
+    private User createBy;
 
     @ManyToOne
     @JoinColumn(name = "UPDATE_BY")
-    private UserModel updateBy;
+    private User updateBy;
 
     @Column(name = "CREATE_DATE")
     private LocalDate createDate;
@@ -30,19 +30,19 @@ public abstract class AbstractAudit {
         this.active = active;
     }
 
-    public UserModel getCreateBy() {
+    public User getCreateBy() {
         return createBy;
     }
 
-    public void setCreateBy(UserModel createBy) {
+    public void setCreateBy(User createBy) {
         this.createBy = createBy;
     }
 
-    public UserModel getUpdateBy() {
+    public User getUpdateBy() {
         return updateBy;
     }
 
-    public void setUpdateBy(UserModel updateBy) {
+    public void setUpdateBy(User updateBy) {
         this.updateBy = updateBy;
     }
 

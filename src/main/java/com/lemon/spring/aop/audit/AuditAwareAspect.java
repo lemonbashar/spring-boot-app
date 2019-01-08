@@ -32,8 +32,9 @@ public class AuditAwareAspect {
 
     @Before("allPointcut()")
     public void auditForSave(JoinPoint joinPoint) throws Throwable {
-        if(isAuditAble(joinPoint.getArgs()[0]))
-            auditAware.aware((AbstractAudit) joinPoint.getArgs()[0]);
+        Object obj=joinPoint.getArgs()[0];
+        if(isAuditAble(obj))
+            auditAware.aware((AbstractAudit) obj,obj.getClass().getAnnotation(AutoAudit.class));
     }
 
     @SuppressWarnings("unchecked")
@@ -44,9 +45,11 @@ public class AuditAwareAspect {
         if(objectIterator.hasNext()) {
             Object obj = objectIterator.next();
             if(isAuditAble(obj)) {
-                auditAware.aware((AbstractAudit) obj);
-                while (objectIterator.hasNext())
-                    auditAware.aware((AbstractAudit) objectIterator.next());
+                auditAware.aware((AbstractAudit) obj,obj.getClass().getAnnotation(AutoAudit.class));
+                while (objectIterator.hasNext()) {
+                    Object obj2=objectIterator.next();
+                    auditAware.aware((AbstractAudit) obj2,obj2.getClass().getAnnotation(AutoAudit.class));
+                }
             }
         }
     }

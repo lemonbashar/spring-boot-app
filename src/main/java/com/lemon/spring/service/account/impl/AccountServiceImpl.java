@@ -3,14 +3,12 @@ package com.lemon.spring.service.account.impl;
 import com.lemon.framework.data.JWToken;
 import com.lemon.framework.data.LogoutInfo;
 import com.lemon.framework.data.UserInfo;
-import com.lemon.framework.data.domain.Authority;
-import com.lemon.framework.data.domain.User;
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.framework.protocolservice.auth.AccountService;
 import com.lemon.framework.springsecurity.jwt.JwtAuthManager;
 import com.lemon.framework.springsecurity.session.SessionAuthManager;
-import com.lemon.spring.domain.AuthorityModel;
-import com.lemon.spring.domain.UserModel;
+import com.lemon.spring.domain.Authority;
+import com.lemon.spring.domain.User;
 import com.lemon.spring.security.SecurityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,7 +23,7 @@ import java.util.Set;
 
 @SuppressWarnings({"unchecked", "JpaQlInspection", "SpringJavaAutowiredFieldsWarningInspection"})
 @Service
-public class AccountServiceImpl implements AccountService {
+public class AccountServiceImpl implements AccountService<BigInteger> {
 
     private final Logger log= LogManager.getLogger(AccountServiceImpl.class);
 
@@ -51,18 +49,18 @@ public class AccountServiceImpl implements AccountService {
         return SecurityUtils.currentUserId();
     }
 
-    @Override
-    public boolean login(UserInfo userInfo) {
-        return sessionAuthManager.authenticate(userInfo)!=null;
-    }
+//    @Override
+//    public boolean login(UserInfo userInfo) {
+//        return sessionAuthManager.authenticate(userInfo)!=null;
+//    }
 
     @Override
     public void register(Object userObj) {
-        UserModel user= (UserModel) userObj;
+        User user= (User) userObj;
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Set<AuthorityModel> authorities=new HashSet<>();
+        Set<Authority> authorities=new HashSet<>();
         user.getAuthorities().forEach(v->{
-            if(hbmCapture.findOne("SELECT auth FROM AuthorityModel auth WHERE auth.name='"+v.getName()+"'")==null) {
+            if(hbmCapture.findOne("SELECT auth FROM Authority auth WHERE auth.name='"+v.getName()+"'")==null) {
                 hbmCapture.save(v);
             }
             authorities.add(v);
@@ -73,12 +71,18 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Set<Object> authorities() {
-        return new HashSet<>(hbmCapture.getAll("SELECT auth FROM AuthorityModel auth"));
+        return new HashSet<>(hbmCapture.getAll("SELECT auth FROM Authority auth"));
     }
 
     @Override
     public JWToken authenticate(UserInfo userInfo) {
+        /*If The App is Stateful-Only*/
+        if(jwtAuthManager==null) {
+            sessionAuthManager.authenticate(userInfo);
+            return new JWToken("");
+        }
         try {
+            /*If The app stateless or both*/
             return jwtAuthManager.authenticate(userInfo).token();
         } catch (NullPointerException e) {
             throw new SecurityException("May-Be your Application is Not Enabled For Token-Based Authentication");

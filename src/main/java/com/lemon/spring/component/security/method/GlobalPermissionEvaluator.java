@@ -1,6 +1,6 @@
 package com.lemon.spring.component.security.method;
 
-import com.lemon.spring.domain.AuthorityModel;
+import com.lemon.spring.domain.Authority;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 
@@ -20,7 +20,7 @@ public class GlobalPermissionEvaluator implements PermissionEvaluator {
             case READ:
                 return true;
             case WRITE:
-                return target instanceof AuthorityModel;
+                return target instanceof Authority;
         }
         return false;
     }
