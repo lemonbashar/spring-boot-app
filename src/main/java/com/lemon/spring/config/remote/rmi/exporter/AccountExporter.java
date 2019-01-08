@@ -1,24 +1,30 @@
 package com.lemon.spring.config.remote.rmi.exporter;
-/*
 
-import com.lemon.framework.springremote.rmi.RmiUserService;
-import com.lemon.spring.config.remote.RemoteConfig;
+import com.lemon.framework.properties.ApplicationProperties;
+import com.lemon.framework.protocolservice.auth.AccountService;
+import com.lemon.spring.config.Constants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.remoting.rmi.RmiServiceExporter;
 
+import javax.inject.Inject;
+import java.math.BigInteger;
+
+@Profile({Constants.PROFILE_REMOTE,Constants.PROFILE_RMI})
 @Configuration
 public class AccountExporter {
+    @Inject
+    private ApplicationProperties properties;
 
     @Bean
-    public RmiServiceExporter userServiceExport(RmiUserService rmiUserService) {
-        Class<RmiUserService> service = RmiUserService.class;
+    public RmiServiceExporter userServiceExport(AccountService<BigInteger> accountService) {
+        Class<AccountService> service = AccountService.class;
         RmiServiceExporter serviceExporter=new RmiServiceExporter();
         serviceExporter.setServiceInterface(service);
-        serviceExporter.setService(rmiUserService);
+        serviceExporter.setService(accountService);
         serviceExporter.setServiceName(service.getName());
-        serviceExporter.setRegistryPort(RemoteConfig.RMI_PORT);
+        serviceExporter.setRegistryPort(properties.settings.protocolService.port.rmiPort);
         return serviceExporter;
     }
 }
-*/
