@@ -24,7 +24,7 @@ public class AccountExporter {
         serviceExporter.setServiceInterface(service);
         serviceExporter.setService(accountService);
         serviceExporter.setServiceName(service.getName());
-        serviceExporter.setRegistryPort(properties.settings.protocolService.port.rmiPort);
+        serviceExporter.setRegistryPort(45);
         return serviceExporter;
     }
 }

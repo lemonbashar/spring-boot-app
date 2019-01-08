@@ -27,6 +27,9 @@ public class AuditAwareAspect {
     @Pointcut("execution(* com.lemon.framework.orm.capture.AbstractCapture.persist(..)) || execution(* com.lemon.framework.orm.capture.AbstractCapture.save(..))")
     public void hibernateSessionSaveCall() {}
 
+    @Pointcut("execution(* org.springframework.jdbc.core.JdbcTemplate.update(..)) || execution(* org.springframework.jdbc.core.JdbcTemplate.batchUpdate(..))")
+    public void jdbcTemplateSaveOperation() {}
+
     @Pointcut("repositorySaveCallPointcut() || hibernateSessionSaveCall()")
     public void allPointcut() {}
 

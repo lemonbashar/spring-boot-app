@@ -13,11 +13,15 @@ import com.lemon.spring.security.SecurityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.math.BigInteger;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,6 +42,9 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
 
     @Inject
     private SessionAuthManager sessionAuthManager;
+
+    @Inject
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public String currentUsername() {
@@ -70,8 +77,8 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
     }
 
     @Override
-    public Set<Object> authorities() {
-        return new HashSet<>(hbmCapture.getAll("SELECT auth FROM Authority auth"));
+    public Set<String> authorities() {
+        return new HashSet<>(jdbcTemplate.query("SELECT AUTHORITY_NAME FROM AUTHORITY", (rs, rowNum) -> rs.getString(1)));
     }
 
     @Override
