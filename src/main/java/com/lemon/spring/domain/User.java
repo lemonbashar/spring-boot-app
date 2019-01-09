@@ -17,7 +17,7 @@ import java.util.Set;
 @Table(name = "SPRING_USER")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@AutoAudit(autoActive = AutoActive.ACTIVE_IF_HAS_ROLE,activeInactiveRole = {AuthoritiesConstant.ROLE_ADMIN})
+@AutoAudit(autoActive = AutoActive.ACTIVE_IF_HAS_ROLE_ON_CREATE,activeInactiveRole = {AuthoritiesConstant.ROLE_ADMIN})
 public class User extends AbstractAudit{
     public static final String CACHE = "UserCache";
     @Id
