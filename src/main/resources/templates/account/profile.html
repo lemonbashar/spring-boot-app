@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="UTF-8">
         <title>Profile</title>
     </head>
     <body>
         <h1>Welcome To Your Profile</h1>
-        <a href="/swagger-ui.html">Swagger API Docs</a>
+        <a href="/web/account-controller/update/me">Edit Account</a><br>
+         <a sec:authorize="hasRole('ROLE_ADMIN')" href="/swagger-ui.html">Swagger API Docs</a>
     </body>
 </html>

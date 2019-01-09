@@ -68,7 +68,7 @@ public class AccountControllerRest implements WebController<User> {
         return ResponseEntity.ok(objectMap);
     }
 
-    @PostAuthorize("returnObject.body.username==principal.username")
+    @PostAuthorize("returnObject.body.username==principal.username || hasAnyAuthority('ROLE_ADMIN')")
     @Override
     @GetMapping(value = BASE_PATH+"/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> findOne(@PathVariable BigInteger id) {
@@ -77,6 +77,7 @@ public class AccountControllerRest implements WebController<User> {
         return ResponseEntity.ok(user);
     }
 
+    @Secured(AuthoritiesConstant.ROLE_ADMIN)
     @Override
     @GetMapping(value = BASE_PATH,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> findAll() {
@@ -125,6 +126,14 @@ public class AccountControllerRest implements WebController<User> {
         accountService.logout(logoutInfo);
         Map<String ,Object> map=new HashMap<>();
         map.put(Constants.GLOBAL_MESSAGE,"Logout is Success For Condition:"+logoutInfo.getLogoutRule().name().toLowerCase());
+        return ResponseEntity.ok(map);
+    }
+    @GetMapping(value = BASE_PATH+"/logout")
+    public ResponseEntity<Map<String,Object>> logout(HttpServletRequest httpServletRequest) {
+        String username=accountService.currentUsername();
+        accountService.logout(null);
+        Map<String ,Object> map=new HashMap<>();
+        map.put(Constants.GLOBAL_MESSAGE,"Logout is Success For Condition:"+username.toLowerCase());
         return ResponseEntity.ok(map);
     }
 
