@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+<h1>Register Please</h1>
+<form action="#" th:action="@{/web/account-controller/update}" th:object="${user}" method="post">
+    <input type="hidden" th:field="*{id}" ></p>
+    <p>Full-Name:<input type="text" th:field="*{fullName}" ></p>
+    <p>Password:<input type="password" th:field="*{password}"></p>
+    <p>E-Mail:<input type="email" th:field="*{email}"></p>
+    <input type="hidden" th:field="*{createDate}"></p>
+    <input type="hidden" th:field="*{createBy}"></p>
+    <input type="hidden" th:field="*{updateBy}"></p>
+    <input type="hidden" th:field="*{updateDate}"></p>
+    <input type="hidden" th:field="*{username}"></p>
+    <input type="hidden" th:field="*{active}"></p>
+    <input type="hidden" th:field="*{activeDate}"></p>
+    <p>Authorities</p>
+    <select th:field="*{authorities}" multiple="multiple">
+        <option th:each="auth : ${authorities}" th:value="${auth.name}" th:text="${auth.name}"></option>
+    </select>
+    <br>
+    <input type="submit" value="Update">
+</form>
+</body>
+</html>

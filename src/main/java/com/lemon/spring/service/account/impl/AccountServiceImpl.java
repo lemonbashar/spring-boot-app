@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -98,8 +99,13 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
 
     @Override
     public void logout(LogoutInfo logoutInfo) {
+        if(logoutInfo==null)
+            SecurityContextHolder.clearContext();
         logoutInfo.setUserId(SecurityUtils.currentUserId());
-        jwtAuthManager.logout(logoutInfo);
+
+        if(jwtAuthManager!=null)
+            jwtAuthManager.logout(logoutInfo);
+        sessionAuthManager.logout(logoutInfo);
     }
 
 
