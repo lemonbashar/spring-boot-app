@@ -156,15 +156,7 @@ public class AuditAwareImpl implements AuditAware {
             return userRepository.findOneByUsername("system").getId();
         } catch (Throwable e) {
         }
-        try {
-            return userRepository.findAllByAuthority(new PageImpl(1), AuthoritiesConstant.ROLE_ADMIN).get(0).getId();
-        } catch (Throwable e) {
-        }
-        try {
-            return userRepository.findAll(new PageImpl(1)).getContent().get(0).getId();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         return null;
     }
 }
