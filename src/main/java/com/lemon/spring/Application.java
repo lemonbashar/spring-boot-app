@@ -1,6 +1,5 @@
 package com.lemon.spring;
 
-import com.lemon.spring.config.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -44,7 +43,7 @@ public class Application {
                 log.error("You have misconfigured your application! " +
                         "It should not run with both the 'prod' and 'fast' profiles at the same time.");
             }
-            if (activeProfiles.contains(PROFILE_DEVELOPMENT) && activeProfiles.contains(Constants.PROFILE_CLOUD)) {
+            if (activeProfiles.contains(PROFILE_DEVELOPMENT) && activeProfiles.contains(PROFILE_CLOUD)) {
                 log.error("You have misconfigured your application! " +
                         "It should not run with both the 'dev' and 'cloud' profiles at the same time.");
             }

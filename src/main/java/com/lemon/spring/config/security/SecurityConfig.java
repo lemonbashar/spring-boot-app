@@ -124,6 +124,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .mvcMatchers(HttpMethod.POST,"/web/account-controller*").permitAll()/*Register API Permit For Registration*/
                     .mvcMatchers(HttpMethod.POST,"/api/account-controller*").permitAll()/*When Click to Register, All User Data need to Store on Database, and for this reason it has been permitted */
                     .mvcMatchers(HttpMethod.GET,"/api/account-controller/key/*").hasAnyAuthority(ROLE_ADMIN)
+
+
+                     /*Url Mapping For HTTP-INVOKER-REMOTE-SERVICE*/
+                    .mvcMatchers("/accountService.service*").permitAll()
+                     /*Url Mapping For HTTP-INVOKER-REMOTE-SERVICE*/
                 .anyRequest().authenticated();
                 //.antMatchers("/api/**","/web/**").authenticated();
         if(!applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_STATEFUL))http.apply(securityConfigurerAdapter); /*That means if only application is enabled stateful then it not handle token otherwise handle token*/
