@@ -13,7 +13,7 @@ import java.math.BigInteger;
 
 @Profile({Constants.PROFILE_REMOTE,Constants.PROFILE_RMI})
 @Configuration
-public class AccountExporter {
+public class RmiExporterConfig {
     @Inject
     private ApplicationProperties properties;
 
