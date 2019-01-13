@@ -18,4 +18,5 @@ public final class Constants {
     /*Remote Config*/
     public static final String PROFILE_REMOTE = "remote";
     public static final String PROFILE_RMI = "rmi";
+    public static final String PROFILE_HTTP_INVOKER = "http";
 }
