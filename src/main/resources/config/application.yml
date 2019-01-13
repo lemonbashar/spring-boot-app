@@ -18,6 +18,7 @@ settings:
 #  postgre: It Enable Postgre Database Connectivity
 #  remote: It enable Remote Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also
 #  rmi: It enable RMI Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also if only rmi use, then enable only rmi-service
+#  http: It enable HttpInvoker Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also if only rmi use, then enable only http-invoker-service
 
 spring:
   profiles:
