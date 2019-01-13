@@ -32,7 +32,7 @@ public class AuditAwareImpl implements AuditAware {
 
     @Override
     public void awareCreate(AbstractAudit audit,AutoAudit autoAudit) {
-        audit.setCreateBy(new User(findCreatorId()));
+        audit.setCreateBy(currentUser());
         audit.setCreateDate(LocalDate.now());
         switch (autoAudit.autoActive()) {
             case ALWAYS_ACTIVE:
@@ -86,9 +86,14 @@ public class AuditAwareImpl implements AuditAware {
         }
     }
 
+    private User currentUser() {
+        BigInteger uid=findCreatorId();
+        return uid==null?null:new User(uid);
+    }
+
     @Override
     public void awareUpdate(AbstractAudit audit,AutoAudit autoAudit) {
-        audit.setUpdateBy(new User(findCreatorId()));
+        audit.setUpdateBy(currentUser());
         audit.setUpdateDate(LocalDate.now());
         switch (autoAudit.autoActive()) {
             case ALWAYS_ACTIVE:
@@ -151,11 +156,7 @@ public class AuditAwareImpl implements AuditAware {
             return userRepository.findOneByUsername("system").getId();
         } catch (Throwable e) {
         }
-        try {
-            return userRepository.findAllByAuthority(new PageImpl(1), AuthoritiesConstant.ROLE_ADMIN).get(0).getId();
-        } catch (Throwable e) {
-        }
-        return userRepository.findAll(new PageImpl(1)).getContent().get(0).getId();
 
+        return null;
     }
 }

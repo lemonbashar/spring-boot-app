@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css}" />-->
 </head>
 <body>
 <h1>Register Please</h1>
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-6">
+            <input class="form-control" id="ds" name="ds">
+        </div>
+    </div>
+</div>
+
 <form action="#" th:action="@{/web/account-controller/update}" th:object="${user}" method="post">
     <input type="hidden" th:field="*{id}" ></p>
     <p>Full-Name:<input type="text" th:field="*{fullName}" ></p>
