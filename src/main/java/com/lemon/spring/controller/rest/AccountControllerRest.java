@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,10 +60,11 @@ public class AccountControllerRest implements WebController<User> {
         return ResponseEntity.ok(objectMap);
     }
 
+    @PreAuthorize("#user.username==principal.username OR hasAnyAuthority('ROLE_ADMIN')")
     @Override
     @PutMapping(value = BASE_PATH)
-    public ResponseEntity<Map<String, Object>> update(@RequestBody User entity) {
-        userRepository.save(entity);
+    public ResponseEntity<Map<String, Object>> update(@RequestBody User user) {
+        userRepository.save(user);
         Map<String,Object> objectMap=new HashMap<>();
         objectMap.put(Constants.GLOBAL_MESSAGE,"UPDATE_SUCCESS");
         return ResponseEntity.ok(objectMap);
