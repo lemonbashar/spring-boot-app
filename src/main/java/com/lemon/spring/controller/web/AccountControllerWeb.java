@@ -5,6 +5,7 @@ import com.lemon.framework.security.auth.AuthorizationBridge;
 import com.lemon.spring.config.Constants;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.interfaces.ViewController;
+import com.lemon.spring.interfaces.impl.AbstractViewController;
 import com.lemon.spring.repository.AuthorityRepository;
 import com.lemon.spring.repository.UserRepository;
 import com.lemon.spring.security.AuthoritiesConstant;
@@ -29,7 +30,7 @@ import java.math.BigInteger;
 @Controller
 @Profile(value = {Constants.PROFILE_STATEFUL,Constants.PROFILE_BOTH})
 @RequestMapping("/web")
-public class AccountControllerWeb implements ViewController<User> {
+public class AccountControllerWeb extends AbstractViewController<User,BigInteger> {
     private final Logger log= LogManager.getLogger(AccountControllerWeb.class);
 
     @Inject
@@ -50,11 +51,12 @@ public class AccountControllerWeb implements ViewController<User> {
 
     public static final String BASE_PATH="/account-controller";
 
-    @GetMapping(value = BASE_PATH+"/register")
-    public String savePageAccess(Model model) {
+    @GetMapping(value = BASE_PATH+"/save-entry")
+    @Override
+    public String saveEntry(Model model) {
         model.addAttribute("user",new User());
         model.addAttribute("authorities",authorityRepository.findAll());
-        return "account/register";
+        return super.saveEntry(model);
     }
 
     @PostMapping(value = BASE_PATH)
@@ -62,11 +64,12 @@ public class AccountControllerWeb implements ViewController<User> {
     public String save(@ModelAttribute User user) {
         accountService.register(user);
         log.debug("Successfully Registered...");
-        return "account/login";
+        return home();
     }
 
-    @GetMapping(value = BASE_PATH+"/update/{id}")
-    public String updatePageAccess(Model model,@PathVariable BigInteger id) {
+    @GetMapping(value = BASE_PATH+"/update-entry/{id}")
+    @Override
+    public String updateEntry(Model model,@PathVariable BigInteger id) {
         User user=userService.userForUpdate(id);
         if(authorizationBridge.hasNoAuthority(AuthoritiesConstant.ROLES_FOR_ADMIN)) {
             if(!user.getUsername().equals(SecurityUtils.currentUserLogin())) return "account/profile";
@@ -77,7 +80,7 @@ public class AccountControllerWeb implements ViewController<User> {
     }
 
 
-    @GetMapping(value = BASE_PATH+"/update/me")
+    @GetMapping(value = BASE_PATH+"/update-entry/me")
     public String updatePageAccessMe(Model model) {
         User user=userService.userForUpdate(SecurityUtils.currentUserId());
         model.addAttribute("user",user);
@@ -94,18 +97,13 @@ public class AccountControllerWeb implements ViewController<User> {
     }
 
     @Override
-    public String findOne(BigInteger id) {
-        return null;
-    }
-
-    @Override
-    public String findAll() {
-        return null;
-    }
-
-    @Override
     public String delete(BigInteger id) {
         return null;
+    }
+
+    @Override
+    public String baseView() {
+        return "/account/";
     }
 
 
