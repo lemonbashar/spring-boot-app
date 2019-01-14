@@ -51,6 +51,14 @@ public class AccountControllerWeb extends AbstractViewController<User,BigInteger
 
     public static final String BASE_PATH="/account-controller";
 
+    @GetMapping(BASE_PATH+"/home")
+    @Override
+    public String home() {
+        if(authorizationBridge.hasAnyAuthority(AuthoritiesConstant.ROLES_FOR_ADMIN))
+            return super.home();
+        return view("profile");
+    }
+
     @GetMapping(value = BASE_PATH+"/save-entry")
     @Override
     public String saveEntry(Model model) {
@@ -64,28 +72,22 @@ public class AccountControllerWeb extends AbstractViewController<User,BigInteger
     public String save(@ModelAttribute User user) {
         accountService.register(user);
         log.debug("Successfully Registered...");
-        return home();
+        return loginPage();
     }
 
     @GetMapping(value = BASE_PATH+"/update-entry/{id}")
     @Override
     public String updateEntry(Model model,@PathVariable BigInteger id) {
         User user=userService.userForUpdate(id);
-        if(authorizationBridge.hasNoAuthority(AuthoritiesConstant.ROLES_FOR_ADMIN)) {
-            if(!user.getUsername().equals(SecurityUtils.currentUserLogin())) return "account/profile";
-        }
         model.addAttribute("user",user);
         model.addAttribute("authorities",authorityRepository.findAll());
-        return "account/update";
+        return super.updateEntry(model,id);
     }
 
 
     @GetMapping(value = BASE_PATH+"/update-entry/me")
-    public String updatePageAccessMe(Model model) {
-        User user=userService.userForUpdate(SecurityUtils.currentUserId());
-        model.addAttribute("user",user);
-        model.addAttribute("authorities",authorityRepository.findAll());
-        return "account/update";
+    public String updateEntry(Model model) {
+        return updateEntry(model,SecurityUtils.currentUserId());
     }
 
     @PreAuthorize("#user.username==principal.username OR hasAnyAuthority('ROLE_ADMIN')")
@@ -93,12 +95,22 @@ public class AccountControllerWeb extends AbstractViewController<User,BigInteger
     @Override
     public String update(@ModelAttribute User user) {
         userService.updateUser(user);
-        return "account/profile";
+        return super.update(user);
     }
 
+    @GetMapping(BASE_PATH)
     @Override
-    public String delete(BigInteger id) {
-        return null;
+    public String findAll(Model model) {
+        model.addAttribute("users",userRepository.findAll());
+        return super.findAll(model);
+    }
+
+    @Secured(AuthoritiesConstant.ROLE_ADMIN)
+    @GetMapping(BASE_PATH+"/delete/{id}")
+    @Override
+    public String delete(@PathVariable BigInteger id) {
+        userRepository.delete(new User(id));
+        return home();
     }
 
     @Override
@@ -108,12 +120,16 @@ public class AccountControllerWeb extends AbstractViewController<User,BigInteger
 
 
     @GetMapping(value = BASE_PATH+"/profile")
-    public String profile(HttpServletResponse httpServletResponse) {
-        return "account/profile";
+    public String profile() {
+        return home();
     }
 
     @GetMapping(value = BASE_PATH+"/login")
     public String login(Model model, @RequestParam(name = "error",required = false) String error,@RequestParam(name = "logout",required = false) String logout) {
-        return "account/login";
+        return loginPage();
+    }
+
+    private String loginPage() {
+        return view("login");
     }
 }

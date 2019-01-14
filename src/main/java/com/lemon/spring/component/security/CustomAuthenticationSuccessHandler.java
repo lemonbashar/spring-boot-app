@@ -28,6 +28,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         log.debug("Authentication Success:--->:"+authentication);
-        httpServletResponse.sendRedirect("/web"+AccountControllerWeb.BASE_PATH+"/profile");
+        httpServletResponse.sendRedirect("/web"+AccountControllerWeb.BASE_PATH+"/home");
     }
 }

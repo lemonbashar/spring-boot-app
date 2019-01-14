@@ -8,7 +8,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,9 +35,6 @@ public class User extends AbstractAudit{
 
     @Column(name = "FULL_NAME")
     private String fullName;
-
-    @Column(name = "ACTIVE_DATE")
-    private LocalDate activeDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_AUTHORITIES",
@@ -97,14 +93,6 @@ public class User extends AbstractAudit{
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public LocalDate getActiveDate() {
-        return activeDate;
-    }
-
-    public void setActiveDate(LocalDate activeDate) {
-        this.activeDate = activeDate;
     }
 
     public void setAuthorities(Set<Authority> authorities) {
