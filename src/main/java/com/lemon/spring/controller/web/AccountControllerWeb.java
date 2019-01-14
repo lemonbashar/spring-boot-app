@@ -70,7 +70,9 @@ public class AccountControllerWeb extends AbstractViewController<User,BigInteger
     @PostMapping(value = BASE_PATH)
     @Override
     public String save(@ModelAttribute User user) {
-        accountService.register(user);
+        if(user.getId()==null)
+            accountService.register(user);
+        else return update(user);
         log.debug("Successfully Registered...");
         return loginPage();
     }

@@ -9,6 +9,7 @@
 <h1 th:text="${user.id}==null?'Create a New User':'Update User'"></h1>
 <a href="/web/account-controller/home">Home</a><br><br>
 <form action="#" th:action="@{/web/account-controller}" th:object="${user}" method="post">
+    <input type="hidden" th:field="*{id}" ></p>
     <p>Full-Name:<input type="text" th:field="*{fullName}" ></p>
     <p>Username:<input type="text" th:field="*{username}"></p>
     <p>Password:<input type="password" th:field="*{password}"></p>
