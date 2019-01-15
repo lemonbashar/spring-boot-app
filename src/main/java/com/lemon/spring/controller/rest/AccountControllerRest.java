@@ -66,7 +66,7 @@ public class AccountControllerRest implements WebController<User,BigInteger> {
         return ResponseEntity.ok(objectMap);
     }
 
-    @PreAuthorize("#user.username==principal.username OR hasAnyAuthority('ROLE_ADMIN')")
+    @PreAuthorize("#user.username==principal.username OR hasPermission(#user,'IS_ADMIN')")
     @Override
     @PutMapping(value = BASE_PATH)
     public ResponseEntity<Map<String, Object>> update(@RequestBody User user) {
@@ -76,7 +76,7 @@ public class AccountControllerRest implements WebController<User,BigInteger> {
         return ResponseEntity.ok(objectMap);
     }
 
-    @PostAuthorize("returnObject.body.username==principal.username || hasAnyAuthority('ROLE_ADMIN')")
+    @PostAuthorize("returnObject.body.username==principal.username || #{authorizationBridge.isAdmin()}")
     @Override
     @GetMapping(value = BASE_PATH+"/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> findOne(@PathVariable BigInteger id) {

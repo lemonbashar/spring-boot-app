@@ -4,6 +4,7 @@ import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.framework.protocolservice.auth.AccountService;
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.repository.UserRepository;
+import com.lemon.spring.security.AuthoritiesConstant;
 import com.lemon.spring.security.SecurityUtils;
 import org.springframework.stereotype.Component;
 
@@ -44,6 +45,11 @@ public class AuthorizationBridge implements com.lemon.framework.security.auth.Au
     @Override
     public boolean hasNoAnyAuthority(String... authorities) {
         return SecurityUtils.hasNoAnyAuthority(authorities);
+    }
+
+    @Override
+    public boolean isAdmin() {
+        return SecurityUtils.hasAnyAuthority(AuthoritiesConstant.ROLES_FOR_ADMIN);
     }
 
     @Override
