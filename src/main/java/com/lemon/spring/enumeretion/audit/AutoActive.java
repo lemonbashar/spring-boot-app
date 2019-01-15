@@ -1,7 +1,7 @@
 package com.lemon.spring.enumeretion.audit;
 
 public enum AutoActive {
-    ACTIVE_ON_CREATE,ACTIVE_ON_UPDATE
+     ACTIVE_ON_CREATE,ACTIVE_ON_UPDATE
     ,INACTIVE_ON_CREATE,INACTIVE_ON_UPDATE
     ,ALWAYS_ACTIVE,ALWAYS_INACTIVE
     ,NONE

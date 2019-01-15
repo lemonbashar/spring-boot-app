@@ -11,9 +11,13 @@ import com.lemon.spring.domain.User;
 import com.lemon.spring.interfaces.WebController;
 import com.lemon.spring.repository.UserRepository;
 import com.lemon.spring.security.AuthoritiesConstant;
+import com.lemon.spring.service.account.UserService;
+import com.lemon.spring.web.page.PaginationUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,15 +32,14 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.net.URISyntaxException;
+import java.util.*;
 
 @SuppressWarnings({"Duplicates", "WeakerAccess", "RedundantThrows", "unused"})
 @RestController
 @RequestMapping("/api")
 @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
-public class AccountControllerRest implements WebController<User> {
+public class AccountControllerRest implements WebController<User,BigInteger> {
     public static final String BASE_PATH="/account-controller";
 
     @Inject
@@ -47,6 +50,9 @@ public class AccountControllerRest implements WebController<User> {
 
     @Inject
     private UserRepository userRepository;
+
+    @Inject
+    private UserService userService;
 
     private Logger log = LogManager.getLogger(AccountControllerRest.class);
 
@@ -64,7 +70,7 @@ public class AccountControllerRest implements WebController<User> {
     @Override
     @PutMapping(value = BASE_PATH)
     public ResponseEntity<Map<String, Object>> update(@RequestBody User user) {
-        userRepository.save(user);
+        userService.updateUser(user);
         Map<String,Object> objectMap=new HashMap<>();
         objectMap.put(Constants.GLOBAL_MESSAGE,"UPDATE_SUCCESS");
         return ResponseEntity.ok(objectMap);
@@ -82,8 +88,9 @@ public class AccountControllerRest implements WebController<User> {
     @Secured(AuthoritiesConstant.ROLE_ADMIN)
     @Override
     @GetMapping(value = BASE_PATH,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<User>> findAll() {
-        return ResponseEntity.ok(hbmCapture.getAll(User.class));
+    public ResponseEntity<List<User>> findAll(Pageable pageable) {
+        Page<User> page = userRepository.findAll(pageable);
+        return pageOf(page,BASE_PATH);
     }
 
     @Secured(AuthoritiesConstant.ROLE_ADMIN)
@@ -135,7 +142,7 @@ public class AccountControllerRest implements WebController<User> {
         String username=accountService.currentUsername();
         accountService.logout(null);
         Map<String ,Object> map=new HashMap<>();
-        map.put(Constants.GLOBAL_MESSAGE,"Logout is Success For Condition:"+username.toLowerCase());
+        map.put(Constants.GLOBAL_MESSAGE,"Logout is Success For:"+username.toLowerCase());
         return ResponseEntity.ok(map);
     }
 
