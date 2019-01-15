@@ -26,6 +26,6 @@ public interface WebController<K,ID> {
 
     default ResponseEntity<List<K>> pageOf(Page<K> page,String baseUrl) {
         final HttpHeaders httpHeaders = PaginationUtil.generatePaginationHttpHeaders(page, baseUrl);
-        return Optional.ofNullable(page).map(val->new ResponseEntity<>(page.getContent(), httpHeaders, HttpStatus.OK)).orElse(ResponseEntity.badRequest().body(new ArrayList<>()));
+        return Optional.ofNullable(page).map(val->new ResponseEntity<>(page.getContent(), httpHeaders, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
