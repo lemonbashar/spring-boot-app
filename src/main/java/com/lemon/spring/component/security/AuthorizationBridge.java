@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
-@Component
+@Component("auth")
 public class AuthorizationBridge implements com.lemon.framework.security.auth.AuthorizationBridge<BigInteger> {
 
     @Inject

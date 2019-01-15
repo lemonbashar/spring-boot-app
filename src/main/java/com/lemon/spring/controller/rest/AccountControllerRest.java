@@ -66,7 +66,7 @@ public class AccountControllerRest implements WebController<User,BigInteger> {
         return ResponseEntity.ok(objectMap);
     }
 
-    @PreAuthorize("#user.username==principal.username OR hasPermission(#user,'IS_ADMIN')")
+    @PreAuthorize("#user.username==principal.username || @auth.isAdmin()")
     @Override
     @PutMapping(value = BASE_PATH)
     public ResponseEntity<Map<String, Object>> update(@RequestBody User user) {
@@ -76,7 +76,7 @@ public class AccountControllerRest implements WebController<User,BigInteger> {
         return ResponseEntity.ok(objectMap);
     }
 
-    @PostAuthorize("returnObject.body.username==principal.username || #{authorizationBridge.isAdmin()}")
+    @PostAuthorize("returnObject.body.username==principal.username || @auth.isAdmin()")
     @Override
     @GetMapping(value = BASE_PATH+"/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> findOne(@PathVariable BigInteger id) {
@@ -85,7 +85,7 @@ public class AccountControllerRest implements WebController<User,BigInteger> {
         return ResponseEntity.ok(user);
     }
 
-    @Secured(AuthoritiesConstant.ROLE_ADMIN)
+    @PreAuthorize("@auth.isAdmin()")
     @Override
     @GetMapping(value = BASE_PATH,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> findAll(Pageable pageable) {
@@ -93,7 +93,7 @@ public class AccountControllerRest implements WebController<User,BigInteger> {
         return pageOf(page,BASE_PATH);
     }
 
-    @Secured(AuthoritiesConstant.ROLE_ADMIN)
+    @PreAuthorize("@auth.isAdmin()")
     @Override
     @DeleteMapping(value = BASE_PATH+"/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Object>> delete(@PathVariable BigInteger id) {
@@ -103,7 +103,7 @@ public class AccountControllerRest implements WebController<User,BigInteger> {
         return ResponseEntity.ok(objectMap);
     }
 
-    @Secured(AuthoritiesConstant.ROLE_ADMIN)
+    @PreAuthorize("@auth.isAdmin()")
     @GetMapping(value = BASE_PATH+"/key/{key}",produces = MediaType.APPLICATION_JSON_VALUE)
     public String keyVal(@PathVariable String key) {
         if(key.equals("username")) return accountService.currentUsername();

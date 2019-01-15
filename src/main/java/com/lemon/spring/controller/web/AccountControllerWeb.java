@@ -77,6 +77,7 @@ public class AccountControllerWeb extends AbstractViewController<User,BigInteger
         return loginPage();
     }
 
+    @PreAuthorize("hasPermission(#id,'IS_ADMIN')")
     @GetMapping(value = BASE_PATH+"/update-entry/{id}")
     @Override
     public String updateEntry(Model model,@PathVariable BigInteger id) {
@@ -92,7 +93,7 @@ public class AccountControllerWeb extends AbstractViewController<User,BigInteger
         return updateEntry(model,SecurityUtils.currentUserId());
     }
 
-    @PreAuthorize("#user.username==principal.username OR hasAnyAuthority('ROLE_ADMIN')")
+    @PreAuthorize("#user.username==principal.username OR hasPermission(#user,'IS_ADMIN')")
     @PostMapping(value = BASE_PATH+"/update")
     @Override
     public String update(@ModelAttribute User user) {
@@ -100,6 +101,7 @@ public class AccountControllerWeb extends AbstractViewController<User,BigInteger
         return super.update(user);
     }
 
+    @PreAuthorize("@auth.isAdmin()")
     @GetMapping(BASE_PATH)
     @Override
     public String findAll(Model model) {
@@ -107,7 +109,7 @@ public class AccountControllerWeb extends AbstractViewController<User,BigInteger
         return super.findAll(model);
     }
 
-    @Secured(AuthoritiesConstant.ROLE_ADMIN)
+    @PreAuthorize("@auth.isAdmin()")
     @GetMapping(BASE_PATH+"/delete/{id}")
     @Override
     public String delete(@PathVariable BigInteger id) {
