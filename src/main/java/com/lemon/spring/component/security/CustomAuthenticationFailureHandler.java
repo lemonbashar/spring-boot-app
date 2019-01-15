@@ -1,6 +1,7 @@
 package com.lemon.spring.component.security;
 
 import com.lemon.spring.controller.rest.AccountControllerRest;
+import com.lemon.spring.controller.web.AccountControllerWeb;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.AuthenticationException;
@@ -25,5 +26,6 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         log.debug("Authenticated Failed:--->");
+        httpServletResponse.sendRedirect("/web"+ AccountControllerWeb.BASE_PATH+"/home");
     }
 }
