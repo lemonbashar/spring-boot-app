@@ -73,4 +73,32 @@ public interface ViewController<K,ID> {
      * @return Base Directory
      */
     String baseView();
+
+    /**
+     * Help To Redirect a Url extension to same view controller, which is concat with base path
+     * @param redirectUrl Redirect Url
+     * @return Redirect URL
+     */
+    default String redirect(String redirectUrl) {
+        return redirectJust(baseEntry()+basePath()+redirectUrl);
+    }
+
+    /**
+     * Help To Redirect a Url to given exact destination
+     * @param redirectUrl Redirect Url
+     * @return Redirect URL
+     */
+    default String redirectJust(String redirectUrl) {
+        return "redirect:"+redirectUrl;
+    }
+
+    default String baseEntry() {
+        return "/web";
+    }
+
+    /**
+     * Base Path Of The API-Controller
+     * @return Base Path excluding /web
+     */
+    String basePath();
 }

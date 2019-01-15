@@ -4,9 +4,9 @@ import com.lemon.spring.interfaces.ViewController;
 import org.springframework.ui.Model;
 
 public abstract class AbstractViewController<K,ID> implements ViewController<K,ID> {
-    protected final String HOME_PAGE="index";
-    protected final String CREATE_PAGE="create";
-    protected final String ALL_PAGE="all";
+    protected final String HOME_PAGE="/index";
+    protected final String CREATE_PAGE="/create";
+    protected final String ALL_PAGE="/all";
     @Override
     public String home() {
         return view(HOME_PAGE);
@@ -18,8 +18,8 @@ public abstract class AbstractViewController<K,ID> implements ViewController<K,I
     }
 
     @Override
-    public String save(K entity) {
-        return home();
+    public String save(K k) {
+        return redirect("/");
     }
 
     @Override
@@ -28,8 +28,8 @@ public abstract class AbstractViewController<K,ID> implements ViewController<K,I
     }
 
     @Override
-    public String update(K entity) {
-        return home();
+    public String update(K k) {
+        return redirect("/");
     }
 
     @Override
@@ -44,6 +44,6 @@ public abstract class AbstractViewController<K,ID> implements ViewController<K,I
 
     @Override
     public String delete(ID id) {
-        return home();
+        return redirect("/");
     }
 }

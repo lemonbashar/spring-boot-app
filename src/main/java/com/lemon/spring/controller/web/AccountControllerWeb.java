@@ -31,6 +31,7 @@ import java.math.BigInteger;
 @Profile(value = {Constants.PROFILE_STATEFUL,Constants.PROFILE_BOTH})
 @RequestMapping("/web")
 public class AccountControllerWeb extends AbstractViewController<User,BigInteger> {
+    private static final String BASE_VIEW = "/account";
     private final Logger log= LogManager.getLogger(AccountControllerWeb.class);
 
     @Inject
@@ -74,7 +75,7 @@ public class AccountControllerWeb extends AbstractViewController<User,BigInteger
             accountService.register(user);
         else return update(user);
         log.debug("Successfully Registered...");
-        return loginPage();
+        return super.save(user);
     }
 
     @PreAuthorize("hasPermission('USER','IS_ADMIN')")
@@ -119,7 +120,12 @@ public class AccountControllerWeb extends AbstractViewController<User,BigInteger
 
     @Override
     public String baseView() {
-        return "/account/";
+        return BASE_VIEW;
+    }
+
+    @Override
+    public String basePath() {
+        return BASE_PATH;
     }
 
 
@@ -134,6 +140,6 @@ public class AccountControllerWeb extends AbstractViewController<User,BigInteger
     }
 
     private String loginPage() {
-        return view("login");
+        return view("/login");
     }
 }
