@@ -77,7 +77,7 @@ public class AccountControllerWeb extends AbstractViewController<User,BigInteger
         return loginPage();
     }
 
-    @PreAuthorize("hasPermission(#id,'IS_ADMIN')")
+    @PreAuthorize("hasPermission('USER','IS_ADMIN')")
     @GetMapping(value = BASE_PATH+"/update-entry/{id}")
     @Override
     public String updateEntry(Model model,@PathVariable BigInteger id) {

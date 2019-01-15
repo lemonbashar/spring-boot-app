@@ -2,6 +2,7 @@ package com.lemon.spring.component.security;
 
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
 import com.lemon.framework.protocolservice.auth.AccountService;
+import com.lemon.framework.security.auth.AuthorizationBridge;
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.repository.UserRepository;
 import com.lemon.spring.security.AuthoritiesConstant;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
 @Component("auth")
-public class AuthorizationBridge implements com.lemon.framework.security.auth.AuthorizationBridge<BigInteger> {
+public class AuthorizationBridgeImpl implements AuthorizationBridge<BigInteger> {
 
     @Inject
     private AccountService<BigInteger> accountService;

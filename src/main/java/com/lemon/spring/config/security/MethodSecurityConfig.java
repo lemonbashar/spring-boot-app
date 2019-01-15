@@ -1,6 +1,7 @@
 package com.lemon.spring.config.security;
 
 import com.lemon.spring.component.security.method.GlobalPermissionEvaluator;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
@@ -13,12 +14,13 @@ import javax.inject.Inject;
 @EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true,jsr250Enabled = true)
 public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
     @Inject
-    private GlobalPermissionEvaluator permissionEvaluator;
+    private ApplicationContext applicationContext;
 
     @Override
     protected MethodSecurityExpressionHandler createExpressionHandler() {
         DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
-        expressionHandler.setPermissionEvaluator(permissionEvaluator);
+        expressionHandler.setPermissionEvaluator(new GlobalPermissionEvaluator());
+        expressionHandler.setApplicationContext(applicationContext);
         return expressionHandler;
     }
 }

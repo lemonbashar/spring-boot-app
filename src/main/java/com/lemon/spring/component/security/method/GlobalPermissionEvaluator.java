@@ -1,21 +1,18 @@
 package com.lemon.spring.component.security.method;
 
-import com.lemon.framework.security.auth.AuthorizationBridge;
 import com.lemon.spring.domain.Authority;
+import com.lemon.spring.security.AuthoritiesConstant;
+import com.lemon.spring.security.SecurityUtils;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
 @SuppressWarnings("WeakerAccess")
-@Component
 public class GlobalPermissionEvaluator implements PermissionEvaluator {
     public static final String READ="READ";
     public static final String WRITE="WRITE";
     public static final String IS_ADMIN="IS_ADMIN";
-
-    private AuthorizationBridge authorizationBridge;
 
     /**
      * permission is the permission type of like hasPermission(,'READ')
@@ -28,7 +25,7 @@ public class GlobalPermissionEvaluator implements PermissionEvaluator {
             case WRITE:
                 return target instanceof Authority;
             case IS_ADMIN:
-                return authorizationBridge.isAdmin();
+                return SecurityUtils.hasAnyAuthority(AuthoritiesConstant.ROLES_FOR_ADMIN);
         }
         return false;
     }
