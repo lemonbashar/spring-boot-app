@@ -10,9 +10,7 @@ import com.lemon.spring.config.Constants;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.interfaces.WebController;
 import com.lemon.spring.repository.UserRepository;
-import com.lemon.spring.security.AuthoritiesConstant;
 import com.lemon.spring.service.account.UserService;
-import com.lemon.spring.web.page.PaginationUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Profile;
@@ -22,7 +20,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
@@ -32,12 +29,13 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.net.URISyntaxException;
 import java.util.*;
+
+import static com.lemon.spring.interfaces.WebController.PRIVATE_REST;
 
 @SuppressWarnings({"Duplicates", "WeakerAccess", "RedundantThrows", "unused"})
 @RestController
-@RequestMapping("/api")
+@RequestMapping(PRIVATE_REST)
 @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
 public class AccountControllerRest implements WebController<User,BigInteger> {
     public static final String BASE_PATH="/account-controller";

@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface WebController<K,ID> {
+    String PUBLIC_REST="/api/public";
+    String PRIVATE_REST ="/api";
 
     ResponseEntity<Map<String,Object>> save(K entity);
 

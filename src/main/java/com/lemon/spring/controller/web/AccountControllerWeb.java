@@ -26,10 +26,12 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigInteger;
 
+import static com.lemon.spring.interfaces.ViewController.PRIVATE_VIEW;
+
 @SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection", "Duplicates"})
 @Controller
 @Profile(value = {Constants.PROFILE_STATEFUL,Constants.PROFILE_BOTH})
-@RequestMapping("/web")
+@RequestMapping(PRIVATE_VIEW)
 public class AccountControllerWeb extends AbstractViewController<User,BigInteger> {
     private static final String BASE_VIEW = "/account";
     private final Logger log= LogManager.getLogger(AccountControllerWeb.class);

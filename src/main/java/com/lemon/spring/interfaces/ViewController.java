@@ -3,6 +3,8 @@ package com.lemon.spring.interfaces;
 import org.springframework.ui.Model;
 
 public interface ViewController<K,ID> {
+    String PUBLIC_VIEW="/web/public";
+    String PRIVATE_VIEW="/web";
 
     /**
      * Redirect The Home Page
@@ -25,7 +27,6 @@ public interface ViewController<K,ID> {
      */
     String save(K k);
 
-
     /**
      * Prepare The Save Page to Update Entity
      * @param model The Spring UI Model
@@ -33,7 +34,6 @@ public interface ViewController<K,ID> {
      * @return Create Page Location With Object Entity From Database
      */
     String updateEntry(Model model,ID id);
-
 
     /**
      * Update The Entity and Redirect Home Page
