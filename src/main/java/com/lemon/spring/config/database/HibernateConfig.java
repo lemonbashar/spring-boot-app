@@ -53,7 +53,8 @@ public class HibernateConfig {
         hbmProperties.setProperty(Environment.AUTO_EVICT_COLLECTION_CACHE,""+properties.database.hibernate.enableAutoEvictCollCache);
         hbmProperties.setProperty(Environment.USE_STRUCTURED_CACHE,""+properties.database.hibernate.enableStruturedCache);
         hbmProperties.setProperty(Environment.CACHE_REGION_FACTORY,""+properties.database.hibernate.secondLevelCacheRegionFactoryClass);
-        hbmProperties.setProperty("net.sf.ehcache.configurationResourceName","config/cache/ehcache.xml");
+        hbmProperties.setProperty(Environment.CACHE_PROVIDER_CONFIG,"config/cache/ehcache.xml");
+//        hbmProperties.setProperty("net.sf.ehcache.configurationResourceName","config/cache/ehcache.xml");
         localSessionFactoryBean.setPhysicalNamingStrategy(new AllCapitalPhysicalNaming());
         //hbmProperties.setProperty(Environment.DEFAULT_SCHEMA,properties.database.schema);
         localSessionFactoryBean.setPackagesToScan(annotatedPackages);
