@@ -14,6 +14,10 @@ public final class Constants {
     public static final String PROFILE_STATELESS_STATEFUL = "both";
     public static final String PROFILE_BOTH = PROFILE_STATELESS_STATEFUL;
 
+    /*Database*/
+    public static final String PROFILE_MYSQL="mysql";
+    public static final String PROFILE_POSTGRE="postgre";
+
 
     /*Remote Config*/
     public static final String PROFILE_REMOTE = "remote";

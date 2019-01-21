@@ -4,7 +4,6 @@ import com.lemon.framework.protocolservice.auth.AccountService;
 import com.lemon.framework.security.auth.AuthorizationBridge;
 import com.lemon.spring.config.Constants;
 import com.lemon.spring.domain.User;
-import com.lemon.spring.interfaces.ViewController;
 import com.lemon.spring.interfaces.impl.AbstractViewController;
 import com.lemon.spring.repository.AuthorityRepository;
 import com.lemon.spring.repository.UserRepository;
@@ -14,16 +13,12 @@ import com.lemon.spring.service.account.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
 import java.math.BigInteger;
 
 import static com.lemon.spring.interfaces.ViewController.PRIVATE_VIEW;
@@ -59,7 +54,7 @@ public class AccountControllerWeb extends AbstractViewController<User,BigInteger
     public String home() {
         if(authorizationBridge.hasAnyAuthority(AuthoritiesConstant.ROLES_FOR_ADMIN))
             return super.home();
-        return view("profile");
+        return view("/profile");
     }
 
     @GetMapping(value = BASE_PATH+"/save-entry")

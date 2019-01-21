@@ -72,6 +72,8 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-jackson:0.10.5'
     implementation 'io.jsonwebtoken:jjwt-impl:0.10.5'
 
+    implementation 'log4j:log4j:1.2.17'
+
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('com.jayway.jsonpath:json-path:2.0.0')

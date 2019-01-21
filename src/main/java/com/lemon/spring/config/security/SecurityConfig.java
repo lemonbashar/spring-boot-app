@@ -34,6 +34,7 @@ import javax.inject.Inject;
 
 import static com.lemon.spring.security.AuthoritiesConstant.ROLE_ADMIN;
 
+@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -124,7 +125,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .mvcMatchers(HttpMethod.POST,"/web/account-controller*").permitAll()/*Register API Permit For Registration*/
                     .mvcMatchers(HttpMethod.POST,"/api/account-controller*").permitAll()/*When Click to Register, All User Data need to Store on Database, and for this reason it has been permitted */
                     .mvcMatchers(HttpMethod.GET,"/api/account-controller/key/*").hasAnyAuthority(ROLE_ADMIN)
-
+                    .mvcMatchers("/web/public/**").permitAll()
+                    .mvcMatchers("/api/public/**").permitAll()
 
                      /*Url Mapping For HTTP-INVOKER-REMOTE-SERVICE*/
                     .mvcMatchers("/accountService.service*").permitAll()

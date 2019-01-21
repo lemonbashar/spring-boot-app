@@ -7,6 +7,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +18,9 @@ import java.util.Set;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @AutoAudit(autoActive = AutoActive.ACTIVE_IF_HAS_ROLE_ON_CREATE,activeInactiveRole = {AuthoritiesConstant.ROLE_ADMIN})
-public class User extends AbstractAudit{
+public class User extends AbstractAudit implements Serializable {
+    private static final long serialVersionUID=1L;
+
     public static final String CACHE = "UserCache";
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "SPRING_USER_PK")
