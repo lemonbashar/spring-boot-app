@@ -21,7 +21,7 @@ public class HomeControllerWeb {
 
     @GetMapping(value = {"/","/home"})
     public String home() {
-        return "home";
+        return "/home";
     }
 
     @GetMapping(value = "/error")
