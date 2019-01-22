@@ -24,6 +24,7 @@ spring:
   profiles:
     active: dev,both,postgre
 #    active: dev,both,postgre,remote,rmi
+#    active: dev,both,postgre,remote,hessian
 #    active: dev,both,postgre,http
 
 server:
