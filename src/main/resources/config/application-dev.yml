@@ -16,13 +16,14 @@ settings:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: dte.step.18@gmail.com
-    password: dtestep123
+    username: springboottest420@gmail.com
+    password: springboottest42kblkbl
     protocol: smtp
+    debug: true
     smtp:
       auth: true
-      starttls.enable: true
-      ssl.trust: smtp.gmail.com
+      starttls-enable: true
+      ssl-trust: smtp.gmail.com
 
 
 database:

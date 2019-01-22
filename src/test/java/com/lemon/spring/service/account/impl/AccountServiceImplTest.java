@@ -1,5 +1,6 @@
 package com.lemon.spring.service.account.impl;
 
+import com.lemon.framework.protocolservice.auth.AccountService;
 import com.lemon.spring.Application;
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.domain.User;

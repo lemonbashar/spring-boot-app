@@ -1,7 +1,7 @@
 package com.lemon.spring.controller.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lemon.framework.web.data.UserInfo;
+import com.lemon.framework.data.UserInfo;
 import com.lemon.spring.Application;
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.domain.User;
