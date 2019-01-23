@@ -4,25 +4,31 @@ import com.lemon.framework.data.JWToken;
 import com.lemon.framework.data.LogoutInfo;
 import com.lemon.framework.data.UserInfo;
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
+import com.lemon.framework.properties.ApplicationProperties;
 import com.lemon.framework.protocolservice.auth.AccountService;
 import com.lemon.framework.springsecurity.jwt.JwtAuthManager;
 import com.lemon.framework.springsecurity.session.SessionAuthManager;
+import com.lemon.framework.statistics.generator.random.impl.RandomString;
 import com.lemon.spring.domain.Authority;
+import com.lemon.spring.domain.PasswordRecover;
 import com.lemon.spring.domain.User;
+import com.lemon.spring.repository.PasswordRecoverRepository;
+import com.lemon.spring.repository.UserRepository;
 import com.lemon.spring.security.SecurityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.math.BigInteger;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,6 +37,9 @@ import java.util.Set;
 public class AccountServiceImpl implements AccountService<BigInteger> {
 
     private final Logger log= LogManager.getLogger(AccountServiceImpl.class);
+
+    @Inject
+    private RandomString randomString;
 
     @Inject
     private HbmCapture hbmCapture;
@@ -47,6 +56,18 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
     @Inject
     private JdbcTemplate jdbcTemplate;
 
+    @Inject
+    private UserRepository userRepository;
+
+    @Inject
+    private JavaMailSender mailSender;
+
+    @Inject
+    private ApplicationProperties properties;
+
+    @Inject
+    private PasswordRecoverRepository passwordRecoverRepository;
+
     @Override
     public String currentUsername() {
         return SecurityUtils.currentUserLogin();
@@ -57,10 +78,6 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
         return SecurityUtils.currentUserId();
     }
 
-//    @Override
-//    public boolean login(UserInfo userInfo) {
-//        return sessionAuthManager.authenticate(userInfo)!=null;
-//    }
 
     @Override
     public void register(Object userObj) {
@@ -75,6 +92,39 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
         });
         user.setAuthorities(authorities);
         hbmCapture.save(user);
+    }
+
+    @Override
+    public void passwordRecover(String userEmail) {
+        User user=userRepository.findOneByEmail(userEmail);
+        if(user!=null) {
+            String code=randomString.generate();
+
+            SimpleMailMessage mailMessage=new SimpleMailMessage();
+            mailMessage.setTo(userEmail);
+            mailMessage.setSubject(properties.settings.general.name+" Account Recovery");
+            mailMessage.setText("Hey "+user.getFullName()+"\nYour Account Password Recovery Code is:\n\t[ "+code+" ]\n\nBest Regards\nThe "+properties.settings.general.name+" Team\nThank You");
+            mailSender.send(mailMessage);
+
+            PasswordRecover recover=passwordRecoverRepository.findByUser(user);
+            if(recover==null) {
+                recover = new PasswordRecover();
+                recover.setUser(user);
+            }else {
+                recover.setActive(true);
+            }
+            recover.setLastAccessDate(LocalDate.now());
+            recover.setCreateTime(LocalTime.now());
+            recover.setRecoveryCode(code);
+            recover.setWrongAccessCount(0L);
+
+            passwordRecoverRepository.save(recover);
+        }
+    }
+
+    @Override
+    public boolean passwordRecover(String userEmail, String password, String recoveryCode) {
+        return false;
     }
 
     @Override

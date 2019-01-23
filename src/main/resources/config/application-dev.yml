@@ -4,6 +4,10 @@ settings:
   security:
     secret-key: BHWTBWQE(&#RHDNKJLSH&EHWDJY*E(GKJOYFDW^FBSDSPYE()#RBHKJI
     session-live-time: 20F
+    account:
+      password:
+        recoverable: true
+        recovery-timeout-minutes: 5
     authentication:
       maximum-live-session-count: 5
       maximum-login-limit-in-day: 200

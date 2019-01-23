@@ -27,4 +27,7 @@ public interface UserRepository extends JpaRepository<User, BigInteger> {
 
     @Query("SELECT user FROM User user WHERE user.active=false AND user.updateDate<:date")
     List<User> findAllInactiveAndBeforeUpdatedLastDate(@Param("date") LocalDate date);
+
+    @Query("SELECT user FROM User user WHERE user.email=:email")
+    User findOneByEmail(@Param("email") String userEmail);
 }
