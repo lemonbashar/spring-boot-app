@@ -26,3 +26,8 @@
         
 ###Version: v-1.0.3 Using Framework Version:v-1.0.3
     a. Orm:->HbmCapture is Enable for Caching...
+    
+###Version: v-1.0.4 Using Framework Version:v-1.0.4
+    a. Mail-Config
+    b. RMI-Config For java-rmi,hessian-burlap,http-invoker
+    c. Auto-Audit->Audit-Aware
