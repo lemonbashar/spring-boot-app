@@ -27,7 +27,9 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -96,6 +98,10 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
 
     @Override
     public void passwordRecover(String userEmail) {
+        if(!properties.settings.security.account.password.recoverable) {
+            log.debug("Password Recovery Mode is Deactivated");
+            return;
+        }
         User user=userRepository.findOneByEmail(userEmail);
         if(user!=null) {
             String code=randomString.generate();
@@ -114,7 +120,7 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
                 recover.setActive(true);
             }
             recover.setLastAccessDate(LocalDate.now());
-            recover.setCreateTime(LocalTime.now());
+            recover.setCreateTime(LocalDateTime.now());
             recover.setRecoveryCode(code);
             recover.setWrongAccessCount(0L);
 
@@ -124,7 +130,43 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
 
     @Override
     public boolean passwordRecover(String userEmail, String password, String recoveryCode) {
-        return false;
+        if(!properties.settings.security.account.password.recoverable) {
+            log.debug("Password Recovery Mode is Deactivated");
+            return false;
+        }
+        boolean result=false;
+        User user=userRepository.findOneByEmail(userEmail);
+        if(user!=null) {
+            PasswordRecover recover=passwordRecoverRepository.findByUser(user);
+            if(recover!=null) {
+                if(recover.isActive() && isToday(recover.getCreateTime()) && recover.getRecoveryCode().equals(recoveryCode)) {
+                    int diff=LocalDateTime.now().getMinute()-recover.getCreateTime().getMinute();
+                    if(diff<=properties.settings.security.account.password.recoveryTimeoutMinutes) {
+                        user.setPassword(passwordEncoder.encode(password));
+                        userRepository.save(user);
+                        result=true;
+                    }
+                }
+                recover.setActive(false);
+                passwordRecoverRepository.save(recover);
+            }
+
+        }
+        return result;
+    }
+
+    private boolean isToday(LocalDateTime dateTime) {
+        return isEqualDate(dateTime.toLocalDate(),LocalDateTime.now().toLocalDate());
+    }
+
+    private boolean isToday(LocalDate date) {
+        return isEqualDate(LocalDate.now(),date);
+    }
+
+    private boolean isEqualDate(LocalDate now, LocalDate date) {
+        if(now.getYear()!=date.getYear()) return false;
+        if(now.getMonth()!=date.getMonth()) return false;
+        return now.getDayOfMonth()==date.getDayOfMonth();
     }
 
     @Override

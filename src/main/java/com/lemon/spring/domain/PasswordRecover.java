@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -28,7 +29,7 @@ public class PasswordRecover extends AbstractAudit implements Serializable {
     private String recoveryCode;
 
     @Column(nullable = false,name = "CREATE_TIME")
-    private LocalTime createTime;
+    private LocalDateTime createTime;
 
     @Column(name = "LAST_ACCESS_DATE")
     private LocalDate lastAccessDate;
@@ -61,11 +62,11 @@ public class PasswordRecover extends AbstractAudit implements Serializable {
         this.recoveryCode = recoveryCode;
     }
 
-    public LocalTime getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalTime createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 

@@ -14,4 +14,6 @@ public interface PasswordRecoverRepository extends JpaRepository<PasswordRecover
 
     PasswordRecover findByUser(User user);
 
+    PasswordRecover findByUserAndActive(User user,boolean active);
+
 }

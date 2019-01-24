@@ -32,4 +32,12 @@ public class AccountPublicControllerRest {
 
         return ResponseEntity.ok(map);
     }
+
+    @GetMapping(value = AccountControllerRest.BASE_PATH+"/password-recover/{email}/{recoveryCode}/{newPassword}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String,Object>> recoverPassword(@PathVariable String email,@PathVariable String recoveryCode,@PathVariable String newPassword ) {
+        boolean isSuccess=accountService.passwordRecover(email,newPassword,recoveryCode);
+        Map<String,Object> map=new HashMap<>();
+        map.put(GLOBAL_MESSAGE,isSuccess?"Password Reset Is Successfully Completed":"Password Reset Is Not Successfully Done");
+        return ResponseEntity.ok(map);
+    }
 }
