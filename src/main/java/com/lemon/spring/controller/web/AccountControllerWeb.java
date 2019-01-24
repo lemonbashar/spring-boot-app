@@ -29,6 +29,8 @@ import static com.lemon.spring.interfaces.ViewController.PRIVATE_VIEW;
 @RequestMapping(PRIVATE_VIEW)
 public class AccountControllerWeb extends AbstractViewController<User,BigInteger> {
     private static final String BASE_VIEW = "/account";
+    public static final String BASE_PATH="/account-controller";
+    public static final String FULL_PATH = PRIVATE_VIEW+BASE_PATH;
     private final Logger log= LogManager.getLogger(AccountControllerWeb.class);
 
     @Inject
@@ -47,7 +49,6 @@ public class AccountControllerWeb extends AbstractViewController<User,BigInteger
     private UserService userService;
 
 
-    public static final String BASE_PATH="/account-controller";
 
     @GetMapping(BASE_PATH+"/home")
     @Override

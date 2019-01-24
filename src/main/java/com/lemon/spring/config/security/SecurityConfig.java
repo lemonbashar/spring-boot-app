@@ -9,6 +9,8 @@ import com.lemon.framework.springsecurity.jwt.provider.TokenStoreTokenProvider;
 import com.lemon.framework.springsecurity.session.SessionAuthManager;
 import com.lemon.spring.component.security.TokenStoreBridge;
 import com.lemon.spring.config.Constants;
+import com.lemon.spring.controller.rest.AccountControllerRest;
+import com.lemon.spring.controller.web.AccountControllerWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +34,8 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 import javax.inject.Inject;
 
+import static com.lemon.spring.interfaces.ViewController.PUBLIC_VIEW;
+import static com.lemon.spring.interfaces.WebController.PUBLIC_REST;
 import static com.lemon.spring.security.AuthoritiesConstant.ROLE_ADMIN;
 
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
@@ -119,15 +123,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     /*Url Invoker Interceptor*/
               http.authorizeRequests()
                     .mvcMatchers(HttpMethod.GET,"/","/home*").permitAll()/* Disable This Line if You Want The Login Page At-Startup*/
-                    .mvcMatchers(HttpMethod.POST,"/api/account-controller/login*").permitAll()/*Rest-API Permission for Login Purposes*/
-                    .mvcMatchers(HttpMethod.POST,"/api/account-controller/login-rest*").permitAll()/*Rest-API Permission for Login Purposes*/
-                    .mvcMatchers(HttpMethod.POST,"/api/account-controller/login-jwt*").permitAll()/*Rest-API Permission for Login Purposes*/
-                    .mvcMatchers(HttpMethod.GET,"/web/account-controller/save-entry*").permitAll()/*Register API Permit For Registration*/
-                    .mvcMatchers(HttpMethod.POST,"/web/account-controller*").permitAll()/*Register API Permit For Registration*/
-                    .mvcMatchers(HttpMethod.POST,"/api/account-controller*").permitAll()/*When Click to Register, All User Data need to Store on Database, and for this reason it has been permitted */
-                    .mvcMatchers(HttpMethod.GET,"/api/account-controller/key/*").hasAnyAuthority(ROLE_ADMIN)
-                    .mvcMatchers("/web/public/**").permitAll()
-                    .mvcMatchers("/api/public/**").permitAll()
+                    .mvcMatchers(HttpMethod.POST,AccountControllerRest.FULL_PATH +"/login*").permitAll()/*Rest-API Permission for Login Purposes*/
+                    .mvcMatchers(HttpMethod.POST,AccountControllerRest.FULL_PATH +"/login-rest*").permitAll()/*Rest-API Permission for Login Purposes*/
+                    .mvcMatchers(HttpMethod.POST,AccountControllerRest.FULL_PATH +"/login-jwt*").permitAll()/*Rest-API Permission for Login Purposes*/
+                    .mvcMatchers(HttpMethod.GET, AccountControllerWeb.FULL_PATH +"/save-entry*").permitAll()/*Register API Permit For Registration*/
+                    .mvcMatchers(HttpMethod.POST,AccountControllerWeb.FULL_PATH +"*").permitAll()/*Register API Permit For Registration*/
+                    .mvcMatchers(HttpMethod.POST,AccountControllerRest.FULL_PATH +"*").permitAll()/*When Click to Register, All User Data need to Store on Database, and for this reason it has been permitted */
+                    .mvcMatchers(HttpMethod.GET,AccountControllerRest.FULL_PATH +"/key/*").hasAnyAuthority(ROLE_ADMIN)
+                    .mvcMatchers(PUBLIC_VIEW+"/**").permitAll()
+                    .mvcMatchers(PUBLIC_REST+"/**").permitAll()
 
                      /*Url Mapping For HTTP-INVOKER-REMOTE-SERVICE*/
                     .mvcMatchers("/accountService.service*").permitAll()

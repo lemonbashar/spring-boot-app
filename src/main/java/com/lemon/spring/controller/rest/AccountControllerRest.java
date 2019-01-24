@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.*;
 
+import static com.lemon.spring.config.Constants.GLOBAL_MESSAGE;
 import static com.lemon.spring.interfaces.WebController.PRIVATE_REST;
 
 @SuppressWarnings({"Duplicates", "WeakerAccess", "RedundantThrows", "unused"})
@@ -39,28 +40,30 @@ import static com.lemon.spring.interfaces.WebController.PRIVATE_REST;
 @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
 public class AccountControllerRest implements WebController<User,BigInteger> {
     public static final String BASE_PATH="/account-controller";
+    public static final String FULL_PATH=PRIVATE_REST+BASE_PATH;
 
     @Inject
-    private AccountService accountService;
+    protected AccountService accountService;
 
     @Inject
-    private HbmCapture hbmCapture;
+    protected HbmCapture hbmCapture;
 
     @Inject
-    private UserRepository userRepository;
+    protected UserRepository userRepository;
 
     @Inject
-    private UserService userService;
+    protected UserService userService;
 
     private Logger log = LogManager.getLogger(AccountControllerRest.class);
 
+    /*Account CRUD Related*/
 
     @Override
     @PostMapping(value = BASE_PATH,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Object>> save(@RequestBody User user) {
         accountService.register(user);
         Map<String,Object> objectMap=new HashMap<>();
-        objectMap.put(Constants.GLOBAL_MESSAGE,"REGISTER_SUCCESS");
+        objectMap.put(GLOBAL_MESSAGE,"REGISTER_SUCCESS");
         return ResponseEntity.ok(objectMap);
     }
 
@@ -70,7 +73,7 @@ public class AccountControllerRest implements WebController<User,BigInteger> {
     public ResponseEntity<Map<String, Object>> update(@RequestBody User user) {
         userService.updateUser(user);
         Map<String,Object> objectMap=new HashMap<>();
-        objectMap.put(Constants.GLOBAL_MESSAGE,"UPDATE_SUCCESS");
+        objectMap.put(GLOBAL_MESSAGE,"UPDATE_SUCCESS");
         return ResponseEntity.ok(objectMap);
     }
 
@@ -97,9 +100,11 @@ public class AccountControllerRest implements WebController<User,BigInteger> {
     public ResponseEntity<Map<String, Object>> delete(@PathVariable BigInteger id) {
         userRepository.deleteById(id);
         Map<String,Object> objectMap=new HashMap<>();
-        objectMap.put(Constants.GLOBAL_MESSAGE,"DELETE_SUCCESS");
+        objectMap.put(GLOBAL_MESSAGE,"DELETE_SUCCESS");
         return ResponseEntity.ok(objectMap);
     }
+
+    /*Some Additional Admin Access*/
 
     @PreAuthorize("@auth.isAdmin()")
     @GetMapping(value = BASE_PATH+"/key/{key}",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -108,11 +113,13 @@ public class AccountControllerRest implements WebController<User,BigInteger> {
         return "Not Found";
     }
 
+    /*Authentication & Authorization Part*/
+
     @PostMapping(value = BASE_PATH+"/login-rest",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String,Object>> login(@RequestBody UserInfo userInfo) throws IOException {
         boolean success=accountService.authenticate(userInfo)!=null;
         Map<String,Object> map=new HashMap<>();
-        map.put(Constants.GLOBAL_MESSAGE,"LOGIN_SUCCESS");
+        map.put(GLOBAL_MESSAGE,"LOGIN_SUCCESS");
         return ResponseEntity.ok(map);
     }
 
@@ -132,7 +139,7 @@ public class AccountControllerRest implements WebController<User,BigInteger> {
         logoutInfo.setIpAddress(httpServletRequest.getRemoteAddr());
         accountService.logout(logoutInfo);
         Map<String ,Object> map=new HashMap<>();
-        map.put(Constants.GLOBAL_MESSAGE,"Logout is Success For Condition:"+logoutInfo.getLogoutRule().name().toLowerCase());
+        map.put(GLOBAL_MESSAGE,"Logout is Success For Condition:"+logoutInfo.getLogoutRule().name().toLowerCase());
         return ResponseEntity.ok(map);
     }
     @GetMapping(value = BASE_PATH+"/logout")
@@ -140,7 +147,7 @@ public class AccountControllerRest implements WebController<User,BigInteger> {
         String username=accountService.currentUsername();
         accountService.logout(null);
         Map<String ,Object> map=new HashMap<>();
-        map.put(Constants.GLOBAL_MESSAGE,"Logout is Success For:"+username.toLowerCase());
+        map.put(GLOBAL_MESSAGE,"Logout is Success For:"+username.toLowerCase());
         return ResponseEntity.ok(map);
     }
 
