@@ -15,6 +15,7 @@ import com.lemon.spring.domain.User;
 import com.lemon.spring.repository.PasswordRecoverRepository;
 import com.lemon.spring.repository.UserRepository;
 import com.lemon.spring.security.SecurityUtils;
+import com.lemon.spring.service.ApplicationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
     @Autowired(required = false)
     private JwtAuthManager jwtAuthManager;
 
-    @Inject
+    @Autowired(required = false)
     private SessionAuthManager sessionAuthManager;
 
     @Inject
@@ -69,6 +70,9 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
 
     @Inject
     private PasswordRecoverRepository passwordRecoverRepository;
+
+    @Inject
+    private ApplicationService applicationService;
 
     @Override
     public String currentUsername() {
@@ -139,7 +143,7 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
         if(user!=null) {
             PasswordRecover recover=passwordRecoverRepository.findByUser(user);
             if(recover!=null) {
-                if(recover.isActive() && isToday(recover.getCreateTime()) && recover.getRecoveryCode().equals(recoveryCode)) {
+                if(recover.isActive() && applicationService.isToday(recover.getCreateTime()) && recover.getRecoveryCode().equals(recoveryCode)) {
                     int diff=LocalDateTime.now().getMinute()-recover.getCreateTime().getMinute();
                     if(diff<=properties.settings.security.account.password.recoveryTimeoutMinutes) {
                         user.setPassword(passwordEncoder.encode(password));
@@ -153,20 +157,6 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
 
         }
         return result;
-    }
-
-    private boolean isToday(LocalDateTime dateTime) {
-        return isEqualDate(dateTime.toLocalDate(),LocalDateTime.now().toLocalDate());
-    }
-
-    private boolean isToday(LocalDate date) {
-        return isEqualDate(LocalDate.now(),date);
-    }
-
-    private boolean isEqualDate(LocalDate now, LocalDate date) {
-        if(now.getYear()!=date.getYear()) return false;
-        if(now.getMonth()!=date.getMonth()) return false;
-        return now.getDayOfMonth()==date.getDayOfMonth();
     }
 
     @Override
@@ -191,8 +181,8 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
 
     @Override
     public void logout(LogoutInfo logoutInfo) {
-        if(logoutInfo==null)
-            SecurityContextHolder.clearContext();
+        SecurityContextHolder.clearContext();
+        if(logoutInfo==null) return;
         logoutInfo.setUserId(SecurityUtils.currentUserId());
 
         if(jwtAuthManager!=null)

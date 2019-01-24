@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Service
@@ -28,5 +30,19 @@ public class ApplicationService {
         }
         builder.append("FROM-REMOTE_ADDRESS:").append(httpServletRequest.getRemoteAddr()).append("  |  FROM-REMOTE-USER:").append(httpServletRequest.getRemoteUser()).append("  |  ACCESS_URL:").append(httpServletRequest.getRequestURI()).append("\n").append("<><><><><>").append(LocalTime.now().toString()).append("<><><><><><>\n----------ERROR OCCURRED---------\n");
         log.debug(builder.toString());
+    }
+
+    public boolean isToday(LocalDateTime dateTime) {
+        return isEqualDate(dateTime.toLocalDate(),LocalDateTime.now().toLocalDate());
+    }
+
+    public boolean isToday(LocalDate date) {
+        return isEqualDate(LocalDate.now(),date);
+    }
+
+    public boolean isEqualDate(LocalDate now, LocalDate date) {
+        if(now.getYear()!=date.getYear()) return false;
+        if(now.getMonth()!=date.getMonth()) return false;
+        return now.getDayOfMonth()==date.getDayOfMonth();
     }
 }
