@@ -4,6 +4,7 @@ import com.lemon.spring.controller.web.HomeControllerWeb;
 import com.lemon.spring.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,11 +22,11 @@ public class DefaultErrorController implements ErrorController {
     @Inject
     private ApplicationService applicationService;
 
-    @RequestMapping(value = ERROR_PATH)
+    @RequestMapping(value = ERROR_PATH,produces = "text/plain")
     public String error(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-        applicationService.logPathError(httpServletRequest,httpServletResponse);
+        String error=applicationService.logPathError(httpServletRequest,httpServletResponse);
         if(homeControllerWeb!=null)return homeControllerWeb.home();
-        return "Please Use it Like Stateless.";
+        return error;
     }
 
     /**

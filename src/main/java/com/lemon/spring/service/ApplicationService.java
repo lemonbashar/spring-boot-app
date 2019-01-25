@@ -1,9 +1,11 @@
 package com.lemon.spring.service;
 
+import com.lemon.framework.properties.ApplicationProperties;
 import com.lemon.spring.controller.rest.DefaultErrorController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
@@ -14,12 +16,19 @@ import java.time.LocalTime;
 public class ApplicationService {
     protected final Logger log= Logger.getLogger(DefaultErrorController.class);
 
+    @Inject
+    private ApplicationProperties properties;
 
-    public void logPathError(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+
+    public String logPathError(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         Integer statusCode = (Integer) httpServletRequest.getAttribute("javax.servlet.error.status_code");
         Exception exception = (Exception) httpServletRequest.getAttribute("javax.servlet.error.exception");
         StringBuilder builder=new StringBuilder();
-        builder.append("<><><><><>").append(LocalTime.now().toString()).append("<><><><><><>\n----------ERROR OCCURRED---------\n");
+        builder.append("----------ERROR OCCURRED---------\n").append("<><><><><>").append(LocalTime.now().toString())
+                .append("<><><><><><>\n")
+                .append("Application Type:[")
+                .append(properties.settings.applicationType)
+                .append("]\n");
         if(statusCode!=null) builder.append("ERROR-STATUS:").append(statusCode);
         if(exception!=null) {
             StackTraceElement[] traceElements=exception.getStackTrace();
@@ -28,8 +37,9 @@ public class ApplicationService {
                 builder.append("  | CAUSE:").append(exception.getMessage()).append("  |  ON-LINE-NUMBER:").append(traceElement.getLineNumber()).append("  |  ON-FILE:").append(traceElement.getFileName()).append("  |  ON-CLASS:").append(traceElement.getClassName());
             }
         }
-        builder.append("FROM-REMOTE_ADDRESS:").append(httpServletRequest.getRemoteAddr()).append("  |  FROM-REMOTE-USER:").append(httpServletRequest.getRemoteUser()).append("  |  ACCESS_URL:").append(httpServletRequest.getRequestURI()).append("\n").append("<><><><><>").append(LocalTime.now().toString()).append("<><><><><><>\n----------ERROR OCCURRED---------\n");
+        builder.append("  |  FROM-REMOTE_ADDRESS:").append(httpServletRequest.getRemoteAddr()).append("  |  FROM-REMOTE-USER:").append(httpServletRequest.getRemoteUser()).append("  |  ACCESS_URL:").append(httpServletRequest.getRequestURI()).append("\n").append("<><><><><>").append(LocalTime.now().toString()).append("<><><><><><>\n----------ERROR OCCURRED---------\n");
         log.debug(builder.toString());
+        return builder.toString();
     }
 
     public boolean isToday(LocalDateTime dateTime) {

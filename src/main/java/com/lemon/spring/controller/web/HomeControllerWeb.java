@@ -24,6 +24,11 @@ public class HomeControllerWeb {
         return "/home";
     }
 
+    /*@GetMapping(value = {"/error"})
+    public String error() {
+        return "/home";
+    }*/
+
     @GetMapping(value = "/error")
     public String onError(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         applicationService.logPathError(httpServletRequest,httpServletResponse);

@@ -1,7 +1,9 @@
 package com.lemon.spring.controller.rest.pub;
 
 import com.lemon.framework.protocolservice.auth.AccountService;
+import com.lemon.spring.config.Constants;
 import com.lemon.spring.controller.rest.AccountControllerRest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import static com.lemon.spring.config.Constants.GLOBAL_MESSAGE;
 import static com.lemon.spring.interfaces.WebController.PUBLIC_REST;
 
 @RestController
+@Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
 @RequestMapping(value = PUBLIC_REST)
 public class AccountPublicControllerRest {
 
