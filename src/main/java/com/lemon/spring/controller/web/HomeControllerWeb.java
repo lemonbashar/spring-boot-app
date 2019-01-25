@@ -1,6 +1,8 @@
 package com.lemon.spring.controller.web;
 
+import com.lemon.spring.config.Constants;
 import com.lemon.spring.service.ApplicationService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
+@Profile(value = {Constants.PROFILE_STATEFUL,Constants.PROFILE_BOTH})
 public class HomeControllerWeb {
     @Inject
     private ApplicationService applicationService;

@@ -2,6 +2,7 @@ package com.lemon.spring.controller.rest;
 
 import com.lemon.spring.controller.web.HomeControllerWeb;
 import com.lemon.spring.service.ApplicationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class DefaultErrorController implements ErrorController {
     private static final String ERROR_PATH="/error";
-    @Inject
+    @Autowired(required = false)
     private HomeControllerWeb homeControllerWeb;
 
     @Inject
@@ -23,7 +24,8 @@ public class DefaultErrorController implements ErrorController {
     @RequestMapping(value = ERROR_PATH)
     public String error(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
         applicationService.logPathError(httpServletRequest,httpServletResponse);
-        return homeControllerWeb.home();
+        if(homeControllerWeb!=null)return homeControllerWeb.home();
+        return "Please Use it Like Stateless.";
     }
 
     /**
