@@ -25,7 +25,7 @@ public class PasswordRecover extends AbstractAudit implements Serializable {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @Column(name = "RECOVERY_CODE",length = 6,nullable = false)
+    @Column(name = "RECOVERY_CODE",length = 256,nullable = false)
     private String recoveryCode;
 
     @Column(nullable = false,name = "CREATE_TIME")
@@ -84,5 +84,10 @@ public class PasswordRecover extends AbstractAudit implements Serializable {
 
     public void setWrongAccessCount(Long wrongAccessCount) {
         this.wrongAccessCount = wrongAccessCount;
+    }
+
+    @Transient
+    public void increaseAccessCodeCount() {
+        this.wrongAccessCount++;
     }
 }

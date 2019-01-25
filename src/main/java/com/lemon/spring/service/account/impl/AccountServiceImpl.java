@@ -143,7 +143,7 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
         if(user!=null) {
             PasswordRecover recover=passwordRecoverRepository.findByUser(user);
             if(recover!=null) {
-                if(recover.isActive() && applicationService.isToday(recover.getCreateTime()) && recover.getRecoveryCode().equals(recoveryCode)) {
+                if(recoverable(recover,recoveryCode)) {
                     int diff=LocalDateTime.now().getMinute()-recover.getCreateTime().getMinute();
                     if(diff<=properties.settings.security.account.password.recoveryTimeoutMinutes) {
                         user.setPassword(passwordEncoder.encode(password));
@@ -151,12 +151,20 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
                         result=true;
                     }
                 }
+                recover.increaseAccessCodeCount();
                 recover.setActive(false);
                 passwordRecoverRepository.save(recover);
             }
 
         }
         return result;
+    }
+
+    private boolean recoverable(PasswordRecover recover,String recoveryCode) {
+        return recover.isActive() &&
+                recover.getWrongAccessCount()<=properties.settings.security.account.password.recoveryLimitationForWrongCode &&
+                applicationService.isToday(recover.getCreateTime()) &&
+                recover.getRecoveryCode().equals(recoveryCode);
     }
 
     @Override
