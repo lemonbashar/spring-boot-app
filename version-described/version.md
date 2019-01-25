@@ -31,3 +31,6 @@
     a. Mail-Config
     b. RMI-Config For java-rmi,hessian-burlap,http-invoker
     c. Auto-Audit->Audit-Aware
+    
+###Version: v-1.0.5 Using Framework Version:v-1.0.5
+    a. Password Recovery Facilities
