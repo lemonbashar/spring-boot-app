@@ -60,13 +60,14 @@ dependencies {
     implementation 'mysql:mysql-connector-java:5.1.46'
     //runtime('com.h2database:h2')
 
+// Private Repository
     implementation "com.lemon.framework:orm:${frameworkversion}"
     implementation "com.lemon.framework:properties:${frameworkversion}"
     implementation "com.lemon.framework:data:${frameworkversion}"
     implementation "com.lemon.framework:spring-security:${frameworkversion}"
     implementation "com.lemon.framework:security:${frameworkversion}"
     implementation "com.lemon.framework:protocol-service:${frameworkversion}"
-
+// Private Repository
 
     implementation 'io.jsonwebtoken:jjwt-api:0.10.5'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.10.5'
