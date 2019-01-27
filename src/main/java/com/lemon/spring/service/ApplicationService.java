@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@SuppressWarnings("WeakerAccess")
 @Service
 public class ApplicationService {
     protected final Logger log= Logger.getLogger(DefaultErrorController.class);
@@ -51,8 +52,6 @@ public class ApplicationService {
     }
 
     public boolean isEqualDate(LocalDate now, LocalDate date) {
-        if(now.getYear()!=date.getYear()) return false;
-        if(now.getMonth()!=date.getMonth()) return false;
-        return now.getDayOfMonth()==date.getDayOfMonth();
+        return now.getYear()==date.getYear() && now.getMonth()==date.getMonth() && now.getDayOfMonth()==date.getDayOfMonth();
     }
 }
