@@ -183,6 +183,7 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
             /*If The app stateless or both*/
             return jwtAuthManager.authenticate(userInfo).token();
         } catch (NullPointerException e) {
+            log.error("May-Be your Application is Not Enabled For Token-Based Authentication",e);
             throw new SecurityException("May-Be your Application is Not Enabled For Token-Based Authentication");
         }
     }

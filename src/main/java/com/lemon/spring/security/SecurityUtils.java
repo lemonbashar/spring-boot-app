@@ -2,6 +2,7 @@ package com.lemon.spring.security;
 
 import com.lemon.framework.springsecurity.auth.data.AuthenticationToken;
 import com.lemon.framework.springsecurity.auth.data.CustomUserDetails;
+import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("Convert2MethodRef")
 public final class SecurityUtils {
+    private static final Logger log=Logger.getLogger(SecurityUtils.class);
     public static String currentUserLogin() {
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
         Object principal=authentication.getPrincipal();
@@ -31,6 +33,7 @@ public final class SecurityUtils {
         if(authentication instanceof AuthenticationToken) {
             return ((AuthenticationToken)authentication).getUserId();
         }
+        log.error("Not a Valid Authentication to Find User-Id");
         throw new SecurityException("Not a Valid Authentication to Find User-Id");
     }
 

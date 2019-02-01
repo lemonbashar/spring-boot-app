@@ -54,5 +54,160 @@
       "name": "database.hibernate.formatSQL",
       "type": "java.lang.Boolean",
       "description": "Description for database.hibernate.formatSQL."
+    },
+    {
+      "name": "cache.eh-cache.max-local-heap-size",
+      "type": "java.lang.String",
+      "description": "Description for cache.eh-cache.max-local-heap-size."
+    },
+    {
+      "name": "database.jpa.persistent-unit",
+      "type": "java.lang.String",
+      "description": "Description for database.jpa.persistent-unit."
+    },
+    {
+      "name": "database.hibernate.enable-query-cache",
+      "type": "java.lang.String",
+      "description": "Description for database.hibernate.enable-query-cache."
+    },
+    {
+      "name": "database.hibernate.enable-auto-evict-coll-cache",
+      "type": "java.lang.String",
+      "description": "Description for database.hibernate.enable-auto-evict-coll-cache."
+    },
+    {
+      "name": "database.hibernate.enable-strutured-cache",
+      "type": "java.lang.String",
+      "description": "Description for database.hibernate.enable-strutured-cache."
+    },
+    {
+      "name": "database.hibernate.enable-second-level-cache",
+      "type": "java.lang.String",
+      "description": "Description for database.hibernate.enable-second-level-cache."
+    },
+    {
+      "name": "database.hibernate.show-sql",
+      "type": "java.lang.String",
+      "description": "Description for database.hibernate.show-sql."
+    },
+    {
+      "name": "database.hibernate.comments",
+      "type": "java.lang.String",
+      "description": "Description for database.hibernate.comments."
+    },
+    {
+      "name": "database.hibernate.format-sql",
+      "type": "java.lang.String",
+      "description": "Description for database.hibernate.format-sql."
+    },
+    {
+      "name": "database.hibernate.hbm2-ddl-auto",
+      "type": "java.lang.String",
+      "description": "Description for database.hibernate.hbm2-ddl-auto."
+    },
+    {
+      "name": "settings.mail.smtp.ssl-trust",
+      "type": "java.lang.String",
+      "description": "Description for settings.mail.smtp.ssl-trust."
+    },
+    {
+      "name": "settings.mail.smtp.starttls-enable",
+      "type": "java.lang.String",
+      "description": "Description for settings.mail.smtp.starttls-enable."
+    },
+    {
+      "name": "settings.mail.smtp.auth",
+      "type": "java.lang.String",
+      "description": "Description for settings.mail.smtp.auth."
+    },
+    {
+      "name": "settings.mail.debug",
+      "type": "java.lang.String",
+      "description": "Description for settings.mail.debug."
+    },
+    {
+      "name": "settings.mail.protocol",
+      "type": "java.lang.String",
+      "description": "Description for settings.mail.protocol."
+    },
+    {
+      "name": "settings.mail.password",
+      "type": "java.lang.String",
+      "description": "Description for settings.mail.password."
+    },
+    {
+      "name": "settings.mail.username",
+      "type": "java.lang.String",
+      "description": "Description for settings.mail.username."
+    },
+    {
+      "name": "settings.mail.port",
+      "type": "java.lang.String",
+      "description": "Description for settings.mail.port."
+    },
+    {
+      "name": "settings.mail.host",
+      "type": "java.lang.String",
+      "description": "Description for settings.mail.host."
+    },
+    {
+      "name": "settings.security.authentication.jwt.token-validity-in-seconds-for-remember-me",
+      "type": "java.lang.String",
+      "description": "Description for settings.security.authentication.jwt.token-validity-in-seconds-for-remember-me."
+    },
+    {
+      "name": "settings.security.authentication.jwt.token-validity-in-seconds",
+      "type": "java.lang.String",
+      "description": "Description for settings.security.authentication.jwt.token-validity-in-seconds."
+    },
+    {
+      "name": "settings.security.authentication.jwt.base64-secret",
+      "type": "java.lang.String",
+      "description": "Description for settings.security.authentication.jwt.base64-secret."
+    },
+    {
+      "name": "settings.security.authentication.jwt.secret",
+      "type": "java.lang.String",
+      "description": "Description for settings.security.authentication.jwt.secret."
+    },
+    {
+      "name": "settings.security.authentication.maximum-live-session-from-same-ip",
+      "type": "java.lang.String",
+      "description": "Description for settings.security.authentication.maximum-live-session-from-same-ip."
+    },
+    {
+      "name": "settings.security.authentication.maximum-login-limit-in-day",
+      "type": "java.lang.String",
+      "description": "Description for settings.security.authentication.maximum-login-limit-in-day."
+    },
+    {
+      "name": "settings.security.authentication.maximum-live-session-count",
+      "type": "java.lang.String",
+      "description": "Description for settings.security.authentication.maximum-live-session-count."
+    },
+    {
+      "name": "settings.security.account.password.recovery-code-length",
+      "type": "java.lang.String",
+      "description": "Description for settings.security.account.password.recovery-code-length."
+    },
+    {
+      "name": "settings.security.account.password.recovery-timeout-minutes",
+      "type": "java.lang.String",
+      "description": "Description for settings.security.account.password.recovery-timeout-minutes."
+    },
+    {
+      "name": "settings.security.account.password.recoverable",
+      "type": "java.lang.String",
+      "description": "Description for settings.security.account.password.recoverable."
+    },
+    {
+      "name": "settings.security.session-live-time",
+      "type": "java.lang.String",
+      "description": "Description for settings.security.session-live-time."
+    },
+    {
+      "name": "settings.security.secret-key",
+      "type": "java.lang.String",
+      "description": "Description for settings.security.secret-key."
     }
   ] }
