@@ -24,4 +24,8 @@ public final class Constants {
     public static final String PROFILE_RMI = "rmi";
     public static final String PROFILE_HTTP_INVOKER = "http";
     public static final String PROFILE_HESSIAN = "hessian";
+
+    /*Messanging and Web-Socket*/
+    public static final String PROFILE_JMS = "jms";
+    public static final String PROFILE_MESSANGING = "ms";
 }
