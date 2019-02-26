@@ -4,20 +4,24 @@ import com.lemon.framework.springsecurity.auth.data.AuthenticationToken;
 import com.lemon.framework.springsecurity.auth.data.CustomUserDetails;
 import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.math.BigInteger;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("Convert2MethodRef")
 public final class SecurityUtils {
     private static final Logger log=Logger.getLogger(SecurityUtils.class);
+
+    public static Authentication authentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+
     public static String currentUserLogin() {
-        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
-        Object principal=authentication.getPrincipal();
+        Object principal=authentication().getPrincipal();
         String login=null;
         if(principal instanceof UserDetails)
             login=((UserDetails)principal).getUsername();
@@ -27,7 +31,7 @@ public final class SecurityUtils {
     }
 
     public static BigInteger currentUserId() {
-        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication=authentication();
         if(authentication.getPrincipal() instanceof CustomUserDetails)
             return ((CustomUserDetails)authentication.getPrincipal()).getId();
         if(authentication instanceof AuthenticationToken) {
@@ -60,8 +64,13 @@ public final class SecurityUtils {
     }
 
     public static Set<String> getAuthoritiesStringCurrentUser() {
-        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getAuthorities().stream().map(val-> val.getAuthority()).collect(Collectors.toSet());
+        try {
+            return authentication().getAuthorities().stream().map(val-> val.getAuthority()).collect(Collectors.toSet());
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+            e.printStackTrace();
+        }
 
+        return new HashSet<>();
     }
 }
