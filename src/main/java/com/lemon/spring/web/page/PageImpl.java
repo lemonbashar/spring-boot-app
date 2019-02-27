@@ -4,10 +4,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+@SuppressWarnings("unused")
 public class PageImpl implements Pageable {
-    int page;
-    int size;
-    Sort sort;
+    private int page;
+    private int size;
+    private Sort sort;
 
     public PageImpl(int size) {
         this(0,size);
@@ -62,7 +63,7 @@ public class PageImpl implements Pageable {
     /**
      * Returns the sorting parameters.
      *
-     * @return
+     * @return sort
      */
     @Override
     public Sort getSort() {
@@ -72,7 +73,7 @@ public class PageImpl implements Pageable {
     /**
      * Returns the {@link Pageable} requesting the next {@link Page}.
      *
-     * @return
+     * @return next page
      */
     @Override
     public Pageable next() {
@@ -82,7 +83,7 @@ public class PageImpl implements Pageable {
     /**
      * Returns the previous {@link Pageable} or the first {@link Pageable} if the current one already is the first one.
      *
-     * @return
+     * @return previous page
      */
     @Override
     public Pageable previousOrFirst() {
@@ -96,7 +97,7 @@ public class PageImpl implements Pageable {
     /**
      * Returns the {@link Pageable} requesting the first page.
      *
-     * @return
+     * @return first page
      */
     @Override
     public Pageable first() {
@@ -107,7 +108,7 @@ public class PageImpl implements Pageable {
      * Returns whether there's a previous {@link Pageable} we can access from the current one. Will return
      * {@literal false} in case the current {@link Pageable} already refers to the first page.
      *
-     * @return
+     * @return true if it has previous page
      */
     @Override
     public boolean hasPrevious() {
