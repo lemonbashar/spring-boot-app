@@ -19,6 +19,7 @@ import java.util.Arrays;
 @Profile(value = Constants.PROFILE_DEVELOPMENT)
 public class LoggingAspect {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private static final org.apache.log4j.Logger LOG= org.apache.log4j.Logger.getLogger(LoggingAspect.class);
 
     @Autowired
     private Environment env;
@@ -52,9 +53,8 @@ public class LoggingAspect {
         if (env.acceptsProfiles(Constants.PROFILE_DEVELOPMENT)) {
             log.error("Exception in {}.{}() with cause = {}", joinPoint.getSignature().getDeclaringTypeName(),
                     joinPoint.getSignature().getName(), e.getCause(), e);
-        } else {
-            log.error("Exception in {}.{}() with cause = {}", joinPoint.getSignature().getDeclaringTypeName(),
-                    joinPoint.getSignature().getName(), e.getCause());
+
+            LOG.error("Exception in "+joinPoint.getSignature().getDeclaringTypeName()+"."+joinPoint.getSignature().getName()+"() with cause = "+e.getCause(),e);
         }
     }
 
