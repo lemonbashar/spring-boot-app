@@ -67,7 +67,7 @@ public class AccountControllerRest implements WebController<User,BigInteger> {
         return ResponseEntity.ok(objectMap);
     }
 
-    @PreAuthorize("#user.username==principal.username || @auth.isAdmin()")
+    @PreAuthorize("#user.username==principal.username || @auth.isAdmin()") /*Any User Can Update his Own identity or Admin can update all*/
     @Override
     @PutMapping(value = BASE_PATH)
     public ResponseEntity<Map<String, Object>> update(@RequestBody User user) {
@@ -77,7 +77,7 @@ public class AccountControllerRest implements WebController<User,BigInteger> {
         return ResponseEntity.ok(objectMap);
     }
 
-    @PostAuthorize("returnObject.body.username==principal.username || @auth.isAdmin()")
+    @PostAuthorize("returnObject.body.username==principal.username || @auth.isAdmin()") /*A User can get only his own identity and admin get all*/
     @Override
     @GetMapping(value = BASE_PATH+"/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> findOne(@PathVariable BigInteger id) {
