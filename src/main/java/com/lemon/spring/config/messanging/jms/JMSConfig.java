@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Profile;
 @Profile({Constants.PROFILE_JMS,Constants.PROFILE_MESSANGING})
 @Configuration
 public class JMSConfig {
-    private static final String brockerUrl="tcp://localhost:6754";
+    private static final String brokerUrl="tcp://localhost:6754";
 
-    public ActiveMQConnectionFactory jmsBrocker() {
-        ActiveMQConnectionFactory connectionFactory=new ActiveMQConnectionFactory(brockerUrl);
+    public ActiveMQConnectionFactory jmsBroker() {
+        ActiveMQConnectionFactory connectionFactory=new ActiveMQConnectionFactory(brokerUrl);
 
         return connectionFactory;
     }
