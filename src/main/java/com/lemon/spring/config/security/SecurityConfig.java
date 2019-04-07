@@ -9,6 +9,7 @@ import com.lemon.framework.springsecurity.jwt.provider.TokenStoreTokenProvider;
 import com.lemon.framework.springsecurity.session.SessionAuthManager;
 import com.lemon.spring.component.security.TokenStoreBridge;
 import com.lemon.spring.config.Constants;
+import com.lemon.spring.config.websocket.WebSocketConstants;
 import com.lemon.spring.controller.rest.AccountControllerRest;
 import com.lemon.spring.controller.web.AccountControllerWeb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,9 +101,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
+        http.csrf().
+            ignoringAntMatchers("/"+ WebSocketConstants.entryPoint+"/**")
+            .and().exceptionHandling();
+
+        /*Do More Work on Authentication Entrypoint, CsrfCookieFilter, CustomRememberMe Service*/
+
           if(applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_STATELESS)) /*That Means For Stateful & Both session generate not turn off*/
               http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);/*Make Spring-Boot Application Stateless*/
+          else http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
                 /*Login Related*/
           if(!applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_STATELESS))  /*That means if only application is enabled stateless then it not handle form-login otherwise handle form-login*/
               http.formLogin()

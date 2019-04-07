@@ -177,10 +177,10 @@ public class AccountServiceImpl implements AccountService<BigInteger> {
         /*If The App is Stateful-Only*/
         if(jwtAuthManager==null) {
             sessionAuthManager.authenticate(userInfo);
-            return new JWToken("");
+            return new JWToken(""); /*Ensure The caller side that the login is success, that's why we need to send non-null object*/
         }
         try {
-            /*If The app stateless or both*/
+            /*If The app stateless or both. Cause A stateless App doesn't create session-id, and if it is stateless and stateful then it create session automatically and create token also*/
             return jwtAuthManager.authenticate(userInfo).token();
         } catch (NullPointerException e) {
             log.error("May-Be your Application is Not Enabled For Token-Based Authentication",e);
