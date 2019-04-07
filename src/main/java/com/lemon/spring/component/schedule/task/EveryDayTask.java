@@ -1,6 +1,6 @@
 package com.lemon.spring.component.schedule.task;
 
-import com.lemon.framework.properties.ApplicationProperties;
+import com.lemon.framework.properties.spring.ApplicationProperties;
 import com.lemon.spring.repository.TokenStoreRepository;
 import com.lemon.spring.repository.UserRepository;
 import org.springframework.scheduling.annotation.Scheduled;

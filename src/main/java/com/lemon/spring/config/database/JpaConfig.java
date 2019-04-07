@@ -1,6 +1,6 @@
 package com.lemon.spring.config.database;
 
-import com.lemon.framework.properties.ApplicationProperties;
+import com.lemon.framework.properties.spring.ApplicationProperties;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

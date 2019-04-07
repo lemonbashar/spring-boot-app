@@ -1,6 +1,6 @@
 package com.lemon.spring.config.remote.rmi.exporter;
 
-import com.lemon.framework.properties.ApplicationProperties;
+import com.lemon.framework.properties.spring.ApplicationProperties;
 import com.lemon.framework.protocolservice.auth.AccountService;
 import com.lemon.spring.config.Constants;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +24,7 @@ public class RmiExporterConfig {
         serviceExporter.setServiceInterface(service);
         serviceExporter.setService(accountService);
         serviceExporter.setServiceName(service.getName());
-        serviceExporter.setRegistryPort(45);
+        serviceExporter.setRegistryPort(properties.settings.protocolService.port.rmiPort);
         return serviceExporter;
     }
 }

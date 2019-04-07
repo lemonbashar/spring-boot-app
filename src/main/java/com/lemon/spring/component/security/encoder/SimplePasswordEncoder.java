@@ -1,6 +1,6 @@
 package com.lemon.spring.component.security.encoder;
 
-import com.lemon.framework.properties.ApplicationProperties;
+import com.lemon.framework.properties.spring.ApplicationProperties;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 

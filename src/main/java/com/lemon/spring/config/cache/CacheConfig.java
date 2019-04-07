@@ -1,6 +1,6 @@
 package com.lemon.spring.config.cache;
 
-import com.lemon.framework.properties.ApplicationProperties;
+import com.lemon.framework.properties.spring.ApplicationProperties;
 import net.sf.ehcache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.ehcache.EhCacheCacheManager;

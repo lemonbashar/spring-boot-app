@@ -1,6 +1,6 @@
 package com.lemon.spring.config.database;
 
-import com.lemon.framework.properties.ApplicationProperties;
+import com.lemon.framework.properties.spring.ApplicationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -27,14 +27,14 @@ public class DataSourceConfig {
     }
 
     private void injectProperties(DriverManagerDataSource dataSource) {
-        dataSource.setUrl(applicationProperties.getDatabase().getUrl());
-        dataSource.setDriverClassName(applicationProperties.getDatabase().getDriver());
-        dataSource.setUsername(applicationProperties.database.getUsername());
-        dataSource.setPassword(applicationProperties.getDatabase().getPassword());
+        dataSource.setUrl(applicationProperties.database.url);
+        dataSource.setDriverClassName(applicationProperties.database.driver);
+        dataSource.setUsername(applicationProperties.database.username);
+        dataSource.setPassword(applicationProperties.database.password);
         Properties properties=new Properties();
-        properties.setProperty("initialSize",applicationProperties.getDatabase().getInitialConnectionSize());
-        properties.setProperty("maxActive",applicationProperties.getDatabase().getMaximumActiveConnectionSize());
-        properties.setProperty("maxIdle",applicationProperties.getDatabase().getMaxIdleConnectionSize());
+        properties.setProperty("initialSize",applicationProperties.database.initialConnectionSize);
+        properties.setProperty("maxActive",applicationProperties.database.maximumActiveConnectionSize);
+        properties.setProperty("maxIdle",applicationProperties.database.maxIdleConnectionSize);
         dataSource.setConnectionProperties(properties);
         //if(!applicationProperties.getDatabase().getSchema().isEmpty())dataSource.setSchema(applicationProperties.getDatabase().getSchema());
     }

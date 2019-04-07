@@ -1,4 +1,5 @@
 # If Added On Profile and Both wasn't present, then Application Work's Like Stateless
 
 settings:
-  application-type: STATELESS
+    application-type:
+        -STATELESS

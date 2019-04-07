@@ -1,7 +1,7 @@
 package com.lemon.spring.config.security;
 
-import com.lemon.framework.properties.ApplicationProperties;
-import com.lemon.framework.properties.constants.PropertiesConstants;
+import com.lemon.framework.properties.spring.ApplicationProperties;
+import com.lemon.framework.properties.spring.settings.ApplicationType;
 import com.lemon.framework.springsecurity.jwt.JWTAuthConfigAdapter;
 import com.lemon.framework.springsecurity.jwt.JwtAuthManager;
 import com.lemon.framework.springsecurity.jwt.provider.TokenProvider;
@@ -107,11 +107,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         /*Do More Work on Authentication Entrypoint, CsrfCookieFilter, CustomRememberMe Service*/
 
-          if(applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_STATELESS)) /*That Means For Stateful & Both session generate not turn off*/
+          if(applicationProperties.settings.applicationType.contains(ApplicationType.STATELESS)) /*That Means For Stateful & Both session generate not turn off*/
               http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);/*Make Spring-Boot Application Stateless*/
           else http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
                 /*Login Related*/
-          if(!applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_STATELESS))  /*That means if only application is enabled stateless then it not handle form-login otherwise handle form-login*/
+          if(applicationProperties.settings.applicationType.contains(ApplicationType.STATEFUL))  /*That means if only application is enabled stateless then it not handle form-login otherwise handle form-login*/
               http.formLogin()
                     .loginPage("/web/account-controller/login")
                     .failureForwardUrl("/web/account-controller/login?error")
@@ -145,7 +145,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                      /*Url Mapping For HTTP-INVOKER-REMOTE-SERVICE*/
                 .anyRequest().authenticated();
                 //.antMatchers("/api/**","/web/**").authenticated();
-        if(!applicationProperties.settings.applicationType.equalsIgnoreCase(PropertiesConstants.APPLICATION_TYPE_STATEFUL))http.apply(securityConfigurerAdapter); /*That means if only application is enabled stateful then it not handle token otherwise handle token*/
+        if(applicationProperties.settings.applicationType.contains(ApplicationType.STATELESS))http.apply(securityConfigurerAdapter); /*That means if only application is enabled stateful then it not handle token otherwise handle token*/
     }
 
     @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})

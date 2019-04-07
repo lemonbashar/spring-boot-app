@@ -1,6 +1,6 @@
 package com.lemon.spring.service;
 
-import com.lemon.framework.properties.ApplicationProperties;
+import com.lemon.framework.properties.spring.ApplicationProperties;
 import com.lemon.spring.controller.rest.DefaultErrorController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;

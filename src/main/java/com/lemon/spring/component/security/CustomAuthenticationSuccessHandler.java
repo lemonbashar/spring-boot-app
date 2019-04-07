@@ -1,6 +1,6 @@
 package com.lemon.spring.component.security;
 
-import com.lemon.framework.properties.ApplicationProperties;
+import com.lemon.framework.properties.spring.ApplicationProperties;
 import com.lemon.spring.controller.web.AccountControllerWeb;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

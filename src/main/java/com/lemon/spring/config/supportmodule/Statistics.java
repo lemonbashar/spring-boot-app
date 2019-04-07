@@ -1,6 +1,6 @@
 package com.lemon.spring.config.supportmodule;
 
-import com.lemon.framework.properties.ApplicationProperties;
+import com.lemon.framework.properties.spring.ApplicationProperties;
 import com.lemon.framework.statistics.generator.random.impl.RandomString;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

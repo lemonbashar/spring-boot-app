@@ -4,7 +4,7 @@ import com.lemon.framework.data.JWToken;
 import com.lemon.framework.data.LogoutInfo;
 import com.lemon.framework.data.UserInfo;
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
-import com.lemon.framework.properties.ApplicationProperties;
+import com.lemon.framework.properties.spring.ApplicationProperties;
 import com.lemon.framework.protocolservice.auth.AccountService;
 import com.lemon.framework.springsecurity.jwt.JwtAuthManager;
 import com.lemon.framework.springsecurity.session.SessionAuthManager;

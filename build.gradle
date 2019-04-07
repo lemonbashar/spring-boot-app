@@ -35,9 +35,15 @@ dependencies {
 
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    implementation('org.springframework.boot:spring-boot-starter-security')
-    implementation('org.springframework.boot:spring-boot-starter-cache')
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+    implementation('org.springframework.boot:spring-boot-starter-security'){
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+    implementation('org.springframework.boot:spring-boot-starter-cache'){
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
 
 
     implementation('org.springframework:spring-orm:5.1.1.RELEASE')
@@ -48,7 +54,9 @@ dependencies {
     compileOnly "org.springframework.boot:spring-boot-configuration-processor"
 
 
-    implementation 'org.apache.activemq:activemq-all:5.10.0'
+    implementation ("org.apache.activemq:activemq-all:5.10.0"){
+        exclude group:'org.slf4j', module:'slf4j-log4j12'
+    }
 
     implementation 'org.hibernate:hibernate-entitymanager:5.2.17.Final'
 
@@ -65,7 +73,7 @@ dependencies {
     //runtime('com.h2database:h2')
 
     implementation "com.lemon.framework:orm:${frameworkversion}"
-    implementation "com.lemon.framework:properties:${frameworkversion}"
+    implementation "com.lemon.framework.properties:spring:${frameworkversion}"
     implementation "com.lemon.framework:data:${frameworkversion}"
     implementation "com.lemon.framework:spring-security:${frameworkversion}"
     implementation "com.lemon.framework:security:${frameworkversion}"
