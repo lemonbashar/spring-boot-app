@@ -7,27 +7,26 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public interface WebController<K,ID> {
-    String PUBLIC_REST="/api/public";
-    String PRIVATE_REST ="/api";
+public interface WebController<K, ID> {
+    String PUBLIC_REST = "/api/public";
+    String PRIVATE_REST = "/api";
 
-    ResponseEntity<Map<String,Object>> save(K entity);
+    ResponseEntity<Map<String, Object>> save(K entity);
 
-    ResponseEntity<Map<String,Object>> update(K entity);
+    ResponseEntity<Map<String, Object>> update(K entity);
 
     ResponseEntity<K> findOne(ID id);
 
     ResponseEntity<List<K>> findAll(Pageable pageable);
 
-    ResponseEntity<Map<String,Object>> delete(ID id);
+    ResponseEntity<Map<String, Object>> delete(ID id);
 
-    default ResponseEntity<List<K>> pageOf(Page<K> page,String baseUrl) {
+    default ResponseEntity<List<K>> pageOf(Page<K> page, String baseUrl) {
         final HttpHeaders httpHeaders = PaginationUtil.generatePaginationHttpHeaders(page, baseUrl);
-        return Optional.ofNullable(page).map(val->new ResponseEntity<>(page.getContent(), httpHeaders, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return Optional.ofNullable(page).map(val -> new ResponseEntity<>(page.getContent(), httpHeaders, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

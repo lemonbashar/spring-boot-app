@@ -11,15 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-@Profile(value = {Constants.PROFILE_STATEFUL,Constants.PROFILE_BOTH})
+@Profile(value = {Constants.PROFILE_STATEFUL, Constants.PROFILE_BOTH})
 public class HomeControllerWeb {
+    public static final String BASE_PATH = "";
     @Inject
     private ApplicationService applicationService;
 
-
-    public static final String BASE_PATH = "";
-
-    @GetMapping(value = {"/","/home"})
+    @GetMapping(value = {"/", "/home"})
     public String home() {
         return "/home";
     }
@@ -31,7 +29,7 @@ public class HomeControllerWeb {
 
     @GetMapping(value = "/error")
     public String onError(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-        applicationService.logPathError(httpServletRequest,httpServletResponse);
-        return "redirect:/web"+AccountControllerWeb.BASE_PATH+"/home";
+        applicationService.logPathError(httpServletRequest, httpServletResponse);
+        return "redirect:/web" + AccountControllerWeb.BASE_PATH + "/home";
     }
 }

@@ -19,7 +19,7 @@ import javax.persistence.SharedCacheMode;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.lemon.spring.repository",entityManagerFactoryRef = "jpaManager")
+@EnableJpaRepositories(basePackages = "com.lemon.spring.repository", entityManagerFactoryRef = "jpaManager")
 public class JpaConfig {
     @Inject
     private ApplicationProperties properties;
@@ -27,7 +27,7 @@ public class JpaConfig {
     @Primary/*Cause There's have more than one entityManagerFactory thus, we have to priority based bean creation*/
     @Bean("jpaManager")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter vendorAdapter) {
-        LocalContainerEntityManagerFactoryBean factoryBean=new LocalContainerEntityManagerFactoryBean();
+        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setJpaVendorAdapter(vendorAdapter);
         factoryBean.setPersistenceUnitName(properties.database.jpa.persistentUnit);
         factoryBean.setPersistenceProvider(new HibernatePersistenceProvider());
@@ -39,7 +39,7 @@ public class JpaConfig {
 
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
-        HibernateJpaVendorAdapter adapter=new HibernateJpaVendorAdapter();
+        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         adapter.setShowSql(properties.database.hibernate.showSql);
         adapter.setDatabasePlatform(properties.database.hibernate.dialect);
         adapter.setGenerateDdl(properties.database.hibernate.formatSQL);

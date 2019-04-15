@@ -25,30 +25,30 @@ public class TokenStoreBridge implements com.lemon.framework.springsecurity.jwt.
     @Override
     public String tokenByUsername(String username) {
         TokenStore tokenStore = tokenStoreRepository.findByUsername(username);
-        if(tokenStore !=null) return tokenStore.getToken();
+        if (tokenStore != null) return tokenStore.getToken();
         return null;
     }
 
     @Override
     public boolean isActiveToken(String token) {
         //return hbmCapture.findOne("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.token='"+token+"' AND tokenStore.active=true")!=null;
-        return tokenStoreRepository.findByActiveStatus(token,true)!=null;
+        return tokenStoreRepository.findByActiveStatus(token, true) != null;
     }
 
     @Override
-    public boolean isActiveToken(String token,String remoteIpAddress) {
-        return tokenStoreRepository.findByTokenIpAndStatus(token,remoteIpAddress,true)!=null;
+    public boolean isActiveToken(String token, String remoteIpAddress) {
+        return tokenStoreRepository.findByTokenIpAndStatus(token, remoteIpAddress, true) != null;
     }
 
     @Override
     public boolean isActiveToken(String token, Date validateDate) {
-        TokenStore tokenStore=tokenStoreRepository.findByValidateDate(token,validateDate);
-        return tokenStore!=null;
+        TokenStore tokenStore = tokenStoreRepository.findByValidateDate(token, validateDate);
+        return tokenStore != null;
     }
 
     @Override
     public void saveToken(String token, AuthenticationToken authenticationToken, Date validateDate, UserInfo userInfo) {
-        TokenStore tokenStore=new TokenStore();
+        TokenStore tokenStore = new TokenStore();
         tokenStore.setToken(token);
         tokenStore.setUser(new User(authenticationToken.getUserId()));
         tokenStore.setValidateDate(validateDate);
@@ -59,20 +59,20 @@ public class TokenStoreBridge implements com.lemon.framework.springsecurity.jwt.
 
     @Override
     public void updateTokenActiveStatus(String token, boolean activeStatus) {
-        TokenStore tokenStore=tokenStoreRepository.findByToken(token);
-        if(tokenStore !=null) {
-            updateTokenActiveStatus(tokenStore,activeStatus);
+        TokenStore tokenStore = tokenStoreRepository.findByToken(token);
+        if (tokenStore != null) {
+            updateTokenActiveStatus(tokenStore, activeStatus);
         }
     }
 
     @Override
     public void deactivateAllByUidAndIpAddress(BigInteger userId, String ipAddress) {
-        deactivate(tokenStoreRepository.findAllByUidAndIp(userId,ipAddress));
+        deactivate(tokenStoreRepository.findAllByUidAndIp(userId, ipAddress));
     }
 
     @Override
     public int totalTokenByActiveStatus(BigInteger userId, boolean activeStatus) {
-        return (int) tokenStoreRepository.countByUidAndActiveStatus(userId,activeStatus);
+        return (int) tokenStoreRepository.countByUidAndActiveStatus(userId, activeStatus);
     }
 
     @Override
@@ -82,62 +82,62 @@ public class TokenStoreBridge implements com.lemon.framework.springsecurity.jwt.
 
     @Override
     public void deleteToken(String token) {
-        TokenStore tokenStore=tokenStoreRepository.findByToken(token);
-        if(tokenStore!=null) tokenStoreRepository.delete(tokenStore);
+        TokenStore tokenStore = tokenStoreRepository.findByToken(token);
+        if (tokenStore != null) tokenStoreRepository.delete(tokenStore);
     }
 
     @Override
-    public int countTokenByDate(LocalDate fromDate, LocalDate toDate,BigInteger userId){
-        return (int)tokenStoreRepository.countTokenByDate(fromDate,toDate,userId);
+    public int countTokenByDate(LocalDate fromDate, LocalDate toDate, BigInteger userId) {
+        return (int) tokenStoreRepository.countTokenByDate(fromDate, toDate, userId);
     }
 
     @Override
-    public int countTokenByDate(LocalDate now,BigInteger userId){
-        return (int)tokenStoreRepository.countTokenByDate(now,userId);
+    public int countTokenByDate(LocalDate now, BigInteger userId) {
+        return (int) tokenStoreRepository.countTokenByDate(now, userId);
     }
 
     @Override
-    public int countTokenByUserIdAndStatus(BigInteger userId, boolean activeStatus){
-        return (int) tokenStoreRepository.countByUidAndActiveStatus(userId,activeStatus);
+    public int countTokenByUserIdAndStatus(BigInteger userId, boolean activeStatus) {
+        return (int) tokenStoreRepository.countByUidAndActiveStatus(userId, activeStatus);
     }
 
     @Override
-    public void deactivateOlderTokenCountByUid(int count, BigInteger userId){
-        deactivate(tokenStoreRepository.findAllByUid(new PageImpl(count),userId,true));
+    public void deactivateOlderTokenCountByUid(int count, BigInteger userId) {
+        deactivate(tokenStoreRepository.findAllByUid(new PageImpl(count), userId, true));
     }
 
     @Override
-    public int countTokenByUserIdIpAndStatus(BigInteger userId, String ipAddress, boolean activeStatus){
-        return (int) tokenStoreRepository.countByUidIpAndActiveStatus(userId,ipAddress,activeStatus);
+    public int countTokenByUserIdIpAndStatus(BigInteger userId, String ipAddress, boolean activeStatus) {
+        return (int) tokenStoreRepository.countByUidIpAndActiveStatus(userId, ipAddress, activeStatus);
     }
 
     @Override
-    public void deactivateOlderTokenCountByUidAndIp(int count, BigInteger userId, String ipAddress){
-        deactivate(tokenStoreRepository.findAllByUidAndIp(new PageImpl(count),userId,ipAddress,true));
+    public void deactivateOlderTokenCountByUidAndIp(int count, BigInteger userId, String ipAddress) {
+        deactivate(tokenStoreRepository.findAllByUidAndIp(new PageImpl(count), userId, ipAddress, true));
     }
 
     @Override
     public void deactivate(String token) {
-        updateTokenActiveStatus(token,false);
+        updateTokenActiveStatus(token, false);
     }
 
     @Override
     public void deactivateAllByUidRatherThanIp(BigInteger userId, String ipAddress) {
-        deactivate(tokenStoreRepository.findAllByUidRatherThanCurrentIp(userId,ipAddress));
+        deactivate(tokenStoreRepository.findAllByUidRatherThanCurrentIp(userId, ipAddress));
     }
 
     @Override
     public void deactivateAllByUidRatherThanToken(BigInteger userId, String token) {
-        deactivate(tokenStoreRepository.findAllByUidRatherThanCurrentToken(userId,token));
+        deactivate(tokenStoreRepository.findAllByUidRatherThanCurrentToken(userId, token));
     }
 
     private void deactivate(List<TokenStore> tokenStores) {
-        tokenStores.forEach(tokenStore->{
-            updateTokenActiveStatus(tokenStore,false);
+        tokenStores.forEach(tokenStore -> {
+            updateTokenActiveStatus(tokenStore, false);
         });
     }
 
-    private void updateTokenActiveStatus(TokenStore tokenStore,boolean activeStatus) {
+    private void updateTokenActiveStatus(TokenStore tokenStore, boolean activeStatus) {
         tokenStore.setActive(activeStatus);
         tokenStoreRepository.save(tokenStore);
     }

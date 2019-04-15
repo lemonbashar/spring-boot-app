@@ -2,3 +2,4 @@
 settings:
     application-type:
         - STATEFUL
+    session-creation-policy: IF_REQUIRED

@@ -4,7 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
  * Utility class for handling pagination.
@@ -19,7 +18,7 @@ public class PaginationUtil {
     public static HttpHeaders generatePaginationHttpHeaders(Page<?> page, String baseUrl) {
 
         HttpHeaders headers = new HttpHeaders();
-        try{
+        try {
             headers.add("X-Total-Count", "" + page.getTotalElements());
             String link = "";
             if ((page.getNumber() + 1) < page.getTotalPages()) {

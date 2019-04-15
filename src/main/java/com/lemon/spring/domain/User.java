@@ -17,23 +17,22 @@ import java.util.Set;
 @Table(name = "SPRING_USER")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@AutoAudit(autoActive = AutoActive.ACTIVE_IF_HAS_ROLE_ON_CREATE,activeInactiveRole = {AuthoritiesConstant.ROLE_ADMIN})
+@AutoAudit(autoActive = AutoActive.ACTIVE_IF_HAS_ROLE_ON_CREATE, activeInactiveRole = {AuthoritiesConstant.ROLE_ADMIN})
 public class User extends AbstractAudit implements Serializable {
-    private static final long serialVersionUID=1L;
-
     public static final String CACHE = "UserCache";
+    private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "SPRING_USER_PK")
-    @SequenceGenerator(name = "SPRING_USER_PK",sequenceName = "SPRING_USER_SEQ",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SPRING_USER_PK")
+    @SequenceGenerator(name = "SPRING_USER_PK", sequenceName = "SPRING_USER_SEQ", allocationSize = 1)
     private BigInteger id;
 
-    @Column(unique = true,name = "USERNAME")
+    @Column(unique = true, name = "USERNAME")
     private String username;
 
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(unique = true,name = "E_MAIL")
+    @Column(unique = true, name = "E_MAIL")
     private String email;
 
     @Column(name = "FULL_NAME")
@@ -41,9 +40,9 @@ public class User extends AbstractAudit implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_AUTHORITIES",
-            joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY",referencedColumnName = "AUTHORITY_NAME")})
-    private Set<Authority> authorities=new HashSet<>();
+            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY", referencedColumnName = "AUTHORITY_NAME")})
+    private Set<Authority> authorities = new HashSet<>();
 
     public User() {
     }
@@ -53,9 +52,9 @@ public class User extends AbstractAudit implements Serializable {
     }
 
     public User(BigInteger id, String username, String password) {
-        this.id=id;
-        this.username=username;
-        this.password=password;
+        this.id = id;
+        this.username = username;
+        this.password = password;
     }
 
     public BigInteger getId() {
@@ -98,12 +97,12 @@ public class User extends AbstractAudit implements Serializable {
         this.fullName = fullName;
     }
 
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
-    }
-
     public Set<Authority> getAuthorities() {
         return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
     }
 
     @Override

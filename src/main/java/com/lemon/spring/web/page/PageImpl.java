@@ -11,17 +11,16 @@ public class PageImpl implements Pageable {
     private Sort sort;
 
     public PageImpl(int size) {
-        this(0,size);
+        this(0, size);
     }
 
     public PageImpl(int page, int size) {
-        this(page,size,Sort.unsorted());
+        this(page, size, Sort.unsorted());
     }
 
-    public PageImpl(int page, int size,String sortBy) {
-        this(page,size,Sort.by(sortBy));
+    public PageImpl(int page, int size, String sortBy) {
+        this(page, size, Sort.by(sortBy));
     }
-
 
 
     public PageImpl(int page, int size, Sort sort) {
@@ -57,7 +56,7 @@ public class PageImpl implements Pageable {
      */
     @Override
     public long getOffset() {
-        return (long)page*(long)size;
+        return (long) page * (long) size;
     }
 
     /**
@@ -77,7 +76,7 @@ public class PageImpl implements Pageable {
      */
     @Override
     public Pageable next() {
-        return new PageImpl(getPageNumber()+1,getPageSize(),getSort());
+        return new PageImpl(getPageNumber() + 1, getPageSize(), getSort());
     }
 
     /**
@@ -101,7 +100,7 @@ public class PageImpl implements Pageable {
      */
     @Override
     public Pageable first() {
-        return new PageImpl(0,getPageSize(),getSort());
+        return new PageImpl(0, getPageSize(), getSort());
     }
 
     /**

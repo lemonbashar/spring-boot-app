@@ -1,6 +1,5 @@
 package com.lemon.spring.config.view;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 

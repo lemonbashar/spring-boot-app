@@ -1,4 +1,7 @@
 # If Added On Profile Application Work's Like Stateless + Stateful
 
 settings:
-  application-type: STATELESS AND STATEFUL [BOTH]
+  application-type:
+      - STATELESS
+      - STATEFUL
+  session-creation-policy: IF_REQUIRED

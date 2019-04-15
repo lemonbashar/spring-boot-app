@@ -8,27 +8,26 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Entity
 @Table(name = "PASSWORD_RECOVER")
 @AutoAudit(autoActive = AutoActive.ACTIVE_ON_CREATE)
 public class PasswordRecover extends AbstractAudit implements Serializable {
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "PASSWORD_RECOVER_PK")
-    @SequenceGenerator(name = "PASSWORD_RECOVER_PK",sequenceName = "PASSWORD_RECOVER_SEQ",allocationSize = 2,initialValue = 3242)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "PASSWORD_RECOVER_PK")
+    @SequenceGenerator(name = "PASSWORD_RECOVER_PK", sequenceName = "PASSWORD_RECOVER_SEQ", allocationSize = 2, initialValue = 3242)
     private BigInteger id;
 
     @OneToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @Column(name = "RECOVERY_CODE",length = 256,nullable = false)
+    @Column(name = "RECOVERY_CODE", length = 256, nullable = false)
     private String recoveryCode;
 
-    @Column(nullable = false,name = "CREATE_TIME")
+    @Column(nullable = false, name = "CREATE_TIME")
     private LocalDateTime createTime;
 
     @Column(name = "LAST_ACCESS_DATE")

@@ -21,13 +21,14 @@ import java.io.IOException;
 @SuppressWarnings({"unused", "DefaultFileTemplate"})
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-    private final Logger log= LogManager.getLogger(CustomAuthenticationSuccessHandler.class);
+    private final Logger log = LogManager.getLogger(CustomAuthenticationSuccessHandler.class);
 
     @Inject
     private ApplicationProperties applicationProperties;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-        log.debug("Authentication Success:--->:"+authentication);
-        httpServletResponse.sendRedirect("/web"+AccountControllerWeb.BASE_PATH+"/home");
+        log.debug("Authentication Success:--->:" + authentication);
+        httpServletResponse.sendRedirect("/web" + AccountControllerWeb.BASE_PATH + "/home");
     }
 }

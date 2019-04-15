@@ -8,11 +8,11 @@ import org.springframework.remoting.support.RemoteExporter;
 
 import java.math.BigInteger;
 
-@Profile({Constants.PROFILE_REMOTE,Constants.PROFILE_HESSIAN})
+@Profile({Constants.PROFILE_REMOTE, Constants.PROFILE_HESSIAN})
 public class HessianExporterConfig {
 
     public RemoteExporter accountService(AccountService<BigInteger> accountService) {
-        HessianServiceExporter serviceExporter=new HessianServiceExporter();
+        HessianServiceExporter serviceExporter = new HessianServiceExporter();
         serviceExporter.setServiceInterface(AccountService.class);
         serviceExporter.setService(accountService);
         return serviceExporter;

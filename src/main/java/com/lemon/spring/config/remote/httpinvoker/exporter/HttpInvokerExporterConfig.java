@@ -10,12 +10,12 @@ import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
 import java.math.BigInteger;
 
 @Configuration
-@Profile({Constants.PROFILE_REMOTE,Constants.PROFILE_HTTP_INVOKER})
+@Profile({Constants.PROFILE_REMOTE, Constants.PROFILE_HTTP_INVOKER})
 public class HttpInvokerExporterConfig {
 
     @Bean(name = "/accountService.service")
     public HttpInvokerServiceExporter accountService(AccountService<BigInteger> accountService) {
-        HttpInvokerServiceExporter serviceExporter=new HttpInvokerServiceExporter();
+        HttpInvokerServiceExporter serviceExporter = new HttpInvokerServiceExporter();
         serviceExporter.setService(accountService);
         serviceExporter.setServiceInterface(AccountService.class);
         return serviceExporter;

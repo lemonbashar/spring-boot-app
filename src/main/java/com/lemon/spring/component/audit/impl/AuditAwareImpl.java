@@ -6,9 +6,7 @@ import com.lemon.spring.component.audit.AuditAware;
 import com.lemon.spring.domain.AbstractAudit;
 import com.lemon.spring.domain.User;
 import com.lemon.spring.repository.UserRepository;
-import com.lemon.spring.security.AuthoritiesConstant;
 import com.lemon.spring.security.SecurityUtils;
-import com.lemon.spring.web.page.PageImpl;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -26,12 +24,12 @@ public class AuditAwareImpl implements AuditAware {
 
     @Override
     public void aware(AbstractAudit audit, AutoAudit autoAudit) {
-        if(!audit.isUpdate())awareCreate(audit,autoAudit);
-        else awareUpdate(audit,autoAudit);
+        if (!audit.isUpdate()) awareCreate(audit, autoAudit);
+        else awareUpdate(audit, autoAudit);
     }
 
     @Override
-    public void awareCreate(AbstractAudit audit,AutoAudit autoAudit) {
+    public void awareCreate(AbstractAudit audit, AutoAudit autoAudit) {
         audit.setCreateBy(currentUser());
         audit.setCreateDate(LocalDate.now());
         switch (autoAudit.autoActive()) {
@@ -45,54 +43,54 @@ public class AuditAwareImpl implements AuditAware {
                 break;
             case ACTIVE_IF_HAS_ANY_ROLE:
             case ACTIVE_IF_HAS_ANY_ROLE_ON_CREATE:
-                if(authorizationBridge.hasAnyAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasAnyAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(true);
                 break;
             case ACTIVE_IF_HAS_ROLE:
             case ACTIVE_IF_HAS_ROLE_ON_CREATE:
-                if(authorizationBridge.hasAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(true);
                 break;
             case ACTIVE_IF_HAS_NO_ANY_ROLE:
             case ACTIVE_IF_HAS_NO_ANY_ROLE_ON_CREATE:
-                if(authorizationBridge.hasNoAnyAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasNoAnyAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(true);
                 break;
             case ACTIVE_IF_HAS_NO_ROLE:
             case ACTIVE_IF_HAS_NO_ROLE_ON_CREATE:
-                if(authorizationBridge.hasNoAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasNoAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(true);
                 break;
             case INACTIVE_IF_HAS_ANY_ROLE:
             case INACTIVE_IF_HAS_ANY_ROLE_ON_CREATE:
-                if(authorizationBridge.hasAnyAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasAnyAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(false);
                 break;
             case INACTIVE_IF_HAS_ROLE:
             case INACTIVE_IF_HAS_ROLE_ON_CREATE:
-                if(authorizationBridge.hasAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(false);
                 break;
             case INACTIVE_IF_HAS_NO_ANY_ROLE:
             case INACTIVE_IF_HAS_NO_ANY_ROLE_ON_CREATE:
-                if(authorizationBridge.hasNoAnyAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasNoAnyAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(false);
                 break;
             case INACTIVE_IF_HAS_NO_ROLE:
             case INACTIVE_IF_HAS_NO_ROLE_ON_CREATE:
-                if(authorizationBridge.hasNoAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasNoAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(false);
                 break;
         }
     }
 
     private User currentUser() {
-        BigInteger uid=findCreatorId();
-        return uid==null?null:new User(uid);
+        BigInteger uid = findCreatorId();
+        return uid == null ? null : new User(uid);
     }
 
     @Override
-    public void awareUpdate(AbstractAudit audit,AutoAudit autoAudit) {
+    public void awareUpdate(AbstractAudit audit, AutoAudit autoAudit) {
         audit.setUpdateBy(currentUser());
         audit.setUpdateDate(LocalDate.now());
         switch (autoAudit.autoActive()) {
@@ -106,42 +104,42 @@ public class AuditAwareImpl implements AuditAware {
                 break;
             case ACTIVE_IF_HAS_ANY_ROLE:
             case ACTIVE_IF_HAS_ANY_ROLE_ON_UPDATE:
-                if(authorizationBridge.hasAnyAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasAnyAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(true);
                 break;
             case ACTIVE_IF_HAS_ROLE:
             case ACTIVE_IF_HAS_ROLE_ON_UPDATE:
-                if(authorizationBridge.hasAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(true);
                 break;
             case ACTIVE_IF_HAS_NO_ANY_ROLE:
             case ACTIVE_IF_HAS_NO_ANY_ROLE_ON_UPDATE:
-                if(authorizationBridge.hasNoAnyAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasNoAnyAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(true);
                 break;
             case ACTIVE_IF_HAS_NO_ROLE:
             case ACTIVE_IF_HAS_NO_ROLE_ON_UPDATE:
-                if(authorizationBridge.hasNoAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasNoAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(true);
                 break;
             case INACTIVE_IF_HAS_ANY_ROLE:
             case INACTIVE_IF_HAS_ANY_ROLE_ON_UPDATE:
-                if(authorizationBridge.hasAnyAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasAnyAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(false);
                 break;
             case INACTIVE_IF_HAS_ROLE:
             case INACTIVE_IF_HAS_ROLE_ON_UPDATE:
-                if(authorizationBridge.hasAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(false);
                 break;
             case INACTIVE_IF_HAS_NO_ANY_ROLE:
             case INACTIVE_IF_HAS_NO_ANY_ROLE_ON_UPDATE:
-                if(authorizationBridge.hasNoAnyAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasNoAnyAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(false);
                 break;
             case INACTIVE_IF_HAS_NO_ROLE:
             case INACTIVE_IF_HAS_NO_ROLE_ON_UPDATE:
-                if(authorizationBridge.hasNoAuthority(autoAudit.activeInactiveRole()))
+                if (authorizationBridge.hasNoAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(false);
                 break;
         }

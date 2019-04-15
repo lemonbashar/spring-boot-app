@@ -14,8 +14,8 @@ settings:
       maximum-login-limit-in-day: 200
       maximum-live-session-from-same-ip: 3
       jwt:
-        secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZjcyZDkxMGJiMDhiZmEyZTc2MTA0YWM0YjlmZDU1YzlkM2RlYWZjYWYwYjdiNDE3YmY5ZjBjYzQ2OWFmMDc1YzRjYzlhZjU5OGU3NmQ
-        base64-secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZjcyZDkxMGJiMDhiZmEyZTc2MTA0YWM0YjlmZDU1YzlkM2RlYWZjYWYwYjdiNDE3YmY5ZjBjYzQ2OWFmMDc1YzRjYzlhZjU5OGU3NmQ
+        secret: WWpVek1XSXpOakE1TW1Kak5EbG1PRFpsTURGaU0yWmxZekV4TldKbFpHRmlNRE5qTVdabU1HVXdaakZpTnpZeU1qRXhaamN5WkRreE1HSmlNRGhpWm1FeVpUYzJNVEEwWVdNMFlqbG1aRFUxWXpsa00yUmxZV1pqWVdZd1lqZGlOREUzWW1ZNVpqQmpZelEyT1dGbU1EYzFZelJqWXpsaFpqVTVPR1UzTm1R
+        base64-secret: WWpVek1XSXpOakE1TW1Kak5EbG1PRFpsTURGaU0yWmxZekV4TldKbFpHRmlNRE5qTVdabU1HVXdaakZpTnpZeU1qRXhaamN5WkRreE1HSmlNRGhpWm1FeVpUYzJNVEEwWVdNMFlqbG1aRFUxWXpsa00yUmxZV1pqWVdZd1lqZGlOREUzWW1ZNVpqQmpZelEyT1dGbU1EYzFZelJqWXpsaFpqVTVPR1UzTm1R
         token-validity-in-seconds: 300
         token-validity-in-seconds-for-remember-me: 1800
 

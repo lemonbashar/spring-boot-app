@@ -11,7 +11,7 @@ import org.springframework.remoting.rmi.RmiServiceExporter;
 import javax.inject.Inject;
 import java.math.BigInteger;
 
-@Profile({Constants.PROFILE_REMOTE,Constants.PROFILE_RMI})
+@Profile({Constants.PROFILE_REMOTE, Constants.PROFILE_RMI})
 @Configuration
 public class RmiExporterConfig {
     @Inject
@@ -20,7 +20,7 @@ public class RmiExporterConfig {
     @Bean
     public RmiServiceExporter userServiceExport(AccountService<BigInteger> accountService) {
         Class<AccountService> service = AccountService.class;
-        RmiServiceExporter serviceExporter=new RmiServiceExporter();
+        RmiServiceExporter serviceExporter = new RmiServiceExporter();
         serviceExporter.setServiceInterface(service);
         serviceExporter.setService(accountService);
         serviceExporter.setServiceName(service.getName());

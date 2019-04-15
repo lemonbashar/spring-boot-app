@@ -1,6 +1,9 @@
 package com.lemon.spring.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
 
 @MappedSuperclass
@@ -67,7 +70,7 @@ public abstract class AbstractAudit {
     }
 
     public boolean isUpdate() {
-        return getId() !=null;
+        return getId() != null;
     }
 
     protected abstract Object getId();

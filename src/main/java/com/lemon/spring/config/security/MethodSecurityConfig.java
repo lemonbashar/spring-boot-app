@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 import javax.inject.Inject;
 
 @Configuration
-@EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true,jsr250Enabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true, jsr250Enabled = true)
 public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
     @Inject
     private ApplicationContext applicationContext;

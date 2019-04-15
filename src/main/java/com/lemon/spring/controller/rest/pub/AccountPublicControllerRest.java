@@ -19,28 +19,28 @@ import static com.lemon.spring.config.Constants.GLOBAL_MESSAGE;
 import static com.lemon.spring.interfaces.WebController.PUBLIC_REST;
 
 @RestController
-@Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
+@Profile(value = {Constants.PROFILE_STATELESS, Constants.PROFILE_BOTH})
 @RequestMapping(value = PUBLIC_REST)
 public class AccountPublicControllerRest {
 
     @Inject
     private AccountService accountService;
 
-    @GetMapping(value = AccountControllerRest.BASE_PATH+"/password-recover/{email}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String,Object>> recoverPassword(@PathVariable String email) {
+    @GetMapping(value = AccountControllerRest.BASE_PATH + "/password-recover/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Object>> recoverPassword(@PathVariable String email) {
         accountService.passwordRecover(email);
 
-        Map<String,Object>map=new HashMap<>();
-        map.put(GLOBAL_MESSAGE,"We Sent A Recovery Code to Your E-Mail Address, Please Check It Out");
+        Map<String, Object> map = new HashMap<>();
+        map.put(GLOBAL_MESSAGE, "We Sent A Recovery Code to Your E-Mail Address, Please Check It Out");
 
         return ResponseEntity.ok(map);
     }
 
-    @GetMapping(value = AccountControllerRest.BASE_PATH+"/password-recover/{email}/{recoveryCode}/{newPassword}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String,Object>> recoverPassword(@PathVariable String email,@PathVariable String recoveryCode,@PathVariable String newPassword ) {
-        boolean isSuccess=accountService.passwordRecover(email,newPassword,recoveryCode);
-        Map<String,Object> map=new HashMap<>();
-        map.put(GLOBAL_MESSAGE,isSuccess?"Password Reset Is Successfully Completed":"Password Reset Is Not Successfully Done");
+    @GetMapping(value = AccountControllerRest.BASE_PATH + "/password-recover/{email}/{recoveryCode}/{newPassword}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Object>> recoverPassword(@PathVariable String email, @PathVariable String recoveryCode, @PathVariable String newPassword) {
+        boolean isSuccess = accountService.passwordRecover(email, newPassword, recoveryCode);
+        Map<String, Object> map = new HashMap<>();
+        map.put(GLOBAL_MESSAGE, isSuccess ? "Password Reset Is Successfully Completed" : "Password Reset Is Not Successfully Done");
         return ResponseEntity.ok(map);
     }
 }

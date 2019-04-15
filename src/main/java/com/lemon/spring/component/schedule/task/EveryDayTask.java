@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Component
 public class EveryDayTask {
@@ -30,7 +29,7 @@ public class EveryDayTask {
      */
     @Scheduled(cron = "0 0 1 * * ?")
     public void deleteInactivatedUserIfTheyAreInactiveAGivenPeriod() {
-        LocalDate localDate=LocalDate.now().minusDays(applicationProperties.settings.security.deleteAllInactiveUserIfTheyInactiveGivenDays);
+        LocalDate localDate = LocalDate.now().minusDays(applicationProperties.settings.security.deleteAllInactiveUserIfTheyInactiveGivenDays);
         userRepository.deleteAll(userRepository.findAllInactiveAndBeforeUpdatedLastDate(localDate));
     }
 
@@ -44,7 +43,7 @@ public class EveryDayTask {
      */
     @Scheduled(cron = "0 0 0 * * ?")
     public void deleteOldPersistentToken() {
-        LocalDate localDate=LocalDate.now().minusDays(applicationProperties.settings.security.authentication.clearInactiveJwtAfterGivenDays);
+        LocalDate localDate = LocalDate.now().minusDays(applicationProperties.settings.security.authentication.clearInactiveJwtAfterGivenDays);
         tokenStoreRepository.deleteAll(tokenStoreRepository.findAllBeforeDate(localDate));
     }
 }

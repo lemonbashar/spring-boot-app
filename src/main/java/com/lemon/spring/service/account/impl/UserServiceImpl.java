@@ -26,19 +26,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User userForUpdate(BigInteger id) {
-        User user=userRepository.findById(id).get();
+        User user = userRepository.findById(id).get();
         user.setPassword("");
-        if(user.getCreateBy()!=null)user.setCreateBy(new User(user.getCreateBy().getId()));
-        if(user.getUpdateBy()!=null)user.setUpdateBy(new User(user.getUpdateBy().getId()));
+        if (user.getCreateBy() != null) user.setCreateBy(new User(user.getCreateBy().getId()));
+        if (user.getUpdateBy() != null) user.setUpdateBy(new User(user.getUpdateBy().getId()));
         return user;
     }
 
     @Override
     public void updateUser(User user) {
-        User prevUser=userRepository.findById(user.getId()).get();
-        if(!user.getPassword().isEmpty())user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User prevUser = userRepository.findById(user.getId()).get();
+        if (!user.getPassword().isEmpty()) user.setPassword(passwordEncoder.encode(user.getPassword()));
         else user.setPassword(prevUser.getPassword());
-        if(!authorizationBridge.hasAnyAuthority(ROLES_FOR_ADMIN)) {
+        if (!authorizationBridge.hasAnyAuthority(ROLES_FOR_ADMIN)) {
             user.setAuthorities(prevUser.getAuthorities());
             user.setActive(prevUser.getActive());
             user.setUsername(prevUser.getUsername());

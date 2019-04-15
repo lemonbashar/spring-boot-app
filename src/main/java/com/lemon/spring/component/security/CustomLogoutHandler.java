@@ -1,6 +1,5 @@
 package com.lemon.spring.component.security;
 
-import com.lemon.spring.controller.rest.AccountControllerRest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
@@ -17,7 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings({"unused", "DefaultFileTemplate"})
 @Component
 public class CustomLogoutHandler implements LogoutHandler {
-    private final Logger log= LogManager.getLogger(CustomLogoutHandler.class);
+    private final Logger log = LogManager.getLogger(CustomLogoutHandler.class);
+
     @Override
     public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {
         log.debug("Logout Handle:-->");

@@ -10,13 +10,13 @@ import java.io.Serializable;
 
 @SuppressWarnings("WeakerAccess")
 public class GlobalPermissionEvaluator implements PermissionEvaluator {
-    public static final String READ="READ";
-    public static final String WRITE="WRITE";
-    public static final String IS_ADMIN="IS_ADMIN";
+    public static final String READ = "READ";
+    public static final String WRITE = "WRITE";
+    public static final String IS_ADMIN = "IS_ADMIN";
 
     /**
      * permission is the permission type of like hasPermission(,'READ')
-     * */
+     */
     @Override
     public boolean hasPermission(Authentication authentication, Object target, Object permission) {
         switch (permission.toString()) {

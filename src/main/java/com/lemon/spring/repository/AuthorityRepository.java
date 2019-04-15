@@ -8,5 +8,5 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public interface AuthorityRepository extends JpaRepository<Authority,String> {
+public interface AuthorityRepository extends JpaRepository<Authority, String> {
 }

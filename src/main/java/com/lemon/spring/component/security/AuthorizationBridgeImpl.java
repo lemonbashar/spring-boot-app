@@ -60,7 +60,7 @@ public class AuthorizationBridgeImpl implements AuthorizationBridge<BigInteger> 
 
     @Override
     public Set<String> authoritiesOf(BigInteger userId) {
-        return userRepository.findById(userId).map(user -> user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet())).orElseThrow(()->new SecurityException("User Not Found"));
+        return userRepository.findById(userId).map(user -> user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet())).orElseThrow(() -> new SecurityException("User Not Found"));
     }
 
     @Override

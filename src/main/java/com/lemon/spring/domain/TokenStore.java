@@ -12,7 +12,7 @@ import java.util.Date;
  * Token-Store store the client side public IP Address that's why from a specific ip address only one user
  * Can access only one login-access
  * that's why we use their public IP
- * */
+ */
 @Entity
 @Table(name = "TOKEN_STORE")
 @Cacheable
@@ -21,11 +21,11 @@ import java.util.Date;
 public class TokenStore extends AbstractAudit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "TOKEN_STORE_PK")
-    @SequenceGenerator(name = "TOKEN_STORE_PK",sequenceName = "TOKEN_STORE_SEQ",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "TOKEN_STORE_PK")
+    @SequenceGenerator(name = "TOKEN_STORE_PK", sequenceName = "TOKEN_STORE_SEQ", allocationSize = 1)
     private BigInteger id;
 
-    @Column(name = "JWT_TOKEN",length = 2048,unique = true)
+    @Column(name = "JWT_TOKEN", length = 2048, unique = true)
     private String token;
 
     @ManyToOne

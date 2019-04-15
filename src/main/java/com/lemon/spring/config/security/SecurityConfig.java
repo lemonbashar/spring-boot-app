@@ -43,7 +43,7 @@ import static com.lemon.spring.security.AuthoritiesConstant.ROLE_ADMIN;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private static final String[] LIST_OF_COOKIES_TO_DELETE_WHEN_LOG_OUT = {"LOGIN_ID_COOKIE","JSESSIONID"};
+    private static final String[] LIST_OF_COOKIES_TO_DELETE_WHEN_LOG_OUT = {"LOGIN_ID_COOKIE", "JSESSIONID"};
 
     @Inject
     private ApplicationProperties applicationProperties;
@@ -77,8 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private LogoutHandler logoutHandler;
 
     @Autowired(required = false)
-    private SecurityConfigurerAdapter<DefaultSecurityFilterChain,HttpSecurity> securityConfigurerAdapter;
-
+    private SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> securityConfigurerAdapter;
 
 
     @Override
@@ -101,18 +100,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().
-            ignoringAntMatchers("/"+ WebSocketConstants.entryPoint+"/**")
-            .and().exceptionHandling();
+        http.csrf().disable();
+                /*ignoringAntMatchers("/" + WebSocketConstants.entryPoint + "/**")
+                .and().exceptionHandling();*/
 
         /*Do More Work on Authentication Entrypoint, CsrfCookieFilter, CustomRememberMe Service*/
 
-          if(applicationProperties.settings.applicationType.contains(ApplicationType.STATELESS)) /*That Means For Stateful & Both session generate not turn off*/
-              http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);/*Make Spring-Boot Application Stateless*/
-          else http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
-                /*Login Related*/
-          if(applicationProperties.settings.applicationType.contains(ApplicationType.STATEFUL))  /*That means if only application is enabled stateless then it not handle form-login otherwise handle form-login*/
-              http.formLogin()
+        if (applicationProperties.settings.applicationType.contains(ApplicationType.STATELESS)) /*That Means For Stateful & Both session generate not turn off*/
+            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);/*Make Spring-Boot Application Stateless*/
+        else http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.valueOf(applicationProperties.settings.sessionCreationPolicy.name()));
+        /*Login Related*/
+        if (applicationProperties.settings.applicationType.contains(ApplicationType.STATEFUL))  /*That means if only application is enabled stateless then it not handle form-login otherwise handle form-login*/
+            http.formLogin()
                     .loginPage("/web/account-controller/login")
                     .failureForwardUrl("/web/account-controller/login?error")
                     .usernameParameter("username").passwordParameter("password")
@@ -121,52 +120,53 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .successHandler(authenticationSuccessHandler)
                     .failureHandler(authenticationFailureHandler)
                     .permitAll().and()
-              .logout().logoutUrl("/web/account-controller/logout").addLogoutHandler(logoutHandler)
+                    .logout().logoutUrl("/web/account-controller/logout").addLogoutHandler(logoutHandler)
                     .clearAuthentication(true)
                     .deleteCookies(LIST_OF_COOKIES_TO_DELETE_WHEN_LOG_OUT)
                     .invalidateHttpSession(true)
                     .logoutSuccessUrl("/web/account-controller/login")
                     .logoutSuccessHandler(logoutSuccessHandler);
-                    /*Url Invoker Interceptor*/
-              http.authorizeRequests()
-                    .mvcMatchers(HttpMethod.GET,"/","/home*").permitAll()/* Disable This Line if You Want The Login Page At-Startup*/
-                    .mvcMatchers(HttpMethod.POST,AccountControllerRest.FULL_PATH +"/login*").permitAll()/*Rest-API Permission for Login Purposes*/
-                    .mvcMatchers(HttpMethod.POST,AccountControllerRest.FULL_PATH +"/login-rest*").permitAll()/*Rest-API Permission for Login Purposes*/
-                    .mvcMatchers(HttpMethod.POST,AccountControllerRest.FULL_PATH +"/login-jwt*").permitAll()/*Rest-API Permission for Login Purposes*/
-                    .mvcMatchers(HttpMethod.GET, AccountControllerWeb.FULL_PATH +"/save-entry*").permitAll()/*Register API Permit For Registration*/
-                    .mvcMatchers(HttpMethod.POST,AccountControllerWeb.FULL_PATH +"*").permitAll()/*Register API Permit For Registration*/
-                    .mvcMatchers(HttpMethod.POST,AccountControllerRest.FULL_PATH +"*").permitAll()/*When Click to Register, All User Data need to Store on Database, and for this reason it has been permitted */
-                    .mvcMatchers(HttpMethod.GET,AccountControllerRest.FULL_PATH +"/key/*").hasAnyAuthority(ROLE_ADMIN)
-                    .mvcMatchers(PUBLIC_VIEW+"/**").permitAll()
-                    .mvcMatchers(PUBLIC_REST+"/**").permitAll()
+        /*Url Invoker Interceptor*/
+        http.authorizeRequests()
+                .mvcMatchers(HttpMethod.GET, "/", "/home*").permitAll()/* Disable This Line if You Want The Login Page At-Startup*/
+                .mvcMatchers(HttpMethod.POST, AccountControllerRest.FULL_PATH + "/login*").permitAll()/*Rest-API Permission for Login Purposes*/
+                .mvcMatchers(HttpMethod.POST, AccountControllerRest.FULL_PATH + "/login-rest*").permitAll()/*Rest-API Permission for Login Purposes*/
+                .mvcMatchers(HttpMethod.POST, AccountControllerRest.FULL_PATH + "/login-jwt*").permitAll()/*Rest-API Permission for Login Purposes*/
+                .mvcMatchers(HttpMethod.GET, AccountControllerWeb.FULL_PATH + "/save-entry*").permitAll()/*Register API Permit For Registration*/
+                .mvcMatchers(HttpMethod.POST, AccountControllerWeb.FULL_PATH + "*").permitAll()/*Register API Permit For Registration*/
+                .mvcMatchers(HttpMethod.POST, AccountControllerRest.FULL_PATH + "*").permitAll()/*When Click to Register, All User Data need to Store on Database, and for this reason it has been permitted */
+                .mvcMatchers(HttpMethod.GET, AccountControllerRest.FULL_PATH + "/key/*").hasAnyAuthority(ROLE_ADMIN)
+                .mvcMatchers(PUBLIC_VIEW + "/**").permitAll()
+                .mvcMatchers(PUBLIC_REST + "/**").permitAll()
 
-                     /*Url Mapping For HTTP-INVOKER-REMOTE-SERVICE*/
-                    .mvcMatchers("/accountService.service*").permitAll()
-                     /*Url Mapping For HTTP-INVOKER-REMOTE-SERVICE*/
+                /*Url Mapping For HTTP-INVOKER-REMOTE-SERVICE*/
+                .mvcMatchers("/accountService.service*").permitAll()
+                /*Url Mapping For HTTP-INVOKER-REMOTE-SERVICE*/
                 .anyRequest().authenticated();
-                //.antMatchers("/api/**","/web/**").authenticated();
-        if(applicationProperties.settings.applicationType.contains(ApplicationType.STATELESS))http.apply(securityConfigurerAdapter); /*That means if only application is enabled stateful then it not handle token otherwise handle token*/
+        //.antMatchers("/api/**","/web/**").authenticated();
+        if (applicationProperties.settings.applicationType.contains(ApplicationType.STATELESS))
+            http.apply(securityConfigurerAdapter); /*That means if only application is enabled stateful then it not handle token otherwise handle token*/
     }
 
-    @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
+    @Profile(value = {Constants.PROFILE_STATELESS, Constants.PROFILE_BOTH})
     @Bean(initMethod = "init")
     public TokenProvider tokenProvider() {
         return new TokenStoreTokenProvider(applicationProperties, tokenStoreBridge);
     }
 
-    @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
+    @Profile(value = {Constants.PROFILE_STATELESS, Constants.PROFILE_BOTH})
     @Bean
     public JWTAuthConfigAdapter jwtAuthConfigAdapter() {
         return new JWTAuthConfigAdapter(tokenProvider);
     }
 
-    @Profile(value = {Constants.PROFILE_STATELESS,Constants.PROFILE_BOTH})
+    @Profile(value = {Constants.PROFILE_STATELESS, Constants.PROFILE_BOTH})
     @Bean
     public JwtAuthManager jwtAuthenticationService() {
         return new JwtAuthManager(authenticationManager, tokenProvider);
     }
 
-    @Profile(value = {Constants.PROFILE_STATEFUL,Constants.PROFILE_BOTH})
+    @Profile(value = {Constants.PROFILE_STATEFUL, Constants.PROFILE_BOTH})
     @Bean
     public SessionAuthManager authenticationService() {
         return new SessionAuthManager(authenticationManager);

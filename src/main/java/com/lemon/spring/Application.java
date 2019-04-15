@@ -21,12 +21,32 @@ import static com.lemon.spring.config.Constants.*;
 @SpringBootApplication
 public class Application {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
-
+    public static ApplicationContext applicationContext;
     @Inject
     private Environment env;
 
-    public static ApplicationContext applicationContext;
+    public static void main(String[] args) throws UnknownHostException {
+        SpringApplication application = new SpringApplication(Application.class);
+        SimpleCommandLinePropertySource propertySource = new SimpleCommandLinePropertySource(args);
+        addDefaultProfile(application, propertySource);
+        applicationContext = application.run(args);
+        Environment env = applicationContext.getEnvironment();
+        log.info("Access URLs:\n----------------------------------------------------------\n\t" +
+                        "Local: \t\thttp://127.0.0.1:{}\n\t" +
+                        "External: \thttp://{}:{}\n----------------------------------------------------------",
+                env.getProperty("server.port"),
+                InetAddress.getLocalHost().getHostAddress(),
+                env.getProperty("server.port"));
 
+    }
+
+    private static void addDefaultProfile(SpringApplication application, SimpleCommandLinePropertySource propertySource) {
+        /*if (!propertySource.containsProperty("spring.profiles.active") &&
+                !System.getenv().containsKey("SPRING_PROFILES_ACTIVE")) {
+
+            //application.setAdditionalProfiles(PROFILE_DEVELOPMENT);
+        }*/
+    }
 
     @PostConstruct
     public void construct() {
@@ -49,28 +69,5 @@ public class Application {
             }
         }
 
-    }
-
-    public static void main(String[] args) throws UnknownHostException {
-        SpringApplication application = new SpringApplication(Application.class);
-        SimpleCommandLinePropertySource propertySource = new SimpleCommandLinePropertySource(args);
-        addDefaultProfile(application, propertySource);
-        applicationContext=application.run(args);
-        Environment env = applicationContext.getEnvironment();
-        log.info("Access URLs:\n----------------------------------------------------------\n\t" +
-                        "Local: \t\thttp://127.0.0.1:{}\n\t" +
-                        "External: \thttp://{}:{}\n----------------------------------------------------------",
-                env.getProperty("server.port"),
-                InetAddress.getLocalHost().getHostAddress(),
-                env.getProperty("server.port"));
-
-    }
-
-    private static void addDefaultProfile(SpringApplication application, SimpleCommandLinePropertySource propertySource) {
-        /*if (!propertySource.containsProperty("spring.profiles.active") &&
-                !System.getenv().containsKey("SPRING_PROFILES_ACTIVE")) {
-
-            //application.setAdditionalProfiles(PROFILE_DEVELOPMENT);
-        }*/
     }
 }

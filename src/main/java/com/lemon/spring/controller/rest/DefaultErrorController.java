@@ -6,7 +6,6 @@ import com.lemon.spring.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,17 +17,17 @@ import javax.servlet.http.HttpServletResponse;
 @Profile(Constants.PROFILE_DEVELOPMENT)
 @RestController
 public class DefaultErrorController implements ErrorController {
-    private static final String ERROR_PATH="/error";
+    private static final String ERROR_PATH = "/error";
     @Autowired(required = false)
     private HomeControllerWeb homeControllerWeb;
 
     @Inject
     private ApplicationService applicationService;
 
-    @RequestMapping(value = ERROR_PATH,produces = "text/plain")
-    public String error(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-        String error=applicationService.logPathError(httpServletRequest,httpServletResponse);
-        if(homeControllerWeb!=null)return homeControllerWeb.home();
+    @RequestMapping(value = ERROR_PATH, produces = "text/plain")
+    public String error(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+        String error = applicationService.logPathError(httpServletRequest, httpServletResponse);
+        if (homeControllerWeb != null) return homeControllerWeb.home();
         return error;
     }
 

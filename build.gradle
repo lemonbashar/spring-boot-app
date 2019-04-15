@@ -65,7 +65,7 @@ dependencies {
     //runtime('com.h2database:h2')
 
     implementation "com.lemon.framework:orm:${frameworkversion}"
-    implementation "com.lemon.framework:properties:${frameworkversion}"
+    implementation "com.lemon.framework.properties:spring:${frameworkversion}"
     implementation "com.lemon.framework:data:${frameworkversion}"
     implementation "com.lemon.framework:spring-security:${frameworkversion}"
     implementation "com.lemon.framework:security:${frameworkversion}"

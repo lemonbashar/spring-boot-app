@@ -7,7 +7,7 @@ public interface AuditAware {
 
     void aware(AbstractAudit audit, AutoAudit autoAudit);
 
-    void awareUpdate(AbstractAudit audit,AutoAudit autoAudit);
+    void awareUpdate(AbstractAudit audit, AutoAudit autoAudit);
 
-    void awareCreate(AbstractAudit audit,AutoAudit autoAudit);
+    void awareCreate(AbstractAudit audit, AutoAudit autoAudit);
 }

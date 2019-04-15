@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractRestController<K,ID> implements WebController<K,ID> {
+public abstract class AbstractRestController<K, ID> implements WebController<K, ID> {
 
     @Override
     public ResponseEntity<Map<String, Object>> save(K entity) {

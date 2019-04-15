@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Cacheable;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Date;
@@ -62,22 +61,22 @@ public interface TokenStoreRepository extends JpaRepository<TokenStore, BigInteg
     List<TokenStore> findAllByUid(Pageable pageable, @Param("userId") BigInteger userId, @Param("activeStatus") boolean activeStatus);
 
     @Query("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.ipAddress=:ipAddress")
-    List<TokenStore> findAllByUidAndIp(@Param("userId") BigInteger userId , @Param("ipAddress") String ipAddress);
+    List<TokenStore> findAllByUidAndIp(@Param("userId") BigInteger userId, @Param("ipAddress") String ipAddress);
 
     @Query("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.ipAddress=:ipAddress ORDER BY tokenStore.id ASC ")
-    List<TokenStore> findAllByUidAndIp(Pageable pageable,@Param("userId") BigInteger userId , @Param("ipAddress") String ipAddress);
+    List<TokenStore> findAllByUidAndIp(Pageable pageable, @Param("userId") BigInteger userId, @Param("ipAddress") String ipAddress);
 
     @Query("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.ipAddress=:ipAddress AND tokenStore.active=:activeStatus ORDER BY tokenStore.id ASC ")
-    List<TokenStore> findAllByUidAndIp(Pageable pageable,@Param("userId") BigInteger userId , @Param("ipAddress") String ipAddress, @Param("activeStatus") boolean activeStatus);
+    List<TokenStore> findAllByUidAndIp(Pageable pageable, @Param("userId") BigInteger userId, @Param("ipAddress") String ipAddress, @Param("activeStatus") boolean activeStatus);
 
     @Query("SELECT tokenStore FROM TokenStore tokenStore WHERE tokenStore.token=:token AND tokenStore.ipAddress=:remoteIpAddress AND tokenStore.active=:activeStatus")
     TokenStore findByTokenIpAndStatus(@Param("token") String token, @Param("remoteIpAddress") String remoteIpAddress, @Param("activeStatus") boolean activeStatus);
 
     @Query("SELECT count(tokenStore.id) FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.createDate>=:fromDate AND tokenStore.createDate<=:toDate")
-    long countTokenByDate(@Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate,@Param("userId") BigInteger userId);
+    long countTokenByDate(@Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate, @Param("userId") BigInteger userId);
 
     @Query("SELECT count(tokenStore.id) FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.createDate=:date")
-    long countTokenByDate(@Param("date") LocalDate date,@Param("userId") BigInteger userId);
+    long countTokenByDate(@Param("date") LocalDate date, @Param("userId") BigInteger userId);
 
     @Query("SELECT count(tokenStore.id) FROM TokenStore tokenStore WHERE tokenStore.user.id=:userId AND tokenStore.ipAddress=:ipAddress AND tokenStore.active=:activeStatus")
     long countByUidIpAndActiveStatus(@Param("userId") BigInteger userId, @Param("ipAddress") String ipAddress, @Param("activeStatus") boolean activeStatus);
