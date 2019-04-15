@@ -5,11 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "authority")
-public class Authority {
+public class Authority implements Serializable {
     public static final String CACHE = "Authority";
+    private static final long serialVersionUID=1L;
 
     @Id
     @NotNull

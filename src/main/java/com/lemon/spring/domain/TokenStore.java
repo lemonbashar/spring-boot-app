@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -18,7 +19,8 @@ import java.util.Date;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @AutoAudit
-public class TokenStore extends AbstractAudit {
+public class TokenStore extends AbstractAudit implements Serializable {
+    private static final long serialVersionUID=1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "TOKEN_STORE_PK")
