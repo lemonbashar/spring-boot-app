@@ -1,7 +1,8 @@
 # If Added On Profile Application Work's Like Stateless + Stateful
 
-settings:
-  application-type:
-      - STATELESS
-      - STATEFUL
-  session-creation-policy: IF_REQUIRED
+spring-app:
+    settings:
+        application-type:
+            - STATELESS
+            - STATEFUL
+        session-creation-policy: IF_REQUIRED

@@ -1,51 +1,52 @@
 #Copy of All from Dev but turn off for debugging
 
-settings:
-  security:
-    secret-key: BHWTBWQE(&#RHDNKJLSH&EHWDJY*E(GKJOYFDW^FBSDSPYE()#RBHKJI
-    session-live-time: 20F
-    account:
-      password:
-        recoverable: true
-        recovery-timeout-minutes: 5
-        recovery-code-length: 8
-    authentication:
-      maximum-live-session-count: 5
-      maximum-login-limit-in-day: 200
-      maximum-live-session-from-same-ip: 3
-      jwt:
-        secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZDkxMGJ-YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZjcyZDkxMGJiMDhiZmEyZTc2MTA0YWM0YjlmZDU1YzlkM2RlYWZjYWYwYjdiNDE3YmY5ZjBjYzQ2OWFmMDc1YzRjYzlhZjU5OGU3NmQ
-        base64-secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZjcyZDkxMGJiMDhiZmEyZTc2MTA0YWM0YjlmZDU1YzlkM2RlYWZjYWYwYjdiNDE3YmY5ZjBjYzQ2OWFmMDc1YzRjYzlhZjU5OGU3NmQ
-        token-validity-in-seconds: 3600
-        token-validity-in-seconds-for-remember-me: 2592000
+spring-app:
+    settings:
+        security:
+            secret-key: BHWTBWQE(&#RHDNKJLSH&EHWDJY*E(GKJOYFDW^FBSDSPYE()#RBHKJI
+            session-live-time: 20F
+            account:
+                password:
+                    recoverable: true
+                    recovery-timeout-minutes: 5
+                    recovery-code-length: 8
+            authentication:
+                maximum-live-session-count: 5
+                maximum-login-limit-in-day: 200
+                maximum-live-session-from-same-ip: 3
+                jwt:
+                    secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZDkxMGJ-YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZjcyZDkxMGJiMDhiZmEyZTc2MTA0YWM0YjlmZDU1YzlkM2RlYWZjYWYwYjdiNDE3YmY5ZjBjYzQ2OWFmMDc1YzRjYzlhZjU5OGU3NmQ
+                    base64-secret: YjUzMWIzNjA5MmJjNDlmODZlMDFiM2ZlYzExNWJlZGFiMDNjMWZmMGUwZjFiNzYyMjExZjcyZDkxMGJiMDhiZmEyZTc2MTA0YWM0YjlmZDU1YzlkM2RlYWZjYWYwYjdiNDE3YmY5ZjBjYzQ2OWFmMDc1YzRjYzlhZjU5OGU3NmQ
+                    token-validity-in-seconds: 3600
+                    token-validity-in-seconds-for-remember-me: 2592000
 
 
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: springboottest420@gmail.com
-    password: springboottest42kblkbl
-    protocol: smtp
-    debug: false
-    smtp:
-      auth: true
-      starttls-enable: true
-      ssl-trust: smtp.gmail.com
+        mail:
+            host: smtp.gmail.com
+            port: 587
+            username: springboottest420@gmail.com
+            password: springboottest42kblkbl
+            protocol: smtp
+            debug: false
+            smtp:
+                auth: true
+                starttls-enable: true
+                ssl-trust: smtp.gmail.com
 
 
-database:
-  hibernate:
-    hbm2-ddl-auto: none
-    format-sql: false
-    comments: false
-    show-sql: false
-    enable-second-level-cache: true
-    enable-strutured-cache: true
-    enable-auto-evict-coll-cache: true
-    enable-query-cache: true
-  jpa:
-    persistent-unit: SPRING_PRODUCTION
+    database:
+        hibernate:
+            hbm2-ddl-auto: none
+            format-sql: false
+            comments: false
+            show-sql: false
+            enable-second-level-cache: true
+            enable-strutured-cache: true
+            enable-auto-evict-coll-cache: true
+            enable-query-cache: true
+        jpa:
+            persistent-unit: SPRING_PRODUCTION
 
-cache:
-  eh-cache:
-    max-local-heap-size: 20M
+    cache:
+        eh-cache:
+            max-local-heap-size: 20M

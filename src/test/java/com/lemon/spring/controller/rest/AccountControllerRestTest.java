@@ -1,48 +1,29 @@
 package com.lemon.spring.controller.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lemon.framework.data.JWToken;
 import com.lemon.framework.data.UserInfo;
-import com.lemon.framework.orm.capture.hbm.HbmCapture;
-import com.lemon.framework.protocolservice.auth.AccountService;
 import com.lemon.spring.Application;
 import com.lemon.spring.domain.Authority;
 import com.lemon.spring.domain.User;
-import com.lemon.spring.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 import static com.lemon.spring.controller.rest.AccountControllerRest.BASE_PATH;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.MOCK;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -117,7 +98,7 @@ public class AccountControllerRestTest {
 
     @Test
     public void login() throws Exception {
-        loginSimple("admin","admin");
+        loginSimple("sdfg","sdfg");
         //loginJwt("admin","admin");
     }
 

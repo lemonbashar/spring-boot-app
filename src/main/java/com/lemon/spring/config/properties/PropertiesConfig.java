@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class PropertiesConfig {
 
     @Bean("applicationProperties")
-    @ConfigurationProperties
+    @ConfigurationProperties(prefix = "spring-app")
     public ApplicationProperties applicationProperties() {
         return new ApplicationProperties();
     }

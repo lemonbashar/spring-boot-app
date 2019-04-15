@@ -32,6 +32,7 @@ public class AuditAwareImpl implements AuditAware {
     public void awareCreate(AbstractAudit audit, AutoAudit autoAudit) {
         audit.setCreateBy(currentUser());
         audit.setCreateDate(LocalDate.now());
+        audit.setActive(false); /*Initially inactive for security concern*/
         switch (autoAudit.autoActive()) {
             case ALWAYS_ACTIVE:
             case ACTIVE_ON_CREATE:
@@ -81,6 +82,8 @@ public class AuditAwareImpl implements AuditAware {
                 if (authorizationBridge.hasNoAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(false);
                 break;
+            default:
+                audit.setActive(false);
         }
     }
 
@@ -93,6 +96,7 @@ public class AuditAwareImpl implements AuditAware {
     public void awareUpdate(AbstractAudit audit, AutoAudit autoAudit) {
         audit.setUpdateBy(currentUser());
         audit.setUpdateDate(LocalDate.now());
+        audit.setActive(false); /*Initially inactive for security concern*/
         switch (autoAudit.autoActive()) {
             case ALWAYS_ACTIVE:
             case ACTIVE_ON_UPDATE:
@@ -142,6 +146,8 @@ public class AuditAwareImpl implements AuditAware {
                 if (authorizationBridge.hasNoAuthority(autoAudit.activeInactiveRole()))
                     audit.setActive(false);
                 break;
+            default:
+                audit.setActive(false);
         }
     }
 

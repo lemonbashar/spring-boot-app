@@ -1,5 +1,6 @@
 # If Added On Profile Spring Enable Remote Service Facilities Only RMI
 
-settings:
-  protocol-service:
-    rmi-port: 644
+spring-app:
+    settings:
+        protocol-service:
+            rmi-port: 644

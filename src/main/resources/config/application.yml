@@ -1,33 +1,34 @@
-settings:
-  general:
-    name: Spring-Boot-Application
+spring-app:
+    settings:
+        general:
+            name: Spring-Boot-Application
 
 
 
-#spring:
-#  profiles:
-#    active: dev,both,postgre
-#    active: dev,stateless,postgre
-#    active: dev,stateful,postgre
-#    active: dev,mysql
-#Active Profile is always should two or more & The First one is must dev or prod and next is application type like stateful or stateless third is any database configuration
+    #spring:
+    #  profiles:
+    #    active: dev,both,postgre
+    #    active: dev,stateless,postgre
+    #    active: dev,stateful,postgre
+    #    active: dev,mysql
+    #Active Profile is always should two or more & The First one is must dev or prod and next is application type like stateful or stateless third is any database configuration
 
-#Here
-#  dev:It Enable Development Profile-For Debugging Purpose
-#  both: It Enable Application's Session Creation Policy, Stateless/Stateful here it enable both, default value is stateful
-#  postgre: It Enable Postgre Database Connectivity
-#  remote: It enable Remote Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also
-#  rmi: It enable RMI Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also if only rmi use, then enable only rmi-service
-#  http: It enable HttpInvoker Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also if only rmi use, then enable only http-invoker-service
+    #Here
+    #  dev:It Enable Development Profile-For Debugging Purpose
+    #  both: It Enable Application's Session Creation Policy, Stateless/Stateful here it enable both, default value is stateful
+    #  postgre: It Enable Postgre Database Connectivity
+    #  remote: It enable Remote Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also
+    #  rmi: It enable RMI Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also if only rmi use, then enable only rmi-service
+    #  http: It enable HttpInvoker Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also if only rmi use, then enable only http-invoker-service
 
 spring:
-  thymeleaf:
-    prefix: classpath:/templates
-  profiles:
-#    active: dev,stateless,postgre
-    active: dev,both,postgre,remote,rmi
+    thymeleaf:
+        prefix: classpath:/templates
+    profiles:
+        #    active: dev,stateless,postgre
+        active: dev,both,postgre,remote,rmi
 #    active: dev,both,postgre,remote,hessian
 #    active: dev,both,postgre,http
 
 server:
-  port: 2343
+    port: 2343
