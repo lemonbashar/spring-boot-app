@@ -2,14 +2,13 @@ package com.lemon.spring.config.security;
 
 import com.lemon.framework.properties.spring.ApplicationProperties;
 import com.lemon.framework.properties.spring.settings.ApplicationType;
-import com.lemon.framework.springsecurity.jwt.JWTAuthConfigAdapter;
+import com.lemon.framework.springsecurity.filter.configurer.jwt.JWTAuthConfigAdapter;
 import com.lemon.framework.springsecurity.jwt.JwtAuthManager;
 import com.lemon.framework.springsecurity.jwt.provider.TokenProvider;
 import com.lemon.framework.springsecurity.jwt.provider.TokenStoreTokenProvider;
 import com.lemon.framework.springsecurity.session.SessionAuthManager;
 import com.lemon.spring.component.security.TokenStoreBridge;
 import com.lemon.spring.config.Constants;
-import com.lemon.spring.config.websocket.WebSocketConstants;
 import com.lemon.spring.controller.rest.AccountControllerRest;
 import com.lemon.spring.controller.web.AccountControllerWeb;
 import org.springframework.beans.factory.annotation.Autowired;
