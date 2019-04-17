@@ -2,6 +2,7 @@ package com.lemon.spring.config.security;
 
 import com.lemon.framework.properties.spring.ApplicationProperties;
 import com.lemon.framework.properties.spring.settings.ApplicationType;
+import com.lemon.framework.springsecurity.filter.configurer.AbstractFilterConfigurer;
 import com.lemon.framework.springsecurity.filter.configurer.jwt.JWTAuthConfigAdapter;
 import com.lemon.framework.springsecurity.jwt.JwtAuthManager;
 import com.lemon.framework.springsecurity.jwt.provider.TokenProvider;
@@ -75,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Inject
     private LogoutHandler logoutHandler;
 
-    @Autowired(required = false)
+    @Autowired(required = false) /* Cause when The JWT*/
     private SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> securityConfigurerAdapter;
 
 
@@ -155,7 +156,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Profile(value = {Constants.PROFILE_STATELESS, Constants.PROFILE_BOTH})
     @Bean
-    public JWTAuthConfigAdapter jwtAuthConfigAdapter() {
+    public AbstractFilterConfigurer abstractFilterConfigurer() {
         return new JWTAuthConfigAdapter(tokenProvider);
     }
 
