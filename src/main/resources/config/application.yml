@@ -15,18 +15,21 @@ spring-app:
 
     #Here
     #  dev:It Enable Development Profile-For Debugging Purpose
+    #  prod:It Enable Production Profile-For Production Purpose
     #  both: It Enable Application's Session Creation Policy, Stateless/Stateful here it enable both, default value is stateful
     #  postgre: It Enable Postgre Database Connectivity
     #  remote: It enable Remote Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also
     #  rmi: It enable RMI Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also if only rmi use, then enable only rmi-service
     #  http: It enable HttpInvoker Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also if only rmi use, then enable only http-invoker-service
+    #  xsecure: It enable Extra Security Level Integration, which enabled : SHA-1 Filtering, etc
 
 spring:
     thymeleaf:
         prefix: classpath:/templates
     profiles:
         #    active: dev,stateless,postgre
-        active: dev,both,postgre,remote,rmi
+         active: dev,both,postgre,remote,rmi
+#        active: prod,both,postgre,remote,rmi,xsecure
 #    active: dev,both,postgre,remote,hessian
 #    active: dev,both,postgre,http
 
