@@ -1,7 +1,7 @@
 package com.lemon.spring.component.audit;
 
 import com.lemon.spring.annotation.AutoAudit;
-import com.lemon.spring.domain.AbstractAudit;
+import com.lemon.spring.domain.internal.AbstractAudit;
 
 public interface AuditAware {
 

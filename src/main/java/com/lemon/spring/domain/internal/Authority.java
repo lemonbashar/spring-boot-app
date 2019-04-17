@@ -1,4 +1,4 @@
-package com.lemon.spring.domain;
+package com.lemon.spring.domain.internal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

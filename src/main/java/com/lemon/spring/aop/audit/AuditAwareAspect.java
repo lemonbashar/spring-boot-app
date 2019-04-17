@@ -2,7 +2,7 @@ package com.lemon.spring.aop.audit;
 
 import com.lemon.spring.annotation.AutoAudit;
 import com.lemon.spring.component.audit.AuditAware;
-import com.lemon.spring.domain.AbstractAudit;
+import com.lemon.spring.domain.internal.AbstractAudit;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

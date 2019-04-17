@@ -1,6 +1,6 @@
 package com.lemon.spring.component.security.method;
 
-import com.lemon.spring.domain.Authority;
+import com.lemon.spring.domain.internal.Authority;
 import com.lemon.spring.security.AuthoritiesConstant;
 import com.lemon.spring.security.SecurityUtils;
 import org.springframework.security.access.PermissionEvaluator;

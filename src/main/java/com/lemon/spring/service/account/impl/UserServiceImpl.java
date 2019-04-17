@@ -1,7 +1,7 @@
 package com.lemon.spring.service.account.impl;
 
 import com.lemon.framework.security.auth.AuthorizationBridge;
-import com.lemon.spring.domain.User;
+import com.lemon.spring.domain.internal.User;
 import com.lemon.spring.repository.UserRepository;
 import com.lemon.spring.service.account.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;

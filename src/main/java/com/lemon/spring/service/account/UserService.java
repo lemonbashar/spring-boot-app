@@ -1,7 +1,7 @@
 package com.lemon.spring.service.account;
 
 
-import com.lemon.spring.domain.User;
+import com.lemon.spring.domain.internal.User;
 
 import java.math.BigInteger;
 

@@ -3,7 +3,7 @@ package com.lemon.spring.controller.web;
 import com.lemon.framework.protocolservice.auth.AccountService;
 import com.lemon.framework.security.auth.AuthorizationBridge;
 import com.lemon.spring.config.Constants;
-import com.lemon.spring.domain.User;
+import com.lemon.spring.domain.internal.User;
 import com.lemon.spring.interfaces.impl.AbstractViewController;
 import com.lemon.spring.repository.AuthorityRepository;
 import com.lemon.spring.repository.UserRepository;

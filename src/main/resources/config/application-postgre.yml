@@ -1,6 +1,7 @@
 
 spring-app:
     database:
+        database-type: POSTGRESQL
         url: jdbc:postgresql://localhost:5432/spring
         schema: spring
         username: lemon

@@ -1,4 +1,4 @@
-package com.lemon.spring.domain;
+package com.lemon.spring.domain.internal;
 
 import com.lemon.spring.annotation.AutoAudit;
 import org.hibernate.annotations.Cache;

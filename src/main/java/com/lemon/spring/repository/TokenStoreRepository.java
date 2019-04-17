@@ -1,6 +1,6 @@
 package com.lemon.spring.repository;
 
-import com.lemon.spring.domain.TokenStore;
+import com.lemon.spring.domain.internal.TokenStore;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

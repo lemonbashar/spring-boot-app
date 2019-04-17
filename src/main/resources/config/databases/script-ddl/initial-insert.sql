@@ -18,3 +18,5 @@ VALUES (3.00, true, current_date, null, null, 'admin@mail.com', 'Admin', 'YWRtaW
 INSERT INTO user_authorities (user_id, authority) VALUES (1.00, 'ROLE_ADMIN');
 INSERT INTO user_authorities (user_id, authority) VALUES (2.00, 'ROLE_ADMIN');
 INSERT INTO user_authorities (user_id, authority) VALUES (3.00, 'ROLE_ADMIN');
+
+INSERT INTO setting (id,setting_key,setting_value) VALUES (1,'SHA-1-FINGERPRINT_CERTIFICATE','Bmce+9aHdOoVtE7fS3B07tfj7Bc=');

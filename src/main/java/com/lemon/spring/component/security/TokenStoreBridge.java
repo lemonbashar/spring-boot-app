@@ -2,8 +2,8 @@ package com.lemon.spring.component.security;
 
 import com.lemon.framework.data.UserInfo;
 import com.lemon.framework.springsecurity.auth.data.AuthenticationToken;
-import com.lemon.spring.domain.TokenStore;
-import com.lemon.spring.domain.User;
+import com.lemon.spring.domain.internal.TokenStore;
+import com.lemon.spring.domain.internal.User;
 import com.lemon.spring.repository.TokenStoreRepository;
 import com.lemon.spring.web.page.PageImpl;
 import org.springframework.context.annotation.DependsOn;

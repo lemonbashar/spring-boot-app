@@ -1,9 +1,12 @@
 package com.lemon.spring.component.security;
 
 import com.lemon.framework.orm.capture.hbm.HbmCapture;
+import com.lemon.framework.properties.global.transmit.TransmitConstants;
 import com.lemon.framework.protocolservice.auth.AccountService;
 import com.lemon.framework.security.auth.AuthorizationBridge;
-import com.lemon.spring.domain.Authority;
+import com.lemon.spring.domain.internal.Authority;
+import com.lemon.spring.domain.internal.Setting;
+import com.lemon.spring.repository.SettingRepository;
 import com.lemon.spring.repository.UserRepository;
 import com.lemon.spring.security.AuthoritiesConstant;
 import com.lemon.spring.security.SecurityUtils;
@@ -28,6 +31,9 @@ public class AuthorizationBridgeImpl implements AuthorizationBridge<BigInteger> 
     @Inject
     private UserRepository userRepository;
 
+    @Inject
+    private SettingRepository settingRepository;
+
     @Override
     public boolean hasAnyAuthority(String... authorities) {
         return SecurityUtils.hasAnyAuthority(authorities);
@@ -51,6 +57,12 @@ public class AuthorizationBridgeImpl implements AuthorizationBridge<BigInteger> 
     @Override
     public boolean isAdmin() {
         return SecurityUtils.hasAnyAuthority(AuthoritiesConstant.ROLES_FOR_ADMIN);
+    }
+
+    @Override
+    public boolean isValidSHA1FingerprintKey(String SHA1kEY) {
+        Setting setting = settingRepository.findOneBySettingKeyAndActive(TransmitConstants.SHA1_FINGERPRINT_KEY,true);
+        return setting.getSettingValue().equals(SHA1kEY);
     }
 
     @Override
