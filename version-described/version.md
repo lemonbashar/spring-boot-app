@@ -34,3 +34,6 @@
     
 ###Version: v-1.0.5 Using Framework Version:v-1.0.5
     a. Password Recovery Facilities
+###Version: v-1.0.6 Using Framework Version:v-1.0.6
+    a. MAJOR CHANGE ON WHOLE PROJECT, DEPENDENCIES ARE REARRANGES
+    b. SHA-1 FINGERPRINT CERTIFICATE AND USER AGENT INTEGRATE
