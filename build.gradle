@@ -19,7 +19,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.lemon.spring'
-version = '1.0.5-SNAPSHOT'
+version = frameworkversion
 sourceCompatibility = 1.8
 
 repositories {
@@ -52,26 +52,20 @@ dependencies {
 
     implementation 'org.hibernate:hibernate-entitymanager:5.2.17.Final'
 
-    /*CACHE*/
-    //implementation 'org.ehcache:ehcache:3.6.1'
     implementation 'net.sf.ehcache:ehcache:2.10.4'
-    //implementation 'javax.cache:cache-api:1.1.0'
     implementation 'org.hibernate:hibernate-ehcache:5.2.17.Final'
-    //implementation 'com.github.debop:hibernate-redis:2.4.0'
 
-    /*Database*/
     implementation 'org.postgresql:postgresql:42.2.2'
     implementation 'mysql:mysql-connector-java:5.1.46'
-    //runtime('com.h2database:h2')
 
-    implementation "com.lemon.framework:orm:${frameworkversion}"
-    implementation "com.lemon.framework.properties:spring:${frameworkversion}"
-    implementation "com.lemon.framework.properties:global:${frameworkversion}"
-    implementation "com.lemon.framework:data:${frameworkversion}"
-    implementation "com.lemon.framework:spring-security:${frameworkversion}"
-    implementation "com.lemon.framework:security:${frameworkversion}"
-    implementation "com.lemon.framework:protocol-service:${frameworkversion}"
-    implementation "com.lemon.framework:statistics:${frameworkversion}"
+    implementation "com.lemon.framework:orm:$frameworkversion"
+    implementation "com.lemon.framework.properties:spring:$frameworkversion"
+    implementation "com.lemon.framework.properties:global:$frameworkversion"
+    implementation "com.lemon.framework:data:$frameworkversion"
+    implementation "com.lemon.framework:spring-security:$frameworkversion"
+    implementation "com.lemon.framework:security:$frameworkversion"
+    implementation "com.lemon.framework:protocol-service:$frameworkversion"
+    implementation "com.lemon.framework:statistics:$frameworkversion"
 
 
     implementation 'io.jsonwebtoken:jjwt-api:0.10.5'

@@ -13,7 +13,7 @@ import javax.servlet.Filter;
 @Configuration
 public class FilterRegistration {
 
-    @Profile(Constants.PROFILE_X_SECURE)
+    @Profile({Constants.PROFILE_X_SECURE,Constants.PROFILE_PRODUCTION})
     @Bean
     @Order(1)
     public Filter sha1Filter(AuthorizationBridge authorizationBridge) {
