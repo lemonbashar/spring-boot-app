@@ -1,8 +1,5 @@
 package com.lemon.spring.service.account.impl;
 
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertTrue;
-
 /*TODO: Use Only For Standalone Test for Checking just*/
 
 /*

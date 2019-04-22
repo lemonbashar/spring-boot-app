@@ -44,7 +44,7 @@ public class AccountControllerRestTest {
     @Inject
     private JdbcTemplate jdbcTemplate;
 
-    private int serverPort=2343;
+    private int serverPort = 2343;
 
     /*@Inject
     private TestRestTemplate testRestTemplate;*/
@@ -65,21 +65,21 @@ public class AccountControllerRestTest {
 
     @Test
     public void save() throws Exception {
-        User user= simpleUserCreation();
-        mockMvc.perform(post("/api"+ BASE_PATH)
-        .contentType(MediaType.APPLICATION_JSON_VALUE).content(objectMapper.writeValueAsString(user)).accept(MediaType.APPLICATION_JSON_VALUE))
+        User user = simpleUserCreation();
+        mockMvc.perform(post("/api" + BASE_PATH)
+                .contentType(MediaType.APPLICATION_JSON_VALUE).content(objectMapper.writeValueAsString(user)).accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
-        String id=jdbcTemplate.query("SELECT id FROM spring_user where username='lemonuser'",(rs,i)->rs.getString(1)).get(0);
-        jdbcTemplate.execute("delete from user_authorities where user_id='"+id+"'");
-        jdbcTemplate.execute("DELETE from spring_user where id='"+id+"'");
+        String id = jdbcTemplate.query("SELECT id FROM spring_user where username='lemonuser'", (rs, i) -> rs.getString(1)).get(0);
+        jdbcTemplate.execute("delete from user_authorities where user_id='" + id + "'");
+        jdbcTemplate.execute("DELETE from spring_user where id='" + id + "'");
 
     }
 
     private User simpleUserCreation() {
-        User user=new User();
+        User user = new User();
         user.setUsername("lemonuser");
-        user.setAuthorities(new HashSet<>(Arrays.asList(new Authority("ROLE_USER"),new Authority("ROLE_REST_TEST"))));
+        user.setAuthorities(new HashSet<>(Arrays.asList(new Authority("ROLE_USER"), new Authority("ROLE_REST_TEST"))));
         user.setPassword("rest-test-123");
         user.setEmail("resttest@mail.com");
         user.setFullName("Rest Test Full Name");
@@ -87,9 +87,9 @@ public class AccountControllerRestTest {
     }
 
     private User adminCreation() {
-        User user=new User();
+        User user = new User();
         user.setUsername("adminTest");
-        user.setAuthorities(new HashSet<>(Arrays.asList(new Authority("ROLE_USER"),new Authority("ROLE_REST_TEST"),new Authority("ROLE_ADMIN"))));
+        user.setAuthorities(new HashSet<>(Arrays.asList(new Authority("ROLE_USER"), new Authority("ROLE_REST_TEST"), new Authority("ROLE_ADMIN"))));
         user.setPassword("admin");
         user.setEmail("admin.test@mail.com");
         user.setFullName("Admin Test Full Name");
@@ -98,27 +98,27 @@ public class AccountControllerRestTest {
 
     @Test
     public void login() throws Exception {
-        loginSimple("sdfg","sdfg");
+        loginSimple("sdfg", "sdfg");
         //loginJwt("admin","admin");
     }
 
     private void loginSimple(String username, String password) throws Exception {
-        UserInfo userInfo =new UserInfo();
+        UserInfo userInfo = new UserInfo();
         userInfo.setUsername(username);
         userInfo.setPassword(password);
 
-        mockMvc.perform(post("/api"+ BASE_PATH+"/login-rest")
+        mockMvc.perform(post("/api" + BASE_PATH + "/login-rest")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(userInfo))
         ).andExpect(status().isOk());
     }
 
     private void loginJwt(String username, String password) throws Exception {
-        UserInfo userInfo =new UserInfo();
+        UserInfo userInfo = new UserInfo();
         userInfo.setUsername(username);
         userInfo.setPassword(password);
 
-        mockMvc.perform(post("/api"+ BASE_PATH+"/login-jwt")
+        mockMvc.perform(post("/api" + BASE_PATH + "/login-jwt")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(userInfo))
         ).andExpect(status().isOk());
@@ -150,23 +150,23 @@ public class AccountControllerRestTest {
     //@Test
     public void keyVal() throws Exception {
         loginAdmin();
-        mockMvc.perform(get("/api"+BASE_PATH+"/key/username")
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
+        mockMvc.perform(get("/api" + BASE_PATH + "/key/username")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
         ).andExpect(status().isOk());
 
     }
 
     private void loginAdmin() throws Exception {
-        loginJwt("admin","admin");
+        loginJwt("admin", "admin");
     }
 
     protected String baseUrl() throws URISyntaxException {
-        return "http://localhost:"+serverPort+"/api";
+        return "http://localhost:" + serverPort + "/api";
     }
 
     protected URI toUri(String url) {
         try {
-            return new URI(baseUrl()+url);
+            return new URI(baseUrl() + url);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

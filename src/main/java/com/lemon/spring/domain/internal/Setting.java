@@ -24,7 +24,7 @@ public class Setting extends AbstractAudit implements Serializable {
     @SequenceGenerator(name = "SETTING_PK", sequenceName = "SETTING_SEQ", allocationSize = 1)
     private BigInteger id;
 
-    @Column(name = "SETTING_KEY",unique = true,nullable = false)
+    @Column(name = "SETTING_KEY", unique = true, nullable = false)
     private String settingKey;
 
     @Column(name = "SETTING_VALUE")

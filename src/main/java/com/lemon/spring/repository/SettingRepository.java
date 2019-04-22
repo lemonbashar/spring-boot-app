@@ -10,5 +10,5 @@ import java.math.BigInteger;
 @Repository
 @Transactional
 public interface SettingRepository extends JpaRepository<Setting, BigInteger> {
-    Setting findOneBySettingKeyAndActive(String settingKey,Boolean active);
+    Setting findOneBySettingKeyAndActive(String settingKey, Boolean active);
 }

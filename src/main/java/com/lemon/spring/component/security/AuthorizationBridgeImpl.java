@@ -61,7 +61,7 @@ public class AuthorizationBridgeImpl implements AuthorizationBridge<BigInteger> 
 
     @Override
     public boolean isValidSHA1FingerprintKey(String SHA1kEY) {
-        Setting setting = settingRepository.findOneBySettingKeyAndActive(TransmitConstants.SHA1_FINGERPRINT_KEY,true);
+        Setting setting = settingRepository.findOneBySettingKeyAndActive(TransmitConstants.SHA1_FINGERPRINT_KEY, true);
         return setting.getSettingValue().equals(SHA1kEY);
     }
 

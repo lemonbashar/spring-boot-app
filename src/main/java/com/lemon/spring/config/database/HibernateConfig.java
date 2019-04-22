@@ -26,7 +26,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 public class HibernateConfig {
-    static final String[] annotatedPackages = {"com.lemon.spring.domain","com.lemon.spring.domain.internal"};
+    static final String[] annotatedPackages = {"com.lemon.spring.domain", "com.lemon.spring.domain.internal"};
     static final String[] mappingFiles = {"config/hibernate/mapping/token.hbm.xml"};
     @Inject
     private ApplicationProperties properties;

@@ -108,7 +108,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         if (applicationProperties.settings.applicationType.contains(ApplicationType.STATELESS)) /*That Means For Stateful & Both session generate not turn off*/
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);/*Make Spring-Boot Application Stateless*/
-        else http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.valueOf(applicationProperties.settings.sessionCreationPolicy.name()));
+        else
+            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.valueOf(applicationProperties.settings.sessionCreationPolicy.name()));
         /*Login Related*/
         if (applicationProperties.settings.applicationType.contains(ApplicationType.STATEFUL))  /*That means if only application is enabled stateless then it not handle form-login otherwise handle form-login*/
             http.formLogin()
