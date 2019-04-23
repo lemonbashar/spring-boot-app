@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
+import org.springframework.jms.support.converter.MessageConverter;
 
 import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
@@ -26,10 +28,16 @@ public class JMSConfig {
         this.brokerUrl="tcp://localhost:"+applicationProperties.settings.messenging.jms.port;
     }
 
+    @Bean
     public JmsTemplate jmsTemplate(ConnectionFactory connectionFactory,Destination defaultQueue) {
         JmsTemplate jmsTemplate=new JmsTemplate(connectionFactory);
         jmsTemplate.setDefaultDestination(defaultQueue);
         return jmsTemplate;
+    }
+
+    @Bean
+    public MessageConverter messageConverter() {
+        return new MappingJackson2MessageConverter();
     }
 
     @Bean
