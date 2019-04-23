@@ -7,8 +7,10 @@ import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.jms.core.JmsTemplate;
 
 import javax.inject.Inject;
+import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 
 @SuppressWarnings("UnnecessaryLocalVariable")
@@ -24,6 +26,11 @@ public class JMSConfig {
         this.brokerUrl="tcp://localhost:"+applicationProperties.settings.messenging.jms.port;
     }
 
+    public JmsTemplate jmsTemplate(ConnectionFactory connectionFactory,Destination defaultQueue) {
+        JmsTemplate jmsTemplate=new JmsTemplate(connectionFactory);
+        jmsTemplate.setDefaultDestination(defaultQueue);
+        return jmsTemplate;
+    }
 
     @Bean
     public ActiveMQConnectionFactory jmsBroker() {
