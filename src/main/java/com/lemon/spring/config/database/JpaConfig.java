@@ -17,6 +17,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.inject.Inject;
 import javax.persistence.SharedCacheMode;
 import javax.sql.DataSource;
+import java.sql.SQLClientInfoException;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.lemon.spring.repository", entityManagerFactoryRef = "jpaManager")
@@ -42,8 +43,8 @@ public class JpaConfig {
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         adapter.setShowSql(properties.database.hibernate.showSql);
         adapter.setDatabasePlatform(properties.database.hibernate.dialect);
-        adapter.setGenerateDdl(properties.database.hibernate.formatSQL);
-        if (properties.database.databaseType == null) throw new RuntimeException("You Must Specify The DatabaseType");
+        adapter.setGenerateDdl(properties.database.hibernate.showSql);
+        if(properties.database.databaseType==null) throw new RuntimeException("You Must Specify The DatabaseType");
         adapter.setDatabase(Database.valueOf(properties.database.databaseType.name()));
 
         return adapter;

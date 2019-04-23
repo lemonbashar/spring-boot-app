@@ -18,10 +18,13 @@ spring-app:
     #  prod:It Enable Production Profile-For Production Purpose
     #  both: It Enable Application's Session Creation Policy, Stateless/Stateful here it enable both, default value is stateful
     #  postgre: It Enable Postgre Database Connectivity
+    #  mysql: It Enable MySql Database Connectivity
     #  remote: It enable Remote Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also
     #  rmi: It enable RMI Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also if only rmi use, then enable only rmi-service
     #  http: It enable HttpInvoker Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also if only rmi use, then enable only http-invoker-service
     #  xsecure: It enable Extra Security Level Integration, which enabled : SHA-1 Filtering, etc
+    #  messenging: It enable Messenging Related Features like JMS Etc
+    #  jms: It enable JMS Features
 
 spring:
     thymeleaf:
