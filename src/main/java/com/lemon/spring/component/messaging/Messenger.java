@@ -1,4 +1,4 @@
-package com.lemon.spring.component.messanging;
+package com.lemon.spring.component.messaging;
 
 import org.springframework.jms.core.MessageCreator;
 

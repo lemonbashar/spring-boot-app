@@ -1,4 +1,4 @@
-package com.lemon.spring.config.messanging.jms;
+package com.lemon.spring.config.messaging.jms;
 
 import com.lemon.framework.properties.spring.ApplicationProperties;
 import com.lemon.spring.config.Constants;
@@ -16,7 +16,7 @@ import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 
 @SuppressWarnings("UnnecessaryLocalVariable")
-@Profile({Constants.PROFILE_JMS, Constants.PROFILE_MESSANGING})
+@Profile({Constants.PROFILE_JMS, Constants.PROFILE_MESSAGING})
 @Configuration
 public class JMSConfig {
     @Inject

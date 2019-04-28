@@ -28,5 +28,5 @@ public final class Constants {
 
     /*Messanging and Web-Socket*/
     public static final String PROFILE_JMS = "jms";
-    public static final String PROFILE_MESSANGING = "ms";
+    public static final String PROFILE_MESSAGING = "messaging";
 }

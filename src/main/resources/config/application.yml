@@ -23,7 +23,7 @@ spring-app:
     #  rmi: It enable RMI Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also if only rmi use, then enable only rmi-service
     #  http: It enable HttpInvoker Service, if only remote enable, then it enable all of the services, like hessian-burlap,http-invoker & rmi also if only rmi use, then enable only http-invoker-service
     #  xsecure: It enable Extra Security Level Integration, which enabled : SHA-1 Filtering, etc
-    #  messenging: It enable Messenging Related Features like JMS Etc
+    #  messaging: It enable Messenging Related Features like JMS Etc
     #  jms: It enable JMS Features
 
 spring:
