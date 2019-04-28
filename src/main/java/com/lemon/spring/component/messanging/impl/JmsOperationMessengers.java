@@ -1,6 +1,8 @@
 package com.lemon.spring.component.messanging.impl;
 
 import com.lemon.spring.component.messanging.Messenger;
+import com.lemon.spring.config.Constants;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jms.core.JmsOperations;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Component;
 import javax.inject.Inject;
 import javax.jms.Destination;
 
+@Profile({Constants.PROFILE_JMS, Constants.PROFILE_MESSANGING})
 @Component
 public class JmsOperationMessengers implements Messenger {
     @Inject
