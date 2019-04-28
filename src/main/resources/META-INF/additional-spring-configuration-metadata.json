@@ -209,5 +209,10 @@
       "name": "settings.security.secret-key",
       "type": "java.lang.String",
       "description": "Description for settings.security.secret-key."
+    },
+    {
+      "name": "spring-app.settings.security.session-live-time",
+      "type": "java.lang.String",
+      "description": "Description for spring-app.settings.security.session-live-time."
     }
   ] }
