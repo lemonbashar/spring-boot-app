@@ -106,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         /*Do More Work on Authentication Entrypoint, CsrfCookieFilter, CustomRememberMe Service*/
 
-        if (applicationProperties.settings.applicationType.contains(ApplicationType.STATELESS)) /*That Means For Stateful & Both session generate not turn off*/
+        if (!applicationProperties.settings.applicationType.contains(ApplicationType.STATEFUL)) /*That Means IF Stateful Setting not exists*/
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);/*Make Spring-Boot Application Stateless*/
         else
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.valueOf(applicationProperties.settings.sessionCreationPolicy.name()));

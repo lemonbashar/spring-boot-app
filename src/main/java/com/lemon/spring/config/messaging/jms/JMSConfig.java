@@ -25,7 +25,7 @@ public class JMSConfig {
     private final String brokerUrl;
 
     public JMSConfig() {
-        this.brokerUrl="tcp://localhost:"+applicationProperties.settings.messenging.jms.port;
+        this.brokerUrl="tcp://localhost:"+applicationProperties.settings.messaging.jms.port;
     }
 
     @Bean
@@ -49,12 +49,12 @@ public class JMSConfig {
 
     @Bean(name = "defaultQueue")
     public Destination defaultQueue() {
-        return new ActiveMQQueue(applicationProperties.settings.messenging.jms.defaultQueueName);
+        return new ActiveMQQueue(applicationProperties.settings.messaging.jms.defaultQueueName);
     }
 
 
     @Bean(name = "defaultTopic")
     public Destination defaultTopic() {
-        return new ActiveMQQueue(applicationProperties.settings.messenging.jms.defaultTopicName);
+        return new ActiveMQQueue(applicationProperties.settings.messaging.jms.defaultTopicName);
     }
 }

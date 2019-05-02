@@ -4,4 +4,4 @@ spring-app:
     settings:
         application-type:
         - STATEFUL
-        session-creation-policy: IF_REQUIRED
+        session-creation-policy: ALWAYS
