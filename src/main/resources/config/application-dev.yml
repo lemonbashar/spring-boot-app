@@ -20,6 +20,8 @@ spring-app:
                     token-validity-in-seconds: 300
                     token-validity-in-seconds-for-remember-me: 1800
 
+            secure-channel:
+                - dev
 
         mail:
             host: smtp.gmail.com

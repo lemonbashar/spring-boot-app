@@ -32,6 +32,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import javax.inject.Inject;
 
@@ -100,12 +101,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-                /*ignoringAntMatchers("/" + WebSocketConstants.entryPoint + "/**")
-                .and().exceptionHandling();*/
+        if(applicationProperties.settings.security.secureChannel.contains(Constants.PROFILE_PRODUCTION) || applicationProperties.settings.security.secureChannel.contains(Constants.PROFILE_X_SECURE))
+            http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 
-        /*Do More Work on Authentication Entrypoint, CsrfCookieFilter, CustomRememberMe Service*/
-
+        else http.csrf().disable();
         if (!applicationProperties.settings.applicationType.contains(ApplicationType.STATEFUL)) /*That Means IF Stateful Setting not exists*/
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);/*Make Spring-Boot Application Stateless*/
         else

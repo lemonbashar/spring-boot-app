@@ -20,6 +20,8 @@ spring-app:
                     token-validity-in-seconds: 3600
                     token-validity-in-seconds-for-remember-me: 2592000
 
+            secure-channel:
+                - prod
 
         mail:
             host: smtp.gmail.com

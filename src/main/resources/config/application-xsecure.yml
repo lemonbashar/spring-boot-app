@@ -1,1 +1,8 @@
 # If Added On Profile and Both wasn't present, then Application Work's Like Stateless
+
+spring-app:
+  settings:
+    security:
+      secure-channel:
+        - prod
+        - xsecure
