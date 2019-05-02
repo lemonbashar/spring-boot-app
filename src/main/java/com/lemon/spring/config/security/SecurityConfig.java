@@ -101,10 +101,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        if(applicationProperties.settings.security.secureChannel.contains(Constants.PROFILE_PRODUCTION) || applicationProperties.settings.security.secureChannel.contains(Constants.PROFILE_X_SECURE))
+        /*if(applicationProperties.settings.security.secureChannel.contains(Constants.PROFILE_PRODUCTION) || applicationProperties.settings.security.secureChannel.contains(Constants.PROFILE_X_SECURE))
             http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 
-        else http.csrf().disable();
+        else http.csrf().disable();*/
+        http.csrf().disable();
         if (!applicationProperties.settings.applicationType.contains(ApplicationType.STATEFUL)) /*That Means IF Stateful Setting not exists*/
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);/*Make Spring-Boot Application Stateless*/
         else
