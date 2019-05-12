@@ -1,0 +1,32 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7
+    restart: "no"   #always|on-failure|unless-stopped  -- only no is string type
+    environment:
+      MYSQL_DATABASE: 'db'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'root'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'lemon'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'lemon'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3307:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3307'
+      # Where our data will be persisted
+    volumes:
+      - my-db:/var/lib/mysql
+# Names our volume
+volumes:
+  my-db:
+
+
+#    Run The File from compose: [docker-compose -f mysql-docker-compose.yml up]
+#    Run The Image after composing: [docker run --name mysql -p 3307:3306 -e MYSQL_ROOT_PASSWORD=lemon -d mysql:5.7]
+#    and That time your created database and normal users are not exists, only root user exists.
+#    Run With data storage location: [docker run --name mysql -p 3307:3306 -e MYSQL_ROOT_PASSWORD=lemon -v my-db:/var/lib/mysql -d mysql:5.7]
+#
